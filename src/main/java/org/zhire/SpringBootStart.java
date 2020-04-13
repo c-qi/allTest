@@ -22,7 +22,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 //@EnableScheduling      // 开启定时任务
 //@EnableCaching       // 开启缓存
 //@EnableEurekaServer
-@MapperScan("fun.chenqi.mapper")
+@MapperScan("org.zhire.mapper")
 public class SpringBootStart {
     public static void main(String[] args) {
         // 写本类的字节码【为的就是找到启动类上的注解】
