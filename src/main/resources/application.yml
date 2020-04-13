@@ -1,0 +1,24 @@
+#spring:
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/stu
+#    username: root
+#    password: 111
+#  redis:
+#    host: 192.168.25.128
+#    port: 6379
+#    pass:
+#    database: 0
+#    maxIdle: 300
+#    maxWait: 3000
+#    testOnBorrow: true
+# DataSource Config
+server:
+  port: 7970
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/blog
+    username: root
+    password: 111
+
