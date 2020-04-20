@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
+import org.zhire.pojo.User;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -15,7 +16,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: chenqi
@@ -179,4 +183,23 @@ public class Java8Test {
         JSONObject jsonObject = JSON.parseObject(s);
         System.out.println(jsonObject);
     }
+
+    @Test
+    public void dssd(){
+        String s = " {\"key\":\"232\"}";
+        JSONObject j  = (JSONObject) JSONObject.parse(s);
+        boolean b = null == "" ? true : false;
+        System.out.println(b);
+    }
+
+    /**
+     * java8 过滤
+     */
+    @Test
+    public void filter(){
+        List<User> list = new ArrayList<>();
+        List<User> expertList =
+                list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
+    }
+
 }
