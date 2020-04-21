@@ -22,6 +22,21 @@ import static org.junit.Assert.assertEquals;
  * @Date: 2020.4.21 09:15
  */
 public class JavaStreamTest {
+    @org.junit.Test
+    public void listsss() {
+        // List<String> list = settleBills.stream().map(SettleBill::getBillId).collect(Collectors.toList());
+
+//        List<BillInfo> billInfoList = new ArrayList<>();
+
+//        for (String s : list) {
+//            BillInfo billInfo = billInfoClient.getBillById(s);
+//            billInfoList.add(billInfo);
+//        }
+
+//        List<BillInfo> billInfoList =
+//                list.stream().map(l -> billInfoClient.getBillById(l)).collect(Collectors.toList());
+    }
+
     @Test
     public void test01() {
         List<Person> list = new ArrayList();

@@ -27,20 +27,6 @@ import java.util.stream.Collectors;
  * @Date: 2020.1.6 10:30
  */
 public class Java8DateTest {
-    @org.junit.Test
-    public void listsss() {
-        // List<String> list = settleBills.stream().map(SettleBill::getBillId).collect(Collectors.toList());
-
-//        List<BillInfo> billInfoList = new ArrayList<>();
-
-//        for (String s : list) {
-//            BillInfo billInfo = billInfoClient.getBillById(s);
-//            billInfoList.add(billInfo);
-//        }
-
-//        List<BillInfo> billInfoList =
-//                list.stream().map(l -> billInfoClient.getBillById(l)).collect(Collectors.toList());
-    }
 
     @org.junit.Test
     public void dateTest() {
