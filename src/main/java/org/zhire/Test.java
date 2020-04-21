@@ -110,344 +110,68 @@ public class Test {
 //        System.out.println(now.getMonthValue());
 //        System.out.println(now.getYear());
 //        System.out.println(LocalDate.now().toString());
-        List<Person> list = new ArrayList();
-//        list.add("aaa");
-//        list.add("bbb");
-//        list.add("ccc");
-//        for (Object o : list) System.out.println(o);
 
-        list.add(new Person(1, "zs", 11, new Date()));
-        list.add(new Person(2, "ls", 12, new Date()));
-        list.add(new Person(1, "ww", 13, new Date()));
-        // Object[] objects = list.stream().toArray();
-        // System.out.println(objects.length);
-
-        list.stream().forEach(d -> {
-            System.out.println(d);               // User{name='zs', age=11, birthday=Sun Apr 28 15:41:23 CST 2019} ...
-            System.out.println(d.getName());     // zs ...
-            System.out.println(d.getAge());      // 11 ...
-            System.out.println(d.getBirthday()); // Sun Apr 28 15:41:23 CST 201 ...
-
-        });
-
-        // 使用Java8的方法引用
-        // User{name='zs', age=11, birthday=Sun Apr 28 15:41:23 CST 2019}
-        // User{name='ls', age=12, birthday=Sun Apr 28 15:41:23 CST 2019}
-        // User{name='ww', age=13, birthday=Sun Apr 28 15:41:23 CST 2019}
-        list.forEach(System.out::println);
-
-        Map<Integer, Person> personMap = list.stream().collect(Collectors.toMap(Person::getId, a -> a, (k1, k2) -> k1));
-        personMap.forEach((k, v) -> {
-            System.out.println(k); // 1 ...
-            System.out.println(v); // User{name='zs', age=11, birthday=Sun Apr 28 15:38:24 CST 2019} ...
-        });
-
-        // list.sort((o1, o2) ->   );
-        System.out.println("===================");
-
-        Map map = Maps.newConcurrentMap();
-        map.put("name", "张三");
-        map.put("age", 12);
-        map.put("birthday", new Date());
-        map.forEach((k, v) -> {
-            System.out.println(k); // birthday ...
-            System.out.println(v); // Sun Apr 28 15:41:23 CST 2019 ...
-        });
-        System.out.println("===================");
-        List<String> asList = asList("a1", "a2", "a3");
-        asList.stream().forEach(System.out::println);
-
-    }
-
-    public static String getLastMonthFirstDay() {
-
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //System.out.println(sdf.format(date));
-
-        int maxCurrentMonthDay = 0;
-        // Calendar calendar = Calendar.getInstance();
-        // System.out.println("当前时间: " + sdf.format(calendar.getTime()));
-
-
-        Calendar calendar5 = Calendar.getInstance();
-        maxCurrentMonthDay = calendar5.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar5.add(Calendar.DAY_OF_MONTH, -maxCurrentMonthDay);
-        calendar5.set(Calendar.DAY_OF_MONTH, 1);
-        String s = sdf.format(calendar5.getTime());
-        // System.out.println("上月第一天: " + sdf.format(calendar5.getTime()));
-        return s;
-
-    }
-
-    private static String getLastMonthLastDay() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //System.out.println(sdf.format(date));
-
-        int maxCurrentMonthDay = 0;
-        // Calendar calendar = Calendar.getInstance();
-        Calendar calendar6 = Calendar.getInstance();
-        maxCurrentMonthDay = calendar6.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar6.add(Calendar.DAY_OF_MONTH, -maxCurrentMonthDay);
-        maxCurrentMonthDay = calendar6.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar6.set(Calendar.DAY_OF_MONTH, maxCurrentMonthDay);
-        String s = sdf.format(calendar6.getTime());
-        // System.out.println("上月最后一天: " + sdf.format(calendar6.getTime()));
-        return s;
-    }
-
-    @org.junit.Test
-    public void test() {
-
-        // toList
-        List<String> list = Stream.of("a", "b", "c").collect(Collectors.toList());
-
-        // 转大写  map,将一个流中的值转换成一个新的流。 toUpperCase
-        List<String> collect = Stream.of("a", "b", "hello").map(s -> s.toUpperCase()).collect(Collectors.toList());
-        collect.stream().forEach(System.out::println);
-
-        // 找出字符串中以数字开头的字符串 filter
-        List<String> list1 = Stream.of("aaa", "1bbb", "ccc").filter(value -> isDigit(value.charAt(0))).collect(Collectors.toList());
-        list1.stream().forEach(System.out::println);
-
-        // 找出年龄最小 min
-        Person person = Stream.of(new Person("zs", 13, new Date()),
-                new Person("zs", 11, new Date()))
-                .min(Comparator.comparing(person1 -> person1.getAge())).get();
-        System.out.println(person);
-
-        // 求和 reduce
-        Integer sum = Stream.of(1, 2, 3).reduce((num1, num2) -> num1 + num2).get();
-        System.out.println(sum);
 
     }
 
     @org.junit.Test
-    public void t() {
-        List<Integer> integers = asList(1, 2, 3, 4);
-        List<Integer> collect = integers.stream().collect(Collectors.toList());
-        assertEquals(integers, collect);
-        System.out.println("==================");
-        Set<Integer> numbers = new HashSet<>(asList(4, 3, 2, 1));
-        List<Integer> setList = numbers.stream().sorted().collect(Collectors.toList());
-        assertEquals(asList(1, 2, 3, 4), setList);
-    }
-
-
-    @org.junit.Test
-    public void t1() {
-        List<String> list = Stream.of("one", "two", "three", "four")
-                .filter(e -> e.length() > 3)
-                .peek(e -> System.out.println("Filtered value: " + e))
-                .map(String::toUpperCase)
-                .peek(e -> System.out.println("Mapped value: " + e))
-                .collect(toList());
-        list.stream().forEach(System.out::println);
-    }
-
-    @org.junit.Test
-    public void t2() {
-        // 字符串连接，concat = "ABCD"
-        String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat);
-        System.out.println(concat);
-        // 求最小值，minValue = -3.0
-        double minValue = Stream.of(-1.5, 1.0, -3.0, -2.0).reduce(Double.MAX_VALUE, Double::min);
-        System.out.println(minValue);
-        // 求和，sumValue = 10, 有起始值
-        int sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
-        System.out.println(sumValue);
-        // 求和，sumValue = 10, 无起始值
-        sumValue = Stream.of(1, 2, 3, 4).reduce(Integer::sum).get();
-        System.out.println(sumValue);
-        // 过滤，字符串连接，concat = "ace"
-        concat = Stream.of("a", "B", "c", "D", "e", "F").filter(x -> x.compareTo("Z") > 0).reduce("", String::concat);
-        System.out.println(concat);
-    }
-
-
-    @org.junit.Test
-    public void dxc() throws Exception {
-        ExecutorService service = Executors.newCachedThreadPool();
-        Future<Object> submit = service.submit(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                int i = 0;
-                for (; i < 5; i++) {
-                    System.out.println(Thread.currentThread().getName() + "线程1 .....");
-                    System.out.println(i);
-                    Thread.sleep(1000);
-                }
-                return i;
-            }
-        });
-        Future<Object> submit2 = service.submit(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                int i = 5;
-                for (; i < 10; i++) {
-                    System.out.println(Thread.currentThread().getName() + "线程2 .....");
-                    System.out.println(i);
-                    Thread.sleep(1000);
-                }
-                return i;
-            }
-        });
-        service.shutdown();
-
-        Integer i1 = (Integer) submit.get();
-        Integer i2 = (Integer) submit2.get();
-        System.out.println(i1);
-        System.out.println("===================================");
-        System.out.println(i2);
-
-    }
-
-    @org.junit.Test
-    public void dxc2() {
-        ExecutorService service = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 5; i++) {
-            service.execute(new test3());
-            System.out.println("************* " + i + " *************");
-        }
-        service.shutdown();
-    }
-
-
-    public class test3 implements Runnable {
-        @Override
-        public void run() {
-            System.out.println(Thread.currentThread().getName() + "线程被调用了。");
-            while (true) {
-                try {
-                    Thread.sleep(5000);
-                    System.out.println(Thread.currentThread().getName());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    public void tetstss() {
+        int total = 151;
+        if (total > 50) {
+            // 如果用户的订单数量超过1页
+            int flag = total % 50 == 0 ? (total / 50) : (total / 50) + 1;
+            for (int j = 2; j <= flag; j++) {
+                System.out.println(j);
             }
         }
-
     }
 
+
+    /**
+     * json处理
+     */
     @org.junit.Test
-    public void dxc3lambda() throws Exception {
-        ExecutorService service = Executors.newFixedThreadPool(2);
-
-        Future<Integer> submit = service.submit(() -> {
-            System.out.println(Thread.currentThread().getName() + "  One");
-            return 1;
-        });
-        Future<Integer> submit1 = service.submit(() -> {
-            System.out.println(Thread.currentThread().getName() + "  Two");
-            return 2;
-        });
-        System.out.println(submit.get());
-        System.out.println(submit1.get());
-
-
-        service.shutdown();
-
-
+    public void testyuan12() {
+        String s = "{\"msg\":\"success\",\"code\":0,\"data\":[{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RwdDMZs81GJ5N3Hav0Ebuec4\",\"phone\":\"18888663399\",\"userType\":\"C\",\"userId\":36702},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RweLunGLMTT93TORkxHJQetU\",\"phone\":\"17134025278\",\"userType\":\"C\",\"userId\":36757},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RwQNgbXbOC01QaO-p0y2_fl0\",\"phone\":\"18500369176\",\"userType\":\"C\",\"userId\":27390,\"email\":\"18500369176@qw.om\"},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RweLunGLMTT93TORkxHJQetU\",\"phone\":\"17135192845\",\"userType\":\"P\",\"userId\":1000000246}]}";
+        JSONObject jsonObject = JSON.parseObject(s);
+        JSONArray array = (JSONArray) jsonObject.get("data");
+        for (int i = 0; i < array.size(); i++) {
+            System.out.println(array.get(i));
+            System.out.println();
+            JSONObject json = (JSONObject) array.get(i);
+        }
     }
 
-    // ====================================================================== //
+    /**
+     * json处理
+     */
     @org.junit.Test
-    public void test04() {
-        // 开始的倒数锁
-        final CountDownLatch begin = new CountDownLatch(1);
-        // 结束的倒数锁
-        final CountDownLatch end = new CountDownLatch(10);
-        // 十名选手
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 1; i <= 10; i++) {
-            final int no = i;
-            Runnable run = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        // 如果当前计数为零，则此方法立即返回。
-                        // 等待
-                        begin.await();
-                        Thread.sleep((long) (Math.random() * 10000L));
-                        System.out.println(" No." + no + " arrived");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } finally {
-                        // 每个选手到达终点时，end就减一
-                        end.countDown();
-                    }
-                }
-            };
-            executorService.execute(run);
-        }
-        System.out.println("Game start...");
-        // begin减一，开始游戏
-        begin.countDown();
-        try {
-            end.await();
-            // 等待end变为0，即所有选手到达终点
-            System.out.println("Game over...");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            executorService.shutdown();
-        }
+    public void testyuan1() {
+        String s = "{\"status\":false,\"msg\":\"\\u60a8\\u8bf7\\u6c42\\u7684\\u9875\\u9762\\u4e0d\\u5b58\\u5728\\uff01\"}";
+        JSONObject jsonObject = JSON.parseObject(s);
+        System.out.println(jsonObject);
     }
 
-
+    /**
+     * json处理
+     */
     @org.junit.Test
-    public void test001() throws Exception {
-        CountDownLatch startSignal = new CountDownLatch(1);
-        CountDownLatch doneSignal = new CountDownLatch(5);
-
-        for (int i = 0; i < 5; ++i) // create and start threads
-        {
-            System.out.println("start " + i);
-            new Thread(new Worker(startSignal, doneSignal)).start();
-            System.out.println("end   " + i);
-        }
-
-        System.out.println("hello");  // don't let run yet
-
-        System.out.println("=========== start begin ======== " + startSignal.getCount());
-        startSignal.countDown();      // let all threads proceed
-        // 每调用一次这个方法，在构造函数中初始化的count值就减1。
-        // 所以当N个线程都调 用了这个方法，count的值等于0，
-        // 然后主线程就能通过await()方法，恢复执行自己的任务。
-        System.out.println("============ start end   ======= " + startSignal.getCount());
-
-        System.out.println("=========== done begin ======== " + doneSignal.getCount());
-        doneSignal.await();           // wait for all to finish
-        // 调用此方法会一直阻塞当前线程，直到计时器的值为0，除非线程被中断。
-        System.out.println("=========== done end   ======= " + doneSignal.getCount());
-
+    public void dssd() {
+        String s = " {\"key\":\"232\"}";
+        JSONObject j = (JSONObject) JSONObject.parse(s);
+        boolean b = null == "" ? true : false;
+        System.out.println(b);
     }
 
-    class Worker implements Runnable {
-        private final CountDownLatch startSignal;
-        private final CountDownLatch doneSignal;
-
-        Worker(CountDownLatch startSignal, CountDownLatch doneSignal) {
-            this.startSignal = startSignal;
-            this.doneSignal = doneSignal;
-        }
-
-        public void run() {
-            try {
-                startSignal.await();
-
-                doWork();
-
-                doneSignal.countDown();
-            } catch (Exception ex) {
-            } // return;
-        }
-
-        void doWork() {
-            System.out.println(Thread.currentThread().getName() + " worker ");
-        }
+    /**
+     * 分转元
+     */
+    @org.junit.Test
+    public void testyuan() {
+        System.out.println(BigDecimal.valueOf(Long.valueOf(1000)).divide(new BigDecimal(100)).toString());
     }
+
+
 
     @org.junit.Test
     public void testJson() {
@@ -470,62 +194,7 @@ public class Test {
         });
     }
 
-    @org.junit.Test
-    public void xcc() throws InterruptedException, ExecutionException {
-        // 开始时间
-        long start = System.currentTimeMillis();
-        List<String> list = new ArrayList<String>();
-        for (int i = 1; i <= 4000; i++) {
-            list.add(i + "");
-        }
-        // 每500条数据开启一条线程
-        int threadSize = 500;
-        // 总数据条数
-        int dataSize = list.size();
-        // 线程数
-        int threadNum = dataSize / threadSize + 1;
-        // 定义标记,过滤threadNum为整数
-        boolean special = dataSize % threadSize == 0;
 
-        // 创建一个线程池
-        ExecutorService exec = Executors.newFixedThreadPool(threadNum);
-        // 定义一个任务集合
-        List<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();
-        Callable<Integer> task = null;
-        List<String> cutList = null;
-
-        // 确定每条线程的数据
-        for (int i = 0; i < threadNum; i++) {
-            if (i == threadNum - 1) {
-                if (special) {
-                    break;
-                }
-                cutList = list.subList(threadSize * i, dataSize);
-            } else {
-                cutList = list.subList(threadSize * i, threadSize * (i + 1));
-            }
-            // System.out.println("第" + (i + 1) + "组：" + cutList.toString());
-            final List<String> listStr = cutList;
-            task = new Callable<Integer>() {
-
-                @Override
-                public Integer call() throws Exception {
-                    // sms begin
-                    System.out.println(Thread.currentThread().getName() + "线程：" + listStr);
-                    // sms end
-                    return 1;
-                }
-            };
-            // 这里提交的任务容器列表和返回的Future列表存在顺序对应的关系
-            tasks.add(task);
-        }
-
-        List<Future<Integer>> results = exec.invokeAll(tasks);
-        // 关闭线程池
-        exec.shutdown();
-        System.out.println("线程任务执行结束");
-        System.err.println("执行任务消耗了 ：" + (System.currentTimeMillis() - start) + "毫秒");
-    }
 
     @org.junit.Test
     public void wqerwe() {
@@ -729,40 +398,7 @@ public class Test {
     boolean a;
 
 
-    @org.junit.Test
-    public void tt() {
-        int MAX_VALUE = 0x7fffffff;
-        System.out.println(MAX_VALUE);
 
-        List<Item> items = Arrays.asList(
-                new Item("apple", 10, new BigDecimal(23)),
-                new Item("apple", 20, new BigDecimal(32)),
-                new Item("orange", 30, new BigDecimal(13)),
-                new Item("orange", 20, new BigDecimal(33)),
-                new Item("orange", 10, new BigDecimal(63)),
-                new Item("orange", 50, new BigDecimal(41)),
-                new Item("peach", 20, new BigDecimal(26)),
-                new Item("peach", 30, new BigDecimal(42)),
-                new Item("peach", 40, new BigDecimal(24)),
-                new Item("peach", 10, new BigDecimal(12))
-        );
-
-        Map<String, List<Item>> collect = items.stream().collect(Collectors.groupingBy(Item::getName));
-        System.out.println(JSON.toJSONString(collect));
-
-
-        // 分组，计数
-        Map<String, Long> counting = items.stream()
-                .collect(Collectors.groupingBy(Item::getName, Collectors.counting()));
-        System.out.println(counting);
-
-        // 分组，计数，数量
-        Map<String, Integer> sum = items.stream()
-                .collect(Collectors.groupingBy(Item::getName, Collectors.summingInt(Item::getQty)));
-        System.out.println(sum);
-
-
-    }
 
     @org.junit.Test
     public void t3333t() {
@@ -831,11 +467,6 @@ public class Test {
         System.out.println(afterPass);
         boolean checkpw = BCrypt.checkpw(password, afterPass);
         System.out.println(checkpw);
-//        Map urlMap = Maps.newConcurrentMap();
-//        urlMap.put(String.valueOf(1), "http://test.5ifapiao.com:8888/api-gateway/aosp-file-service/aosp-file-service/file/download/singlefile?id=44217235bbde44a68548152648cdb111");
-//        urlMap.put(String.valueOf(2), "fail");
-//        ExpertCommonRspVo success = ExpertCommonRspVo.success(urlMap);
-//        System.out.println(JSON.toJSONString(success));
     }
 
 

@@ -1,4 +1,4 @@
-package org.zhire;
+package org.zhire.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -17,6 +17,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * @Author: chenqi
  * @Date: 2020.1.6 10:30
  */
-public class Java8Test {
+public class Java8DateTest {
     @org.junit.Test
     public void listsss() {
         // List<String> list = settleBills.stream().map(SettleBill::getBillId).collect(Collectors.toList());
@@ -148,58 +149,45 @@ public class Java8Test {
 
     }
 
-    @org.junit.Test
-    public void tetstss() {
-        int total = 151;
-        if (total > 50) {
-            // 如果用户的订单数量超过1页
-            int flag = total % 50 == 0 ? (total / 50) : (total / 50) + 1;
-            for (int j = 2; j <= flag; j++) {
-                System.out.println(j);
-            }
-        }
+
+    public static String getLastMonthFirstDay() {
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //System.out.println(sdf.format(date));
+
+        int maxCurrentMonthDay = 0;
+        // Calendar calendar = Calendar.getInstance();
+        // System.out.println("当前时间: " + sdf.format(calendar.getTime()));
+
+
+        Calendar calendar5 = Calendar.getInstance();
+        maxCurrentMonthDay = calendar5.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar5.add(Calendar.DAY_OF_MONTH, -maxCurrentMonthDay);
+        calendar5.set(Calendar.DAY_OF_MONTH, 1);
+        String s = sdf.format(calendar5.getTime());
+        // System.out.println("上月第一天: " + sdf.format(calendar5.getTime()));
+        return s;
+
+    }
+
+    private static String getLastMonthLastDay() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //System.out.println(sdf.format(date));
+
+        int maxCurrentMonthDay = 0;
+        // Calendar calendar = Calendar.getInstance();
+        Calendar calendar6 = Calendar.getInstance();
+        maxCurrentMonthDay = calendar6.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar6.add(Calendar.DAY_OF_MONTH, -maxCurrentMonthDay);
+        maxCurrentMonthDay = calendar6.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar6.set(Calendar.DAY_OF_MONTH, maxCurrentMonthDay);
+        String s = sdf.format(calendar6.getTime());
+        // System.out.println("上月最后一天: " + sdf.format(calendar6.getTime()));
+        return s;
     }
 
 
-    @Test
-    public void testyuan() {
-        System.out.println(BigDecimal.valueOf(Long.valueOf(1000)).divide(new BigDecimal(100)).toString());
-    }
-
-    public static void main(String[] args) {
-        String s = "{\"msg\":\"success\",\"code\":0,\"data\":[{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RwdDMZs81GJ5N3Hav0Ebuec4\",\"phone\":\"18888663399\",\"userType\":\"C\",\"userId\":36702},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RweLunGLMTT93TORkxHJQetU\",\"phone\":\"17134025278\",\"userType\":\"C\",\"userId\":36757},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RwQNgbXbOC01QaO-p0y2_fl0\",\"phone\":\"18500369176\",\"userType\":\"C\",\"userId\":27390,\"email\":\"18500369176@qw.om\"},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RweLunGLMTT93TORkxHJQetU\",\"phone\":\"17135192845\",\"userType\":\"P\",\"userId\":1000000246}]}";
-        JSONObject jsonObject = JSON.parseObject(s);
-        JSONArray array = (JSONArray) jsonObject.get("data");
-        for (int i = 0; i < array.size(); i++) {
-            System.out.println(array.get(i));
-            System.out.println();
-            JSONObject json = (JSONObject) array.get(i);
-        }
-    }
-
-    @Test
-    public void testyuan1() {
-        String s = "{\"status\":false,\"msg\":\"\\u60a8\\u8bf7\\u6c42\\u7684\\u9875\\u9762\\u4e0d\\u5b58\\u5728\\uff01\"}";
-        JSONObject jsonObject = JSON.parseObject(s);
-        System.out.println(jsonObject);
-    }
-
-    @Test
-    public void dssd(){
-        String s = " {\"key\":\"232\"}";
-        JSONObject j  = (JSONObject) JSONObject.parse(s);
-        boolean b = null == "" ? true : false;
-        System.out.println(b);
-    }
-
-    /**
-     * java8 过滤
-     */
-    @Test
-    public void filter(){
-        List<User> list = new ArrayList<>();
-        List<User> expertList =
-                list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
-    }
 
 }
