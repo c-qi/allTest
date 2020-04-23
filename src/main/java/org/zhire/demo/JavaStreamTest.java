@@ -35,6 +35,22 @@ public class JavaStreamTest {
 
 //        List<BillInfo> billInfoList =
 //                list.stream().map(l -> billInfoClient.getBillById(l)).collect(Collectors.toList());
+        //            for (ConsultExpertShare consultExpertShare : expertShareDistributorList) {
+//                String expertShareDistributorId = consultExpertShare.getDistributorId();
+//                // 获取工作时间，判断是否在工作时间内
+//                ExpertCommonRspVo<Map<String, Object>> rspVo = consultEquityService.getWorkTime(expertShareDistributorId);
+//                if("0000".equals(rspVo.getCode()) && !(boolean) rspVo.getData().get("isWorkTime")) {
+//                    // 非工作时间 不分配未咨询订单
+//                   continue;
+//                }else{
+//                    consultQuestion.setDistributorId(consultExpertShare.getDistributorId());
+//                    List<ConsultQuestion> shareQuestList = consultExpertClient.getQuestionByExpertId(consultQuestion);
+//                    if (shareQuestList != null && !shareQuestList.isEmpty()) {
+//                       shareQuestList.forEach(questions -> questionList.add(questions));
+//                    }
+//                }
+//            }
+
     }
 
     @Test

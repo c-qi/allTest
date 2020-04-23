@@ -469,5 +469,17 @@ public class Test {
         System.out.println(checkpw);
     }
 
+    @org.junit.Test
+    public void testList(){
+        List<User> users = new ArrayList<>();
+        System.out.println(users == null);
+        User user = new User();
+        User user1 = new User();
+        //System.out.println(user1.getName().equals(user.getName()));
+        System.out.println("a".contains("aa"));
+
+
+    }
+
 
 }
