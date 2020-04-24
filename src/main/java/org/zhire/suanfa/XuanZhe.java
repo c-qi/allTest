@@ -17,6 +17,11 @@ import java.util.Arrays;
 public class XuanZhe {
     public static void main(String[] args) {
         int[] array = {9, 5, 3, 1, 2, 8, 4, 7, 6};
+        // 1, 5, 3, 9, 2, 8, 4, 7, 6
+        // 1, 2, 3, 9, 5, 8, 4, 7, 6
+        // 1, 2, 3, 9, 5, 8, 4, 7, 6
+        // 1, 2, 3, 4, 5, 8, 9, 7, 6
+        // ......
         for (int i = 0; i < array.length; i++) {
             // 最小数的数组下标
             int minimum = i;
