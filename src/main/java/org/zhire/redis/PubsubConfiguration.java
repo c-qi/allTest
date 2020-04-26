@@ -13,6 +13,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 /**
  * 监听配置
  * 此外redis的配置文件加上：notify-keyspace-events Ex
+ * 或者命令行：config set notify-keyspace-events Ex
  */
 @Configuration
 @Slf4j
