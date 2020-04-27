@@ -134,6 +134,7 @@ public class ThreadPool2 {
         System.out.println(
                 "定时任务，提交成功，时间是：" + System.currentTimeMillis() + ", 当前线程池中线程数量：" + threadPoolExecutor.getPoolSize());
         // 预计结果：任务在3秒后被执行一次
+        System.out.println("1222222222222222222222222");
     }
 
     /**
@@ -275,10 +276,10 @@ public class ThreadPool2 {
 
     public static void main(String[] args) throws Exception {
       //  new ThreadPool2().threadPoolExecutorTest1();
-		new ThreadPool2().threadPoolExecutorTest2();
+//		new ThreadPool2().threadPoolExecutorTest2();
 //		new ThreadPool2().threadPoolExecutorTest3();
 //		new ThreadPool2().threadPoolExecutorTest4();
-//		new ThreadPool2().threadPoolExecutorTest5();
+		new ThreadPool2().threadPoolExecutorTest5();
 //		new ThreadPool2().threadPoolExecutorTest6();
 //		new ThreadPool2().threadPoolExecutorTest7();
         //       new ThreadPool2().threadPoolExecutorTest8();

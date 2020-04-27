@@ -50,7 +50,13 @@ public class Collections {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
         linkedHashMap.put("1", null);
 
-
+        /**
+         * ArrayList基于数组，初始化容量10，
+         * add元素的时候先判断数组容量够不够装，装不下扩容原来的1.5倍，10 ---> 15
+         * 然后把旧数据复制到新的数组里面(Arrays.copyOf())
+         * 最后把新数据追加到数组里面
+         * 线程不安全
+         */
         ArrayList al = new ArrayList();
         al.add(1);
         al.add(3);
@@ -61,6 +67,9 @@ public class Collections {
         System.out.println(a.toString());
 
 
+        /**
+         * 线程安全 ReentrantLock
+         */
         CopyOnWriteArrayList copy = new CopyOnWriteArrayList();
         copy.add(null);
 
@@ -114,4 +123,12 @@ public class Collections {
         }
     }
 
+    @Test
+    public void testListAdd() {
+        int oldCapacity = 10;
+        int a = oldCapacity >> 1;
+        System.out.println(a);
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        System.out.println(newCapacity);
+    }
 }
