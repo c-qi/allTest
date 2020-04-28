@@ -1,9 +1,10 @@
 package org.zhire;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+
 //import org.springframework.cache.annotation.EnableCaching;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 //import org.springframework.scheduling.annotation.EnableScheduling;
@@ -27,7 +28,52 @@ public class SpringBootStart {
     public static void main(String[] args) {
         // 写本类的字节码【为的就是找到启动类上的注解】
         // run方法里面做的事情是初始化Spring框架
-      SpringApplication.run(SpringBootStart.class, args);
+        /** // run方法分析：
+         *  // 启动秒表，统计服务启动耗时
+         *  StopWatch stopWatch = new StopWatch();
+         * 		stopWatch.start();
+         * 		// 创建springContext对象，该对象直译应用程序上下文，是根容器
+         * 		ConfigurableApplicationContext context = null;
+         * 		Collection<SpringBootExceptionReporter> exceptionReporters = new ArrayList<>();
+         * 		configureHeadlessProperty();
+         * 	    // 创建监听器
+         * 		SpringApplicationRunListeners listeners = getRunListeners(args);
+         * 		listeners.starting();
+         * 		try {
+         * 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(
+         * 					args);
+         * 				// 创建环境
+         * 			ConfigurableEnvironment environment = prepareEnvironment(listeners,
+         * 					applicationArguments);
+         * 			configureIgnoreBeanInfo(environment);
+         * 			Banner printedBanner = printBanner(environment);
+         * 			context = createApplicationContext();
+         * 			exceptionReporters = getSpringFactoriesInstances(
+         * 					SpringBootExceptionReporter.class,
+         * 					new Class[] { ConfigurableApplicationContext.class }, context);
+         * 				// 准备上下文数据
+         * 			prepareContext(context, environment, listeners, applicationArguments,
+         * 					printedBanner);
+         * 				// 设置上下文
+         * 			refreshContext(context);
+         * 	        	// 再次设置--源码是空方法，猜测保留方法
+         * 			afterRefresh(context, applicationArguments);
+         * 		       //停止秒表
+         * 			stopWatch.stop();
+         * 			if (this.logStartupInfo) {
+         * 				new StartupInfoLogger(this.mainApplicationClass)
+         * 						.logStarted(getApplicationLog(), stopWatch);
+         *                        }
+         * 			listeners.started(context);
+         * 			callRunners(context, applicationArguments);* 		}
+         * 		catch (Throwable ex) {
+         * 			handleRunFailure(context, listeners, exceptionReporters, ex);
+         * 			throw new IllegalStateException(ex);
+         * 		}
+         * 		listeners.running(context);
+         * 		return context;
+         */
+         SpringApplication.run(SpringBootStart.class, args);
 
     }
 }
