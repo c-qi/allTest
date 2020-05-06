@@ -477,9 +477,24 @@ public class Test {
         User user1 = new User();
         //System.out.println(user1.getName().equals(user.getName()));
         System.out.println("a".contains("aa"));
-
-
     }
 
+    @org.junit.Test
+    public void test3232() {
+        String s = "{\"time\":1586328044757}";
+        JSONObject jsonObject = JSON.parseObject(s);
+        long l = jsonObject.getLong("time");
+        Date date = new Date(l);
+        System.out.println(date);
+    }
+
+    @org.junit.Test
+    public void test() {
+        String key = "expert:chat:b52211cecfdd4ab3ae09857a3835535a:4928";
+        String[] keyItems = key.split("\\:");
+        for (String keyItem : keyItems) {
+            System.out.println(keyItem);
+        }
+    }
 
 }

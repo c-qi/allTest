@@ -37,11 +37,28 @@ import java.util.*;
 public class leetcode3 {
     @Test
     public void lengthOfLongestSubstring() {
-        String s = "dvdf";
+        String s = "pwwkew";
         // int i = lengthOfLongestSubstring(s);
         int i2 = lengthOfLongestSubstring2(s);
-        System.out.println(i2);
+        int i3 = lengthOfLongestSubstring3(s);
+        System.out.println(i3);
 
+    }
+
+    private int lengthOfLongestSubstring3(String s) {
+        HashSet set = new HashSet<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j < chars.length; j++) {
+                if (set.contains(chars[j])) {
+                    break;
+                }
+                set.add(chars[j]);
+                set.add(String.valueOf(chars[j]));
+            }
+        }
+
+        return set.size();
     }
     //  6 5 4
     //  6 4 3
@@ -88,120 +105,6 @@ public class leetcode3 {
             map.put(s.charAt(j), j + 1);
         }
         return ans;
-    }
-
-
-    public static void main(String[] args) throws Exception {
-//        Map tokenMap = Maps.newHashMap();
-//        tokenMap.put("110108008","qwfdewqfwqfwqfwqfwqf");
-//        tokenMap.put("110108009","qqweqwewqwfdewqfwqfwqfwqfwqf");
-//        String s = "{\"msg\":\"success\",\"code\": 0,\"data\":[{\"sourceId\":\"1101080080\",\"unionid\":\"o_v6RwXZBcdCEXI0KQmByRR13yTU\",\"phone\":\"17375363838\",\"userType\":\"C\",\"userId\":27391,\"email\":\"fghuuhh@ee.com\"},{\"sourceId\":\"110108008\",\"unionid\":\"o_v6RwaYzLjZCaFC-NDTzHXRVxeM\",\"phone\":\"13764976345\",\"userType\":\"C\",\"userId\":27392,\"email\":null}]}";
-//        JSONObject jsonObject = JSON.parseObject(s);
-//        JSONArray array = (JSONArray) jsonObject.get("data");
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.println(array.get(i));
-//            System.out.println();
-//            JSONObject json = (JSONObject) array.get(i);
-//            if (tokenMap.containsKey(json.get("sourceId").toString())) {
-//                System.out.println(tokenMap.get(json.get("sourceId").toString()).toString());
-//            }
-//        }
-        //System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-02-05 00:00:00").getTime());
-        //System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2020-02-05 23:59:59").getTime());
-        String s = "{\n" +
-                "  \"msg\": \"success\",\n" +
-                "  \"code\": 0,\n" +
-                "  \"data\": {\n" +
-                "    \"total\": 2,\n" +
-                "    \"list\": [\n" +
-                "      {\n" +
-                "        \"period\": 31536000,\n" +
-                "        \"resource_type\": 23,\n" +
-                "        \"created_at\": \"2020-02-05 11:19:38\",\n" +
-                "        \"wx_app_type\": 1,\n" +
-                "        \"settle_time\": \"0000-00-00 00:00:00\",\n" +
-                "        \"pay_time\": \"2020-02-05 11:19:57\",\n" +
-                "        \"payment_type\": 15,\n" +
-                "        \"user_id\": \"u_5e3a2a611e80e_EPFo4rfyIz\",\n" +
-                "        \"price\": 29900,\n" +
-                "        \"product_id\": \"s_5e016185b56ae_Yq4GPEKZ\",\n" +
-                "        \"out_order_id\": \"oo_5e3a344aca77a_jReDgf7P\",\n" +
-                "        \"purchase_name\": \"优税学院VIP超级会员\",\n" +
-                "        \"app_id\": \"app0Dse2FPd5809\",\n" +
-                "        \"order_id\": \"o_1580872778_5e3a344ac3c13_89538772\",\n" +
-                "        \"order_state\": 1\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"period\": 31536000,\n" +
-                "        \"resource_type\": 23,\n" +
-                "        \"created_at\": \"2020-02-05 11:18:42\",\n" +
-                "        \"wx_app_type\": 1,\n" +
-                "        \"settle_time\": \"0000-00-00 00:00:00\",\n" +
-                "        \"pay_time\": \"0000-00-00 00:00:00\",\n" +
-                "        \"payment_type\": 15,\n" +
-                "        \"user_id\": \"u_5e3a2a611e80e_EPFo4rfyIz\",\n" +
-                "        \"price\": 29900,\n" +
-                "        \"product_id\": \"s_5e016185b56ae_Yq4GPEKZ\",\n" +
-                "        \"purchase_name\": \"优税学院VIP超级会员\",\n" +
-                "        \"app_id\": \"app0Dse2FPd5809\",\n" +
-                "        \"order_id\": \"o_1580872722_5e3a3412b64cd_17527462\",\n" +
-                "        \"order_state\": 6\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  }\n" +
-                "}";
-        JSONObject jsonObject = JSON.parseObject(s);
-        JSONObject data = (JSONObject) jsonObject.get("data");
-        JSONArray orderArrayList = (JSONArray) data.get("list");
-        for (int j = 0; j < orderArrayList.size(); j++) {
-            JSONObject obj = (JSONObject) orderArrayList.get(j);
-            // 商品名称
-            String purchaseName = obj.get("purchase_name").toString();
-
-            // 订单状态
-            String orderState = obj.get("order_state").toString();
-            // 订单编号、
-            String orderId = obj.get("order_id").toString();
-            // 下单时间、
-            String createdAt = obj.get("created_at").toString();
-            // 订单类型(图文、音频、视频、专栏、直播、知识会员)、
-            String resourceType = obj.get("resource_type").toString();
-            // 价格(单价)
-            String price = obj.get("price").toString();
-            // 数量、
-
-            // 实付金额、
-
-            // 买家昵称、
-            // 买家微信ID、
-
-            // 买家所属渠道、
-            String source = null;
-            // 客户类型(个人)、
-            // 订单来源（小鹅通）
-
-
-        }
-
-        System.out.println(orderArrayList);
-    }
-
-    @Test
-    public void test3232() {
-        String s = "{\"time\":1586328044757}";
-        JSONObject jsonObject = JSON.parseObject(s);
-        long l = jsonObject.getLong("time");
-        Date date = new Date(l);
-        System.out.println(date);
-    }
-
-    @Test
-    public void test() {
-        String key = "expert:chat:b52211cecfdd4ab3ae09857a3835535a:4928";
-        String[] keyItems = key.split("\\:");
-        for (String keyItem : keyItems) {
-            System.out.println(keyItem);
-        }
     }
 
 

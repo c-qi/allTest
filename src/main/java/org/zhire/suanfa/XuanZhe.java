@@ -11,6 +11,8 @@ import java.util.Arrays;
  * 每轮中交换数字的次数最多为 1 次。如果输入数据就是按从小到大的顺序排列的，
  * 便不需要进行任何交换。选择排序的时间复杂度也和冒泡排序的一样，都为 O(n 2 )。
  *
+ *
+ *
  * @Author: chenqi
  * @Date: 2020.2.26 19:01
  */
@@ -22,23 +24,35 @@ public class XuanZhe {
         // 1, 2, 3, 9, 5, 8, 4, 7, 6
         // 1, 2, 3, 4, 5, 8, 9, 7, 6
         // ......
+//        for (int i = 0; i < array.length; i++) {
+//            // 最小数的数组下标
+//            int minimum = i;
+//            for (int j = i; j < array.length; j++) {
+//                if (array[j] < array[minimum]) {
+//                    // 找到最小数的下标并更新
+//                    minimum = j;
+//                }
+//            }
+//            // 交换符合条件的数
+//            int temp = array[minimum];
+//            array[minimum] = array[i];
+//            array[i] = temp;
+//
+//        }
+//        System.out.println(Arrays.toString(array));
+
         for (int i = 0; i < array.length; i++) {
-            // 最小数的数组下标
-            int minimum = i;
-            for (int j = i; j < array.length; j++) {
-                if (array[j] < array[minimum]) {
-                    // 找到最小数的下标并更新
-                    minimum = j;
+            int min = i;
+            for (int j = min; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
                 }
             }
-            // 交换符合条件的数
-            int temp = array[minimum];
-            array[minimum] = array[i];
+            int temp = array[min];
+            array[min] = array[i];
             array[i] = temp;
-
         }
         System.out.println(Arrays.toString(array));
-
 
     }
 
