@@ -211,6 +211,9 @@ public class JavaStreamTest {
                 .collect(Collectors.groupingBy(Item::getName, Collectors.summingInt(Item::getQty)));
         System.out.println(sum);
 
+        // 倒叙排列
+        List<Item> list = items.stream().sorted(Comparator.comparing(Item::getQty).reversed()).collect(toList());
+        System.out.println(list);
 
     }
 }

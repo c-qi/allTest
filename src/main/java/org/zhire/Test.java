@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.google.common.collect.Maps;
 import org.Person;
 import org.zhire.pojo.User;
-import org.zhire.utils.Item;
 import org.mindrot.jbcrypt.BCrypt;
 
 //import javax.persistence.Persistence;
@@ -17,14 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.lang.Character.isDigit;
-import static java.util.Arrays.*;
-import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @Author: chenqi
@@ -172,7 +163,6 @@ public class Test {
     }
 
 
-
     @org.junit.Test
     public void testJson() {
         String arr = "{depts:}";
@@ -193,7 +183,6 @@ public class Test {
             System.out.println(l);
         });
     }
-
 
 
     @org.junit.Test
@@ -398,8 +387,6 @@ public class Test {
     boolean a;
 
 
-
-
     @org.junit.Test
     public void t3333t() {
 // 22044287.85
@@ -470,7 +457,7 @@ public class Test {
     }
 
     @org.junit.Test
-    public void testList(){
+    public void testList() {
         List<User> users = new ArrayList<>();
         System.out.println(users == null);
         User user = new User();
@@ -497,4 +484,33 @@ public class Test {
         }
     }
 
+    /**
+     * 给hashMap排序
+     */
+    @org.junit.Test
+    public void testHashMap() {
+        HashMap<Integer, Person> map = new HashMap();
+        map.put(1, new Person("zs", 1));
+        map.put(3, new Person("ll", 2));
+        map.put(2, new Person("ww", 3));
+        Set<Map.Entry<Integer, Person>> entries = map.entrySet();
+        System.out.println("排序前：");
+        map.entrySet().forEach(System.out::println);
+        ArrayList<Map.Entry<Integer, Person>> list = new ArrayList<>(entries);
+
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Person>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Person> o1, Map.Entry<Integer, Person> o2) {
+                return o2.getValue().getAge() - o1.getValue().getAge();
+            }
+        });
+        System.out.println();
+        LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+        list.forEach(l -> {
+            linkedHashMap.put(l.getKey(), l.getValue());
+        });
+        System.out.println("排序后：");
+        linkedHashMap.entrySet().forEach(System.out::println);
+
+    }
 }

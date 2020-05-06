@@ -1,5 +1,6 @@
 package org;
 
+
 import java.util.Date;
 
 /**
@@ -8,6 +9,11 @@ import java.util.Date;
  */
 public class Person {
     private int id;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public Person(int id, String name, int age, Date birthday) {
         this.id = id;
