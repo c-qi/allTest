@@ -513,4 +513,11 @@ public class Test {
         linkedHashMap.entrySet().forEach(System.out::println);
 
     }
+
+    @org.junit.Test
+    public void ttt(){
+        String aaa = "111";
+        // \u000d aaa = "222";
+        System.out.println(aaa);
+    }
 }
