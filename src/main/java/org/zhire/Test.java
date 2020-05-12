@@ -519,5 +519,28 @@ public class Test {
         String aaa = "111";
         // \u000d aaa = "222";
         System.out.println(aaa);
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        hashMap.put("aaa", null);
+        if (StringUtils.isEmpty(hashMap.get("aaa").toString())) {
+            System.out.println(hashMap.get("aaa"));
+        }
     }
+
+    /**
+     * switch可以传入的类型
+     */
+    @org.junit.Test
+    public void testSwitch() {
+        int l = 0;
+        // char, byte, short, int, Character, Byte, Short, Integer, String, or an enum
+        switch (l) {
+            case 0:
+                System.out.println(true);
+                break;
+            default:
+                System.out.println("default");
+        }
+    }
+
+
 }
