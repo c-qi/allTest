@@ -10,6 +10,7 @@ import org.zhire.pojo.User;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,10 +18,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -104,6 +102,10 @@ public class Java8DateTest {
 
     }
 
+    /**
+     * joda工具类对日期处理
+     * @throws Exception
+     */
     @org.junit.Test
     public void datePlus() throws Exception {
         String dateCycleEnd = new DateTime("2020-12-01").plusMonths(1).toString("yyyy-MM-dd");
@@ -223,5 +225,19 @@ public class Java8DateTest {
         LocalDateTime yesterday = dt.minusDays(1);
         System.out.println("昨天的当前时刻："+newFormatter2.format(yesterday));
     }
+
+    @Test
+    // @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    // @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    public void testDateInT() throws ParseException {
+        String t = "2020-05-12T08:52:25.000+0000";
+        String s = "2020-05-12 16:52:25";
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
+        Date date = formatter.parse(t);
+        String parse = sf.format(date);
+        System.out.println(parse);
+    }
+
 
 }
