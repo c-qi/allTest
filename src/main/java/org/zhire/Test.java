@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.google.common.collect.Maps;
 import org.Person;
 import org.zhire.pojo.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,6 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Consumer;
 
 
 /**
@@ -515,7 +517,7 @@ public class Test {
     }
 
     @org.junit.Test
-    public void ttt(){
+    public void ttt() {
         String aaa = "111";
         // \u000d aaa = "222";
         System.out.println(aaa);
@@ -540,6 +542,25 @@ public class Test {
             default:
                 System.out.println("default");
         }
+    }
+
+    @org.junit.Test
+    public void testNull() {
+        Map map = Maps.newHashMap();
+        map.put("name", "");
+        map.put("name2", null);
+        map.put("name3", "zs");
+        boolean b = Optional.ofNullable(map.get("name")).isPresent(); // 非空 true
+        boolean b2 = Optional.ofNullable(map.get("name2")).isPresent(); // 空 false
+        boolean b3 = Optional.ofNullable(map.get("name3")).isPresent(); // 非空 true
+        boolean b4 = Optional.ofNullable(map.get("name4")).isPresent(); // 空 false
+        System.out.println(b);
+        System.out.println(b2);
+        System.out.println(b3);
+        System.out.println(b4);
+
+
+
     }
 
 
