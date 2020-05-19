@@ -559,6 +559,48 @@ public class Test {
         System.out.println(b3);
         System.out.println(b4);
 
+    }
+
+
+    /**
+     * 数组中某个元素出现的次数最多的值和出现的次数
+     */
+    @org.junit.Test
+    public void testArray() {
+        int[] array = {1, 2, 1, 2, 3, 2, 11, 3, 4, 5, 6};
+        List<Integer> list = new ArrayList();
+        Set<Integer> set = new LinkedHashSet<>();
+        Map map = Maps.newHashMap();
+        for (int i : array) {
+            list.add(i);
+            set.add(i);
+        }
+        for (Integer i : set) {
+            System.out.println("当前遍历数据Set：" + i);
+            int flag = 0;
+            for (Integer l : list) {
+                if (i.equals(l)) {
+                    flag = flag + 1;
+                }
+            }
+            System.out.println("当前遍历重复数据：" + flag);
+            map.put(i, flag);
+        }
+
+        System.out.println(map);
+
+        Set<Integer> keySet = map.keySet();
+        int big = 0;
+        int bigKey = 0;
+        for (Integer key : keySet) {
+            Integer value = (Integer) map.get(key);
+            if (value > big) {
+                bigKey = key;
+                big = value;
+            }
+        }
+        System.out.println("最多出现次数的值是：" + bigKey);
+        System.out.println("最多出现次数是：" + big);
 
 
     }

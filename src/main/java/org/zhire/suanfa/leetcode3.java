@@ -41,7 +41,7 @@ public class leetcode3 {
         // int i = lengthOfLongestSubstring(s);
         int i2 = lengthOfLongestSubstring2(s);
         int i3 = lengthOfLongestSubstring3(s);
-        System.out.println(i3);
+        System.out.println(i2);
 
     }
 
