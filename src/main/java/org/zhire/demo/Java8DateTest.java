@@ -230,26 +230,21 @@ public class Java8DateTest {
     // @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     // @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     public void testDateInT() throws ParseException {
-//        String t = "2020-05-12T08:52:25.000+0000";
-//        String s = "2020-05-12 16:52:25";
-//        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
-//        Date date = formatter.parse(t);
-//        String parse = sf.format(date);
-//        System.out.println(parse);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        calendar.set(Calendar.HOUR_OF_DAY, 0);
-//        calendar.set(Calendar.SECOND, 0);
-//        calendar.set(Calendar.MINUTE, 0);
-//        calendar.set(Calendar.MILLISECOND, 0);
-//        Date time = calendar.getTime();
-//        System.out.println(sf.format(time));
-
-        String s = "{\"code\":\"0000\",\"data\":[{\"uri\":\"http://test.5ifapiao.com:8888/expert-pc-110108008?COMMONREPLACEURL=index|http://test.5ifapiao.com:8888/expert-110108008/#/index\",\"distributorId\":\"16ad5fa5533f4a6d821fbe9a7ff716b3\",\"productId\":\"a2cc30f6552542ad8d22155f96adba30\",\"version\":\"1.1.3\",\"sourceId\":\"110108008\",\"productStatus\":\"2\"}],\"message\":\"SUCCESSFULL!\",\"successful\":true}\n";
-        JSONObject jsonObject = JSON.parseObject(s);
-        JSONArray data = (JSONArray) jsonObject.get("data");
-        System.out.println(data);
+        String t = "2020-05-12T08:52:25.000+0000";
+        String s = "2020-05-12 16:52:25";
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
+        Date date = formatter.parse(t);
+        String parse = sf.format(date);
+        System.out.println(parse);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date time = calendar.getTime();
+        System.out.println(sf.format(time));
 
     }
 
