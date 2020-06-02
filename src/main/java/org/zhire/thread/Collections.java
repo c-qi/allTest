@@ -30,6 +30,11 @@ public class Collections {
          */
         Map map = new HashMap();
         map.put(null, 0);
+        map.put(1, 324);
+        map.put(2, 234);
+        map.put(6, 546);
+        map.put(5, 865);
+        System.out.println(map);
         System.out.println(map.get(null));
 
         /**
@@ -49,7 +54,12 @@ public class Collections {
          *  实现HashMap 基于链表
          */
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        linkedHashMap.put("1", null);
+        linkedHashMap.put(null, 0);
+        linkedHashMap.put(1, 324);
+        linkedHashMap.put(2, 234);
+        linkedHashMap.put(6, 546);
+        linkedHashMap.put(5, 865);
+        System.out.println(linkedHashMap);
 
         /**
          * ArrayList基于数组，初始化容量10，
@@ -67,12 +77,43 @@ public class Collections {
         a.addAll(al);
         System.out.println(a.toString());
 
+        /**
+         * LinkedList基于链表初始化容量0
+         */
+        LinkedList list = new LinkedList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        System.out.println(list);
+
 
         /**
          * 线程安全 ReentrantLock
          */
         CopyOnWriteArrayList copy = new CopyOnWriteArrayList();
         copy.add(null);
+
+        /**
+         * HashSet基于hashMap 值重复覆盖 无序
+         */
+        HashSet set = new HashSet();
+        set.add("cq");
+        set.add("cq");
+        set.add("cq");
+        set.add("cq");
+        System.out.println(set);
+
+
+        /**
+         * LinkedHashSet基于LinkedHashMap 值重复覆盖 有序
+         */
+        LinkedHashSet linkedHashSet = new LinkedHashSet();
+        linkedHashSet.add(1);
+        linkedHashSet.add(3);
+        linkedHashSet.add(3);
+        linkedHashSet.add(2);
+        System.out.println(linkedHashSet);
 
 
     }
@@ -131,5 +172,8 @@ public class Collections {
         System.out.println(a);
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         System.out.println(newCapacity);
+
+        int MAXIMUM_CAPACITY = 1 << 30;
+        System.out.println(MAXIMUM_CAPACITY);
     }
 }

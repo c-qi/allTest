@@ -605,5 +605,13 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void tttttds(){
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("orderId","3412e2dfqw");
+        JSONArray orderIds = JSONArray.parseArray(map.get("orderId").toString());
+        System.out.println(orderIds);
+    }
+
 
 }
