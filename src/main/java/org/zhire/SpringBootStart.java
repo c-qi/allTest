@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 //import org.springframework.cache.annotation.EnableCaching;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -18,6 +19,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @EnableAutoConfiguration 能够自动配置spring的上下文，试图猜测和配置你想要的bean类，通常会自动根据你的类路径和你的bean定义自动配置
  * @ComponentScan 组件扫描，可自动发现和装配一些Bean。会自动扫描指定包下的全部标有@Component的类，并注册成bean，当然包括@Component下的子注解@Service,@Repository,@Controller。
  */
+@EnableAsync
 @ServletComponentScan
 @SpringBootApplication // 当前启动类是配置类
 //@EnableScheduling      // 开启定时任务

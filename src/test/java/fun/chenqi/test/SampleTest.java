@@ -1,5 +1,6 @@
 package fun.chenqi.test;
 
+import org.zhire.SpringBootStart;
 import org.zhire.mapper.UserMapper;
 import org.zhire.pojo.User;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Date: 2019.4.15 16:24
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = SpringBootStart.class)
 public class SampleTest {
     @Autowired
     private UserMapper userMapper;
