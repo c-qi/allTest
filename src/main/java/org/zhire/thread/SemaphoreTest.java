@@ -17,6 +17,7 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest {
     private static final int THREAD_COUNT = 30;
     private static ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+    // NonfairSync非公平锁实现
     private static Semaphore s = new Semaphore(10);
 
     public static void main(String[] args) {
@@ -25,9 +26,11 @@ public class SemaphoreTest {
                 @Override
                 public void run() {
                     try {
+                        // CAS
                         s.acquire();
                         System.out.println("save data ");
                         Thread.sleep(3000);
+                        // CAS
                         s.release();
                     } catch (InterruptedException e) {
                     }

@@ -28,6 +28,7 @@ public class CyclicBarrierTest2 {
                 Thread.sleep(1000);
                 System.out.println(getName() + " 到达栅栏 A");
                 // await()方法让线程阻塞，最后一个到达的线程完成了Runnable里的任务再往下执行
+                // ReentrantLock
                 barrier.await();
                 System.out.println(getName() + " 冲破栅栏 A");
 
