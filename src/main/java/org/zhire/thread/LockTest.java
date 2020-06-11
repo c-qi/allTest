@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
+ * Lock锁 -> AbstractQueuedSynchronizer(AQS)实现 -> CAS实现
+ *
  * @Author: chenqi
  * @Date: 2019.10.12 09:28
  */

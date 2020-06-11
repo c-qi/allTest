@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * AtomicInteger底层CAS实现的
+ *
  * @Author: chenqi
  * @Date: 2019.12.3 10:30
  */
