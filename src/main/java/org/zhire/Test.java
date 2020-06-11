@@ -9,14 +9,13 @@ import org.Person;
 import org.zhire.pojo.User;
 import org.mindrot.jbcrypt.BCrypt;
 
-//import javax.persistence.Persistence;
 import java.io.*;
+import java.lang.ref.*;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Consumer;
 
 
 /**
@@ -315,16 +314,16 @@ public class Test {
                 "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
 
         //for (int i = 0; i < 1000; i++) {
-            List list = Arrays.asList(beforeShuffle);
-            //Collections.shuffle(list);
-      //      StringBuilder sb = new StringBuilder();
+        List list = Arrays.asList(beforeShuffle);
+        //Collections.shuffle(list);
+        //      StringBuilder sb = new StringBuilder();
 //            for (int j = 0; j < list.size(); j++) {
 //            sb.append(list.get(j));
 //        }
 //            String afterShuffle = sb.toString();
 //            String result = afterShuffle.substring(5, 10);
         for (Object o : list) {
-            System.out.println(o+"CQ@live.cn;");
+            System.out.println(o + "CQ@live.cn;");
 
         }
         //}
@@ -609,11 +608,32 @@ public class Test {
     }
 
     @org.junit.Test
-    public void tttttds(){
+    public void tttttds() {
         HashMap<Object, Object> map = new HashMap<>();
-        map.put("orderId","3412e2dfqw");
+        map.put("orderId", "3412e2dfqw");
         JSONArray orderIds = JSONArray.parseArray(map.get("orderId").toString());
         System.out.println(orderIds);
+    }
+
+    @org.junit.Test
+    public void testQRRX() {
+        ReferenceQueue<String> referenceQueue = new ReferenceQueue<>();
+        // 强引用 只要引用一直在 内存不足时JVM宁愿抛异常也不清除对象
+        String str = new String("abc");
+        // 软引用 内存不够的时候才会回收 比如可以实现一个图片缓存
+        SoftReference<String> softReference = new SoftReference<>(str, referenceQueue);
+        // 弱引用 在GC的时候，不管内存空间足不足都会回收这个对象，同样也可以配合ReferenceQueue 使用，也同样适用于内存敏感的缓存。ThreadLocal中的key就用到了弱引用。
+        WeakReference<String> weakReference = new WeakReference<>(str, referenceQueue);
+        // 虚引用 任何时候可能被GC回收，就像没有引用一样。
+        PhantomReference phantomReference = new PhantomReference<>(str, referenceQueue);
+        str = null;
+        // 通知GC JVM什么时候扫描回收对象是JVM自己的状态决定的。就算扫描到软引用对象也不一定会回收它，只有内存不够的时候才会回收。
+        System.gc();
+        System.out.println("softReference：" + softReference.get()); // abc
+        System.out.println("weakReference：" + weakReference.get()); // abc
+        System.out.println("phantomReference：" + phantomReference.get()); // 软引用这样获取不到 没意义 abc
+        Reference<? extends String> reference = referenceQueue.poll();
+        System.out.println("reference：" + reference); //null
     }
 
 
