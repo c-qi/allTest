@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
  * @Date: 2019.12.20 14:39
  */
 public class CountDownLatchTest {
-    static CountDownLatch c = new CountDownLatch(2);
+    static CountDownLatch c = new CountDownLatch(3);
 
     /**
      * 当调用CountDownLatch的countDown方法时，N就会减1，
@@ -26,12 +26,28 @@ public class CountDownLatchTest {
                 System.out.println(1);
                 // CAS
                 c.countDown();
+                // System.out.println(2);
+                // c.countDown();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //System.out.println(1);
+                // CAS
+                //c.countDown();
                 System.out.println(2);
                 c.countDown();
             }
         }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(3);
+            }
+        }).start();
         // CAS
         c.await();
-        System.out.println("3");
+        System.out.println("4");
     }
 }

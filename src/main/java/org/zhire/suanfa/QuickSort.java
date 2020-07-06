@@ -3,6 +3,8 @@ package org.zhire.suanfa;
 import java.util.Arrays;
 
 /**
+ * 快速排序的时间复杂度是 O(nlogn)。
+ *
  * @Author: chenqi
  * @Date: 2020.6.5 17:21
  */

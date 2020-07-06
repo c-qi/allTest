@@ -5,13 +5,18 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zhire.pojo.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.*;
 import java.lang.ref.*;
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +27,7 @@ import java.util.*;
  * @Author: chenqi
  * @Date: 2019.3.6 14:19
  */
+@Slf4j
 public class Test {
     public static void main(String[] args) {
 //        String logStr = new StringBuilder()
@@ -634,6 +640,60 @@ public class Test {
         System.out.println("phantomReference：" + phantomReference.get()); // 软引用这样获取不到 没意义 abc
         Reference<? extends String> reference = referenceQueue.poll();
         System.out.println("reference：" + reference); //null
+    }
+
+    private Random rand;
+
+    {
+        try {
+            rand = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 生成谁随机数
+     */
+    @org.junit.Test
+    public void testRandom() {
+        for (int j = 0; j <= 10; j++) {
+            int i = rand.nextInt(10);
+            System.out.println(i);
+        }
+    }
+
+    private final Logger logger = LoggerFactory.getLogger(Test.class);
+
+    @org.junit.Test
+    public void testLog() {
+//       String type = "2";
+//       if (type.equals("3")){
+//           System.out.println("333");
+//       }
+//       if (!type.equals("3")){
+//           System.out.println(type);
+//       }
+//        try {
+//            int i = 1 / 0;
+//        } catch (Exception e) {
+//            //e.printStackTrace();
+//            log.info("error:,", e);
+//            log.info("error:{}", e.getMessage());
+//            log.info("error:{}", e.getStackTrace());
+//            log.info(e.getMessage(), e);
+//
+//        }
+
+        try {
+            System.out.println("----1");
+            Thread.sleep(5000);
+            System.out.println("----2");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
+
     }
 
 

@@ -48,8 +48,11 @@ public class Collections {
          * 1.8 synchronized
          * k-v不为空
          */
-        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
+        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap(2);
         concurrentHashMap.put("1", 1);
+        concurrentHashMap.put("2", 1);
+        concurrentHashMap.put("3", 1);
+        concurrentHashMap.get("1");
         /**
          *  实现HashMap 基于链表
          */
