@@ -696,5 +696,23 @@ public class Test {
 
     }
 
+    /**
+     * i++，先使用变量，再进行变量自增1
+     * ++i，先进行变量自增1，再使用变量
+     *
+     */
+    @org.junit.Test
+    public void testAdd() {
+        int a = 0;
+        for (int i = 0; i < 99; i++) {
+            a = a++;
+        }
+        System.out.println(a);
 
+        int b = 0;
+        for (int i = 0; i < 99; i++) {
+            b = ++b;
+        }
+        System.out.println(b);
+    }
 }
