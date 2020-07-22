@@ -10,12 +10,15 @@ public class Sort {
         int[] nums = {3, 2, 5, 4, -1, 0, 9, 9, -2, 100, 30};
         int[] nums2 = {3, 2, 5, 4, -1, 0, 9, 9, -2, 100, 30};
         int[] nums3 = {3, 2, 5, 4, -1, 0, 9, 9, -2, 100, 30};
-        sortBymp(nums);
-        System.out.println();
-        sortByInsert(nums2);
-        System.out.println();
-        sortByXz(nums3);
-        sortByXz2(nums3);
+        int[] nums4 = {8, 10, 2, 3, 6, 1, 5};
+        // sortBymp(nums);
+        // System.out.println();
+        // sortByInsert(nums2);
+        // System.out.println();
+        // sortByXz(nums3);
+        //  sortByXz2(nums3);
+        //quickSort(nums4);
+        sortByQuick(nums4);
 
     }
 
@@ -132,6 +135,95 @@ public class Sort {
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
         }
+    }
+
+    /**
+     * 快速排序
+     *
+     * @param nums
+     */
+    private static void quickSort(int[] nums) {
+        quickSortNums(nums, 0, nums.length - 1);
+        for (int i = 0; i < nums.length; i++) {
+            System.out.print(nums[i] + " ");
+        }
+    }
+
+    /**
+     * @param nums 数组
+     * @param p    下标
+     * @param r    下标
+     */
+    private static void quickSortNums(int[] nums, int p, int r) {
+        if (p >= r) {
+            return;
+        }
+        int q = partition(nums, p, r); // 找到分区点
+        quickSortNums(nums, p, q - 1);
+        quickSortNums(nums, p + 1, r);
+    }
+
+    private static int partition(int[] nums, int p, int r) {
+        int pivot = nums[r]; // 选最后一个为分区点
+        int i = p;
+        for (int j = p; j < r; ++j) {
+            if (nums[j] < pivot) {
+                // if (i == j) {
+                //   ++i;
+                //  } else {
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+                i++;
+                // }
+            }
+        }
+        // 把分区点插入
+        int tmp = nums[i];
+        nums[i] = nums[r];
+        nums[r] = tmp;
+        System.out.println("i=" + i);
+        return i;
+    }
+
+
+    /**
+     * 快速排序
+     *
+     * @param nums
+     */
+    private static void sortByQuick(int[] nums) {
+        sortByQuickMethod(nums, 0, nums.length - 1);
+        for (int i = 0; i < nums.length; i++) {
+            System.out.print(nums[i] + " ");
+        }
+    }
+
+    private static void sortByQuickMethod(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int middle = getMiddle(nums, left, right);
+        sortByQuickMethod(nums, left, middle - 1);
+        sortByQuickMethod(nums, middle + 1, right);
+
+    }
+
+    private static int getMiddle(int[] nums, int left, int right) {
+        int on = nums[right];
+        int i = left;
+        for (int j = left; j < right; j++) {
+            if (nums[j] < on) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+            }
+        }
+        int temp = nums[i];
+        nums[i] = nums[right];
+        nums[right] = temp;
+        return i;
     }
 
 
