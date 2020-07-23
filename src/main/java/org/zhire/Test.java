@@ -11,10 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zhire.pojo.User;
 import org.mindrot.jbcrypt.BCrypt;
+import org.zhire.utils.HttpUtil;
+import sun.net.www.http.HttpClient;
 
 import java.io.*;
 import java.lang.ref.*;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -699,7 +702,6 @@ public class Test {
     /**
      * i++，先使用变量，再进行变量自增1
      * ++i，先进行变量自增1，再使用变量
-     *
      */
     @org.junit.Test
     public void testAdd() {
@@ -714,5 +716,10 @@ public class Test {
             b = ++b;
         }
         System.out.println(b);
+    }
+
+    @org.junit.Test
+    public void trtr(){
+
     }
 }
