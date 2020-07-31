@@ -3,7 +3,7 @@ package org.zhire.suanfa.shujujiegou;
 import lombok.Data;
 
 /**
- * 二叉树的前序，中序，后序遍历
+ * 二叉树的前序，中序，后序遍历（时间复杂度都是 O(n)）
  * 　　  a
  * 　　/   \
  * 　 b    c
