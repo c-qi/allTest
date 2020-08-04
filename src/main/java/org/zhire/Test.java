@@ -727,6 +727,7 @@ public class Test {
             System.out.println(chars[i]);
         }
             System.out.println(chars);
+            System.out.println(chars);
 
     }
 }
