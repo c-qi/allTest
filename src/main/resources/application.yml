@@ -16,6 +16,12 @@ spring:
    maxIdle: 300
    maxWait: 3000
    testOnBorrow: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
   jpa:
     properties:

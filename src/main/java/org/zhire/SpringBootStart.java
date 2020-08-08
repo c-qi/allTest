@@ -4,7 +4,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.zhire.cloudstream.StreamPut;
+import org.zhire.cloudstream.input.Receive;
+import org.zhire.cloudstream.output.Send;
 
 //import org.springframework.cache.annotation.EnableCaching;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -25,6 +29,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 //@EnableScheduling      // 开启定时任务
 //@EnableCaching       // 开启缓存
 //@EnableEurekaServer
+@EnableBinding(value = { StreamPut.class})
 @MapperScan("org.zhire.mapper")
 public class SpringBootStart {
     public static void main(String[] args) {
@@ -71,11 +76,11 @@ public class SpringBootStart {
          * 		catch (Throwable ex) {
          * 			handleRunFailure(context, listeners, exceptionReporters, ex);
          * 			throw new IllegalStateException(ex);
-         * 		}
+         *        }
          * 		listeners.running(context);
          * 		return context;
          */
-         SpringApplication.run(SpringBootStart.class, args);
+        SpringApplication.run(SpringBootStart.class, args);
 
     }
 }
