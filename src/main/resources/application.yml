@@ -1,13 +1,13 @@
 server:
-  port: 7970
+  port: 7971
 spring:
   application:
     name: allTest
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/blog
+    url: jdbc:mysql://127.0.0.1:3306/MyTest
     username: root
-    password: 111
+    password: 1111
   redis:
    host: 127.0.0.1
    port: 6379
@@ -16,4 +16,13 @@ spring:
    maxIdle: 300
    maxWait: 3000
    testOnBorrow: true
+
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
 
