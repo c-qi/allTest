@@ -3,11 +3,16 @@ package org.zhire.jpa;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Service
 public class MyUserServiceImpl implements MyUserService {
@@ -40,11 +45,20 @@ public class MyUserServiceImpl implements MyUserService {
         page = (page - 1) * pageSize;
         long count = userRepository.count();
         System.out.println("All count：" + count);
+        // 单表查询可用自带分页
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(page, pageSize, sort);
+        Page<User> all = userRepository.findAll(pageable);
+        System.out.println("使用自带分页结果：" + all);
+        all.forEach(l -> {
+            System.out.println(l);
+        });
         return userRepository.findAllUser(page, pageSize);
     }
 
     @Override
     public List<UserAndInfo> findAllInfo(int page, int pageSize) {
+        // 多表查询可手写分页
         page = (page - 1) * pageSize;
         long count = userRepository.count();
         System.out.println("All count：" + count);
