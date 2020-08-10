@@ -1,5 +1,6 @@
 package org.zhire;
 
+import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.zhire.cloudstream.StreamPut;
 import org.zhire.cloudstream.input.Receive;
 import org.zhire.cloudstream.output.Send;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //import org.springframework.cache.annotation.EnableCaching;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -30,6 +32,8 @@ import org.zhire.cloudstream.output.Send;
 //@EnableCaching       // 开启缓存
 //@EnableEurekaServer
 @EnableBinding(value = { StreamPut.class})
+@EnableSwagger2
+@EnableJSONDoc
 @MapperScan("org.zhire.mapper")
 public class SpringBootStart {
     public static void main(String[] args) {
