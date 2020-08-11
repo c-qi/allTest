@@ -47,4 +47,16 @@ public class MyUserController {
     public List<UserAndInfo> findAllInfo(@RequestParam int page, @RequestParam int pageSize) {
         return myUserService.findAllInfo(page, pageSize);
     }
+
+    @RequestMapping("/findFirst")
+    public ZpUserBusiness findFirst(@RequestParam int fromType) {
+        ZpUserBusiness.FROMTYPE test = null;
+        if (fromType == 0){
+            test = ZpUserBusiness.FROMTYPE.TEST;
+        }
+        if (fromType == 1){
+            test = ZpUserBusiness.FROMTYPE.WORKS;
+        }
+        return myUserService.findFirst(test);
+    }
 }

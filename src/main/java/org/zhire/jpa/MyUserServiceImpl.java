@@ -2,6 +2,7 @@ package org.zhire.jpa;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import org.jsondoc.core.annotation.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,22 +13,25 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
 public class MyUserServiceImpl implements MyUserService {
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private UserRepositoryTest userRepositoryTest;
     @Override
     public void insert() {
-        User user = new User();
-        user.setUserName("cq");
+        ZpUserBusiness user = new ZpUserBusiness();
+        user.setFromType(ZpUserBusiness.FROMTYPE.TEST);
+        user.setUserId(123123123L);
         user.setId(0L);
-        user.setNickName("ccc");
-        user.setEmail("cc@cc.cc");
-        user.setPassWord("1312");
-        userRepository.save(user);
+        userRepositoryTest.save(user);
+        if (user.getFromType().equals(ZpUserBusiness.FROMTYPE.TEST)){
+            System.out.println("12312312312312312");
+        }
     }
 
     @Override
@@ -67,6 +71,18 @@ public class MyUserServiceImpl implements MyUserService {
         System.out.println(userAndInfos);
         return userAndInfos;
     }
+
+    @Override
+    public ZpUserBusiness findFirst(ZpUserBusiness.FROMTYPE fromType) {
+        ZpUserBusiness zp = new ZpUserBusiness();
+        zp.setUserId(System.currentTimeMillis());
+        zp.setFromType(ZpUserBusiness.FROMTYPE.WORKS);
+        userRepositoryTest.save(zp);
+        Optional<ZpUserBusiness> first = userRepositoryTest.findFirstByFromType(fromType);
+        ZpUserBusiness zpUserBusiness = first.get();
+        return zpUserBusiness;
+    }
+
 
     public static void main(String[] args) {
         List<Map<String, Object>> list = new ArrayList<>();

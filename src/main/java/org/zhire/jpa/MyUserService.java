@@ -12,4 +12,6 @@ public interface MyUserService {
     List<User> findAll(int page, int pageSize);
 
     List<UserAndInfo> findAllInfo(int page, int pageSize);
+
+    ZpUserBusiness findFirst(ZpUserBusiness.FROMTYPE fromType);
 }
