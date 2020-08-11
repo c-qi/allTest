@@ -76,7 +76,7 @@ public class MyUserServiceImpl implements MyUserService {
     public ZpUserBusiness findFirst(ZpUserBusiness.FROMTYPE fromType) {
         ZpUserBusiness zp = new ZpUserBusiness();
         zp.setUserId(System.currentTimeMillis());
-        zp.setFromType(ZpUserBusiness.FROMTYPE.WORKS);
+        zp.setFromType(ZpUserBusiness.FROMTYPE.TEST);
         userRepositoryTest.save(zp);
         Optional<ZpUserBusiness> first = userRepositoryTest.findFirstByFromType(fromType);
         ZpUserBusiness zpUserBusiness = first.get();

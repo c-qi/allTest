@@ -49,14 +49,14 @@ public class MyUserController {
     }
 
     @RequestMapping("/findFirst")
-    public ZpUserBusiness findFirst(@RequestParam int fromType) {
-        ZpUserBusiness.FROMTYPE test = null;
-        if (fromType == 0){
-            test = ZpUserBusiness.FROMTYPE.TEST;
-        }
-        if (fromType == 1){
-            test = ZpUserBusiness.FROMTYPE.WORKS;
-        }
-        return myUserService.findFirst(test);
+    public ZpUserBusiness findFirst(@RequestParam ZpUserBusiness.FROMTYPE fromType) {
+//        ZpUserBusiness.FROMTYPE test = null;
+//        if (fromType == 0){
+//            test = ZpUserBusiness.FROMTYPE.TEST;
+//        }
+//        if (fromType == 1){
+//            test = ZpUserBusiness.FROMTYPE.WORKS;
+//        }
+        return myUserService.findFirst(fromType);
     }
 }
