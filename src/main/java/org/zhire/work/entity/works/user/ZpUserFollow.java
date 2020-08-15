@@ -31,9 +31,17 @@ public class ZpUserFollow extends BaseEntity {
     @Column(name = "user_id", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0 + " COMMENT '关注人ID'")
     private Long userId;
 
+    @ApiModelProperty("关注人的名称")
+    @Column(name = "username", nullable = true, columnDefinition = BaseEntity.VARCHAR_DEFAULT_0 + " COMMENT '关注人的名称'")
+    private String username;
+
     @ApiModelProperty("被关注人ID")
     @Column(name = "follow_user_id", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0 + " COMMENT '被关注人ID'")
     private Long followUserId;
+
+    @ApiModelProperty("被关注人的名称")
+    @Column(name = "follow_username", nullable = true, columnDefinition = BaseEntity.VARCHAR_DEFAULT_0 + " COMMENT '被关注人的名称'")
+    private String followUsername;
 
     @ApiModelProperty("最新关注时间")
     @Column(name = "latest_time", nullable = true, columnDefinition = BaseEntity.BIGINT_DEFAULT_0 + " COMMENT '最新关注时间'")

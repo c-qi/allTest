@@ -3,8 +3,10 @@ package org.zhire.work.es.v1.user;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.zhire.work.entity.works.user.ZpUserFollow;
 import org.zhire.work.es.BaseRepository;
 
@@ -89,4 +91,37 @@ public interface ZpUserFollowRepository extends
             "WHERE works_user_id = 1 " +
             "ORDER BY ctime desc " , nativeQuery = true)
     List<Map<Object,Object>> getHd(Long userId);
+
+    List<ZpUserFollow> findAllByUserId(Long userId);
+
+
+//    @Query(value = "select * from zp_user_follow where user_id = ?1 and follow_user_id = ?2 and follow_status in ?3", nativeQuery = true)
+//    Optional<ZpUserFollow> findByUserIdAndFollowUserIdAndFollowTypeIn(Long userId, Long followUserId, List<ZpUserFollow.FOLLOWTYPE> typeList);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "update zp_user_follow f " +
+            "set f.username = ?2 " +
+            "where f.user_id = ?1 ", nativeQuery = true)
+    int updateUsernameByUserId(Long userId, String username);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update zp_user_follow f " +
+            "set f.follow_username = ?2 " +
+            "where f.follow_user_id = ?1 ", nativeQuery = true)
+    int updateFollowUsernameByFollowUserId(Long userId, String username);
+
+
+    long countByUserIdAndFollowTypeIn(Long userId, List<ZpUserFollow.FOLLOWTYPE> typelist);
+
+    Optional<ZpUserFollow> findByUserIdAndFollowUserIdAndFollowTypeIn(Long userId, Long followUserId, List<ZpUserFollow.FOLLOWTYPE> typelist);
+
+    List<ZpUserFollow> findByUserIdAndFollowUsernameLikeAndFollowTypeIn(Long userId, String followUsername, List<ZpUserFollow.FOLLOWTYPE> typelist);
+
+
+    Optional<ZpUserFollow> findByFollowUserIdAndUserIdAndFollowTypeIn(Long userId, Long fansUserId, List<ZpUserFollow.FOLLOWTYPE> typelist);
+
+    List<ZpUserFollow> findByFollowUserIdAndUsernameLikeAndFollowTypeIn(Long userId, String fansUsername, List<ZpUserFollow.FOLLOWTYPE> typelist);
 }

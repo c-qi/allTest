@@ -14,6 +14,7 @@ import org.zhire.work.model.ResponsePage;
 import org.zhire.work.model.ZpFollowResponse;
 import org.zhire.work.model.ZphdResponse;
 import org.zhire.work.service.WorkUserService;
+import org.zhire.work.service.ZpUserFollowService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,9 @@ public class WorkUserController {
 
     @Autowired
     private WorkUserService userService;
+
+    @Autowired
+    private ZpUserFollowService zpUserFollowService;
 
 
     @ApiMethod(description = "获取用户信息 map")
@@ -112,6 +116,37 @@ public class WorkUserController {
         } catch (Exception e) {
             log.info("关注失败：{}", e);
             return R.error();
+        }
+    }
+    @ApiMethod(description = "根据用户名称或ID模糊搜索关注列表")
+    @GetMapping("/getMyFollowByUsernameOrId")
+    public Response<List<ZpFollowResponse>> getMyFollowByUsername(
+            @ApiQueryParam(name = "userId", description = "用户ID") @RequestParam(required = true) Long userId,
+            @ApiQueryParam(name = "followUserId", description = "关注用户的ID") @RequestParam(required = false) Long followUserId,
+            @ApiQueryParam(name = "followUsername", description = "关注用户的名称") @RequestParam(required = false) String followUsername
+
+    ){
+        try {
+            return Response.ok(zpUserFollowService.getMyFollowByUsername(userId, followUserId, followUsername));
+        } catch (Exception e) {
+            log.info("获取用户关注人的ID失败：{}", e);
+            return Response.exception(e);
+        }
+    }
+
+    @ApiMethod(description = "根据用户名称或ID模糊搜索我的粉丝列表")
+    @GetMapping("/getMyFansByUsernameOrId")
+    public Response<List<ZpFollowResponse>> getMyFansByUsernameOrId(
+            @ApiQueryParam(name = "userId", description = "用户ID") @RequestParam(required = true) Long userId,
+            @ApiQueryParam(name = "fansUserId", description = "关注用户的ID") @RequestParam(required = false) Long fansUserId,
+            @ApiQueryParam(name = "fansUsername", description = "用户用户的名称") @RequestParam(required = false) String fansUsername
+
+    ){
+        try {
+            return Response.ok(zpUserFollowService.getMyFansByUsernameOrId(userId, fansUserId, fansUsername));
+        } catch (Exception e) {
+            log.info("获取用户关注人的ID失败：{}", e);
+            return Response.exception(e);
         }
     }
 }
