@@ -1,14 +1,13 @@
 package org.zhire.jpa;
 
-import io.swagger.annotations.ApiOperation;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
-import org.jsondoc.core.annotation.ApiPathParam;
 import org.jsondoc.core.annotation.ApiQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zhire.utils.R;
 
 import java.util.List;
 
@@ -33,6 +32,14 @@ public class MyUserController {
         return myUserService.findByUserName(userName);
     }
 
+    @RequestMapping("/update")
+    public R update(@RequestParam(required = false)String userName,
+                    @RequestParam(required = false)String password,
+                    @RequestParam Integer id
+                    ) {
+        return myUserService.update(id,userName,password);
+    }
+
     @RequestMapping("/findByUserNameOrEmail")
     public User findByUserNameOrEmail(@RequestParam(required = false) String userName, @RequestParam(required = false) String email) {
         return myUserService.findByUserNameOrEmail(userName, email);
@@ -50,6 +57,10 @@ public class MyUserController {
 
     @RequestMapping("/findFirst")
     public ZpUserBusiness findFirst(@RequestParam ZpUserBusiness.FROMTYPE fromType) {
+        System.out.println(fromType);
+        if (fromType.equals(ZpUserBusiness.FROMTYPE.TEST)){
+            System.out.println(true);
+        }
 //        ZpUserBusiness.FROMTYPE test = null;
 //        if (fromType == 0){
 //            test = ZpUserBusiness.FROMTYPE.TEST;

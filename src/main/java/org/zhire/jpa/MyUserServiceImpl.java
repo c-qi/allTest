@@ -2,19 +2,18 @@ package org.zhire.jpa;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import org.jsondoc.core.annotation.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.zhire.utils.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class MyUserServiceImpl implements MyUserService {
@@ -29,7 +28,7 @@ public class MyUserServiceImpl implements MyUserService {
         user.setUserId(123123123L);
         user.setId(0L);
         userRepositoryTest.save(user);
-        if (user.getFromType().equals(ZpUserBusiness.FROMTYPE.TEST)){
+        if (user.getFromType().equals(ZpUserBusiness.FROMTYPE.TEST)) {
             System.out.println("12312312312312312");
         }
     }
@@ -81,6 +80,12 @@ public class MyUserServiceImpl implements MyUserService {
         Optional<ZpUserBusiness> first = userRepositoryTest.findFirstByFromType(fromType);
         ZpUserBusiness zpUserBusiness = first.get();
         return zpUserBusiness;
+    }
+
+    @Override
+    public R update(Integer id, String userName, String password) {
+        int i = userRepository.updateByid(id, userName, password);
+        return R.ok().put("result", i);
     }
 
 

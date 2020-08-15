@@ -1,6 +1,5 @@
 package org.zhire.jpa;
 
-import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.sql.Connection;
@@ -22,6 +21,10 @@ class MyTest {
 
 class Test {
     public static void main(String[] args) throws Exception {
+
+        if (MyEnum.valueOf("ZERO").equals(MyEnum.ZERO)) {
+            System.out.println(true);
+        }
 
         System.out.println(MyEnum.ZERO);
         System.out.println(MyEnum.ONE);

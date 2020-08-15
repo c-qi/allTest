@@ -2,14 +2,14 @@ package org.zhire;
 
 import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.*;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.zhire.cloudstream.StreamPut;
-import org.zhire.cloudstream.input.Receive;
-import org.zhire.cloudstream.output.Send;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //import org.springframework.cache.annotation.EnableCaching;
@@ -34,6 +34,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableBinding(value = { StreamPut.class})
 @EnableSwagger2
 @EnableJSONDoc
+@EntityScan(basePackages = {
+        "org.zhire.jpa",
+        "org.zhire.work.entity.works"
+})
+@EnableJpaRepositories(basePackages = {
+        "org.zhire.work.es",
+        "org.zhire.jpa"
+})
 @MapperScan("org.zhire.mapper")
 public class SpringBootStart {
     public static void main(String[] args) {

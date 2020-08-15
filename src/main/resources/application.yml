@@ -1,6 +1,8 @@
 server:
   port: 7971
 spring:
+  main:
+   allow-bean-definition-overriding: true
   application:
     name: allTest
   datasource:
@@ -8,14 +10,14 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/MyTest
     username: root
     password: 1111
-  redis:
-   host: 127.0.0.1
-   port: 6379
-   pass:
-   database: 0
-   maxIdle: 300
-   maxWait: 3000
-   testOnBorrow: true
+#  redis:
+#   host: 127.0.0.1
+#   port: 6379
+#   pass:
+#   database: 0
+#   maxIdle: 300
+#   maxWait: 3000
+#   testOnBorrow: true
   rabbitmq:
     host: localhost
     port: 5672
@@ -31,4 +33,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true
-
+logging:
+  level:
+    org.hibernate.type.descriptory.sql.BasicBinder: trace

@@ -1,5 +1,7 @@
 package org.zhire.jpa;
 
+import org.zhire.utils.R;
+
 import java.util.List;
 
 public interface MyUserService {
@@ -14,4 +16,6 @@ public interface MyUserService {
     List<UserAndInfo> findAllInfo(int page, int pageSize);
 
     ZpUserBusiness findFirst(ZpUserBusiness.FROMTYPE fromType);
+
+    R update(Integer id, String userName, String password);
 }

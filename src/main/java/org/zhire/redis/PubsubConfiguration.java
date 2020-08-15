@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -15,7 +14,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  * 此外redis的配置文件加上：notify-keyspace-events Ex
  * 或者命令行：config set notify-keyspace-events Ex
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class PubsubConfiguration {
 
