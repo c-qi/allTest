@@ -85,7 +85,7 @@ public class Java8FutureStudy {
             return future;
         }
 
-        // 异步获取价格优化代码
+        // todo 异步获取价格优化代码
         public Future<Double> getPriceAsyncBetter(String product) {
             return CompletableFuture.supplyAsync(() ->
                     calculatePrice(product));
