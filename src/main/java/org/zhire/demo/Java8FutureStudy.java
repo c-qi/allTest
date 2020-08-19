@@ -1,4 +1,4 @@
-package org.zhire.demo.finall;
+package org.zhire.demo;
 
 import lombok.Data;
 import org.junit.Test;
@@ -11,6 +11,13 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * CompletableFuture使用总结
+ * supplyAsync() 异步执行
+ * .thenApply() 把上个输出流变成输入流进入
+ * .thenAccept() 拿到输出结果
+ * CompletableFuture.allOf().join(); 线程走到这里会暂停直到取到所有的future结果
+ */
 public class Java8FutureStudy {
 
     @Test
@@ -280,7 +287,9 @@ public class Java8FutureStudy {
         CompletableFuture[] array = shop.findPricesBetterByBest2("apple").
                 map(f -> f.thenAccept(p -> list.add(p)))
                 .toArray(size -> new CompletableFuture[size]);
+        System.out.println("-------------");
         CompletableFuture.allOf(array).join();
+        System.out.println("-------------");
         watch.stop();
         System.out.println(watch.getTotalTimeMillis());
         System.out.println(list);
