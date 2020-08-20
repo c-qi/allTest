@@ -1,6 +1,25 @@
 server:
   port: 7971
 spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092     # kafka地址
+          zk-nodes: 127.0.0.1:2181    # zk地址 springboot2.0之后 可省略
+          auto-create-topics: true
+      default-binder: kafka           #如果还有rabbitmq的话需要制定一个默认的
+      bindings:
+        output:                       #默认output
+          destination: stream-demo    #消息发往的目的地
+          content-type: text/plain    #消息发送格式
+        myOutput:                     #自定义output
+          destination: stream-demo    #消息发往的目的地
+          content-type: text/plain    #消息发送格式
+        input:                        #接收
+          destination: stream-demo
+
+
   application:
     name: allTest
   datasource:
@@ -16,12 +35,12 @@ spring:
    maxIdle: 300
    maxWait: 3000
    testOnBorrow: true
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
 
   jpa:
     properties:

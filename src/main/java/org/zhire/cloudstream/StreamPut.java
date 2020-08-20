@@ -5,8 +5,8 @@ import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.SubscribableChannel;
 
 public interface StreamPut {
-    String input = "input";
-    String output = "output";
+    String input = "input1";
+    String output = "output1";
 
     @Input(StreamPut.input)
     SubscribableChannel input();

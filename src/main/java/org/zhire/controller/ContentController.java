@@ -1,5 +1,6 @@
 package org.zhire.controller;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.zhire.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +21,11 @@ public class ContentController {
         return null;
     }
 
+    @RequestMapping("/test")
+    public String login(@RequestParam(required = false)Long id, @RequestParam String name) throws Exception {
+        System.out.println(id);
+        System.out.println(name);
+        return "ok";
+    }
 
 }

@@ -7,17 +7,14 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.Person;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zhire.pojo.User;
-import org.mindrot.jbcrypt.BCrypt;
-import org.zhire.utils.HttpUtil;
-import sun.net.www.http.HttpClient;
 
 import java.io.*;
 import java.lang.ref.*;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
