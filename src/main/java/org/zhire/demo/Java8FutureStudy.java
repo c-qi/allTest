@@ -295,4 +295,26 @@ public class Java8FutureStudy {
         System.out.println(list);
     }
 
+    @Test
+    public void t() throws Exception {
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> get(1));
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> get("s"));
+        //CompletableFuture.allOf(future,future1).join();
+        System.out.println(future.get());
+        System.out.println(future1.get());
+
+    }
+
+    public Integer get(int i) {
+        i = i + 1;
+        System.out.println(i);
+        return i;
+    }
+
+    public String get(String s) {
+        s = s + s;
+        System.out.println(s);
+        return s;
+    }
+
 }

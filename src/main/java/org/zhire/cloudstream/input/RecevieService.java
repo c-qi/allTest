@@ -1,18 +1,13 @@
 package org.zhire.cloudstream.input;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.zhire.cloudstream.StreamPut;
 
-@Component
+//@Component
 //@EnableBinding(value = Receive.class)
-@EnableBinding(value = StreamPut.class)
+//@EnableBinding(value = StreamPut.class)
 public class RecevieService {
 
     @Autowired

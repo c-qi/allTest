@@ -716,15 +716,55 @@ public class Test {
     }
 
     @org.junit.Test
-    public void trtr(){
+    public void trtr() {
         String s = "abc";
         char[] chars = s.toCharArray();
 
         for (int i = 0; i < chars.length; i++) {
             System.out.println(chars[i]);
         }
-            System.out.println(chars);
-            System.out.println(chars);
+        System.out.println(chars);
+        System.out.println(chars);
 
+    }
+
+    @org.junit.Test
+    public void age() {
+        Long t =    1597929244l;
+        Long time = 1597929244000l;
+        if (String.valueOf(t).length() == 10){
+            t = t * 1000;
+        }
+        Date date = new Date(time);
+        Date date2 = new Date(t);
+        System.out.println(getAgeByBirth(date));
+        System.out.println(getAgeByBirth(date2));
+
+    }
+
+    public int getAgeByBirth(Date birthDay) {
+
+        int age = 0;
+        Calendar cal = Calendar.getInstance();
+        if (cal.before(birthDay)) { //出生日期晚于当前时间，无法计算
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);  //当前年份
+        int monthNow = cal.get(Calendar.MONTH);  //当前月份
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH); //当前日期
+        cal.setTime(birthDay);
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+        age = yearNow - yearBirth;   //计算整岁数
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;//当前日期在生日之前，年龄减一
+            } else {
+                age--;//当前月份在生日之前，年龄减一
+            }
+        }
+        return age;
     }
 }
