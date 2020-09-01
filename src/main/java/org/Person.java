@@ -34,10 +34,12 @@ public class Person {
     private int age;
     private Date birthday;
 
+
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 ", birthday=" + birthday +
                 '}';

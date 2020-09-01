@@ -730,9 +730,9 @@ public class Test {
 
     @org.junit.Test
     public void age() {
-        Long t =    1597929244l;
+        Long t = 1597929244l;
         Long time = 1597929244000l;
-        if (String.valueOf(t).length() == 10){
+        if (String.valueOf(t).length() == 10) {
             t = t * 1000;
         }
         Date date = new Date(time);
@@ -766,5 +766,32 @@ public class Test {
             }
         }
         return age;
+    }
+
+
+    @org.junit.Test
+    public void te() {
+
+        Person person = new Person();
+        person.setName("cq");
+
+        Person person2 = getPer(person);
+
+        System.out.println(person);
+        System.out.println(person2);
+
+        System.out.println(person.equals(person2));
+
+    }
+
+    public Person getPer(Person person) {
+
+       // person.setId(1);
+
+        Person p = new Person();
+        p.setId(1);
+        p.setName(person.getName());
+        person = p;
+        return p;
     }
 }
