@@ -19,17 +19,17 @@ public class User implements Serializable{
     @ApiObjectField(description = "ID") // JSONDoc注解
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     @ApiObjectField(description = "姓名")
     private String userName;
 
     @Column(nullable = false)
     private String passWord;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String email;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true, unique = false)
     private String nickName;
 
 

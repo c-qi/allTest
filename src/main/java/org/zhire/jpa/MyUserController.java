@@ -1,9 +1,7 @@
 package org.zhire.jpa;
 
-import io.swagger.annotations.ApiOperation;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
-import org.jsondoc.core.annotation.ApiPathParam;
 import org.jsondoc.core.annotation.ApiQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,4 +57,10 @@ public class MyUserController {
 //        }
         return myUserService.findFirst(fromType);
     }
+
+    @RequestMapping("/findAllList")
+    public void findAll() {
+         myUserService.findAllList();
+    }
+
 }

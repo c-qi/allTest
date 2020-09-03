@@ -2,7 +2,8 @@ package org.zhire.jpa;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import org.jsondoc.core.annotation.Api;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MyUserServiceImpl implements MyUserService {
@@ -22,15 +24,14 @@ public class MyUserServiceImpl implements MyUserService {
     private UserRepository userRepository;
     @Autowired
     private UserRepositoryTest userRepositoryTest;
+
     @Override
     public void insert() {
-        ZpUserBusiness user = new ZpUserBusiness();
-        user.setFromType(ZpUserBusiness.FROMTYPE.TEST);
-        user.setUserId(123123123L);
-        user.setId(0L);
-        userRepositoryTest.save(user);
-        if (user.getFromType().equals(ZpUserBusiness.FROMTYPE.TEST)){
-            System.out.println("12312312312312312");
+        for (int i = 100; i < 10000; i++) {
+            User user = new User();
+            user.setNickName("cq" + i);
+            user.setId(Long.parseLong(i + ""));
+            userRepository.save(user);
         }
     }
 
@@ -81,6 +82,54 @@ public class MyUserServiceImpl implements MyUserService {
         Optional<ZpUserBusiness> first = userRepositoryTest.findFirstByFromType(fromType);
         ZpUserBusiness zpUserBusiness = first.get();
         return zpUserBusiness;
+    }
+
+    @Override
+    public void findAllList() {
+        int pageNumber = 0;
+        int pageSize = 100;
+        while (true) {
+            System.out.println("num " + pageNumber + "size " + pageSize);
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            Page<User> listPage = userRepository.findAll(pageable);
+            List<User> list = listPage.get().collect(Collectors.toList());
+            CountDownLatch countDownLatch = new CountDownLatch(list.size());
+            System.out.println("countl:" + countDownLatch);
+            if (list.size() == 0) {
+                return;
+            }
+            updateImage(pageNumber++, pageSize, list, countDownLatch);
+        }
+    }
+
+
+    private ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("线程-%d").build();
+    private ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            Runtime.getRuntime().availableProcessors() * 2,
+            Runtime.getRuntime().availableProcessors() * 2,
+            0L,
+            TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(100),
+            threadFactory,
+            new ThreadPoolExecutor.AbortPolicy());
+
+    @Test
+    public void updateImage(int pageNumber, int pageSize, List<User> list, CountDownLatch countDownLatch) {
+        System.out.println("num " + pageNumber + "size " + pageSize);
+        list.forEach(l -> {
+            executor.execute(() -> {
+                System.out.println(Thread.currentThread().getName() + " " + l.getId());
+                l.setNickName(l.getId() + "cqq");
+                userRepository.save(l);
+                countDownLatch.countDown();
+            });
+        });
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("执行完成");
     }
 
 
