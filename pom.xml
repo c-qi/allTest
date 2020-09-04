@@ -169,6 +169,19 @@
             <artifactId>jsondoc-ui-webjar</artifactId>
             <version>1.2.19</version>
         </dependency>
+
+        <!-- canal java -->
+        <dependency>
+            <groupId>top.javatool</groupId>
+            <artifactId>canal-client</artifactId>
+            <version>1.2.1-RELEASE</version>
+        </dependency>
+        <!-- canal springboot -->
+        <dependency>
+            <groupId>top.javatool</groupId>
+            <artifactId>canal-spring-boot-starter</artifactId>
+            <version>1.2.1-RELEASE</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

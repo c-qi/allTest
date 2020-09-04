@@ -1,5 +1,8 @@
 server:
   port: 7971
+canal:
+ server: 192.168.84.22:11111
+ destination: example
 spring:
 #  cloud:
 #    stream:

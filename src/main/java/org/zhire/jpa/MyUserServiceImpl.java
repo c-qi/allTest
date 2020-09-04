@@ -96,6 +96,10 @@ public class MyUserServiceImpl implements MyUserService {
             CountDownLatch countDownLatch = new CountDownLatch(list.size());
             System.out.println("countl:" + countDownLatch);
             if (list.size() == 0) {
+                executor.shutdown();
+                boolean b = executor.isShutdown();
+                System.out.println(executor.getPoolSize());
+                System.out.println(b);
                 return;
             }
             updateImage(pageNumber++, pageSize, list, countDownLatch);
@@ -119,7 +123,7 @@ public class MyUserServiceImpl implements MyUserService {
         list.forEach(l -> {
             executor.execute(() -> {
                 System.out.println(Thread.currentThread().getName() + " " + l.getId());
-                l.setNickName(l.getId() + "cqq");
+                l.setNickName(l.getId() + "cqqqq");
                 userRepository.save(l);
                 countDownLatch.countDown();
             });
