@@ -1,8 +1,6 @@
 package org.zhire.demo.canal;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import top.javatool.canal.client.annotation.CanalTable;
 import top.javatool.canal.client.context.CanalContext;
 import top.javatool.canal.client.handler.EntryHandler;
 import top.javatool.canal.client.model.CanalModel;
@@ -34,8 +32,8 @@ import java.util.Map;
 //
 //    }
 //}
-@CanalTable(value = "all")
-@Component
+//@CanalTable(value = "all")
+//@Component
 @Slf4j
 class DefaultEntryHandler implements EntryHandler<Map<String, String>> {
     @Override
