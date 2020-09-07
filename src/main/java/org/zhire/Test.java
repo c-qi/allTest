@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -786,7 +787,7 @@ public class Test {
 
     public Person getPer(Person person) {
 
-       // person.setId(1);
+        // person.setId(1);
 
         Person p = new Person();
         p.setId(1);
@@ -794,4 +795,38 @@ public class Test {
         person = p;
         return p;
     }
+
+    @org.junit.Test
+    public void testInt() {
+        AtomicInteger integer = new AtomicInteger(0);
+        for (int j = 0; j < 100; j++) {
+            System.out.println(integer.addAndGet(1));
+        }
+    }
+
+    private volatile int aa ;
+
+    @org.junit.Test
+    public void ets() {
+        new Thread(() -> {
+            setaa();
+        }).start();
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void etaas() {
+        System.out.println(aa);
+    }
+
+    private void setaa() {
+        aa = 1;
+        System.out.println("a:" + aa);
+
+    }
+
 }
