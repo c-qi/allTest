@@ -1,5 +1,7 @@
 package org.zhire.jpa;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -20,5 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "from `user` left  join `user_info` on `user`.id = `user_info`.user_id limit " +
             "?1, ?2", nativeQuery = true)
     List<Map<String, Object>> findAllUserInfo(int page, int pazeSize);
+
+    Page<User> findAllByFlag(Pageable pageable, int i);
 }
 

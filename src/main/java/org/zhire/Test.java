@@ -804,7 +804,7 @@ public class Test {
         }
     }
 
-    private volatile int aa ;
+    private volatile int aa;
 
     @org.junit.Test
     public void ets() {
@@ -829,4 +829,15 @@ public class Test {
 
     }
 
+    private volatile AtomicInteger pageNumber = new AtomicInteger(0);
+
+    @org.junit.Test
+    public void testtt() {
+        for (;;) {
+            System.out.println(pageNumber.get());
+            pageNumber.addAndGet(1);
+        }
+
+
+    }
 }

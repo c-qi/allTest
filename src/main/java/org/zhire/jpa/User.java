@@ -32,6 +32,10 @@ public class User implements Serializable{
     @Column(nullable = true, unique = false)
     private String nickName;
 
+    @Column(nullable = true, columnDefinition = "tinyint default 0")
+    private Integer flag;
+
+
 
 
 }

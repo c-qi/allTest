@@ -18,6 +18,8 @@ import java.util.Optional;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
 @Service
 public class MyUserServiceImpl implements MyUserService {
     @Autowired
@@ -84,25 +86,25 @@ public class MyUserServiceImpl implements MyUserService {
         return zpUserBusiness;
     }
 
+
+    /**
+     * 使用线程池分页批量更新数据库
+     * pageNumber要永远为第一页 否则会漏数据没更新
+     */
     @Override
     public void findAllList() {
         int pageNumber = 0;
-        int pageSize = 100;
         while (true) {
-            System.out.println("num " + pageNumber + "size " + pageSize);
-            Pageable pageable = PageRequest.of(pageNumber, pageSize);
-            Page<User> listPage = userRepository.findAll(pageable);
+            Pageable pageable = PageRequest.of(0, 100);
+            Page<User> listPage = userRepository.findAllByFlag(pageable, 0);
             List<User> list = listPage.get().collect(Collectors.toList());
             CountDownLatch countDownLatch = new CountDownLatch(list.size());
-            System.out.println("countl:" + countDownLatch);
+            System.out.println("countDownLatch:" + countDownLatch);
             if (list.size() == 0) {
-                executor.shutdown();
-                boolean b = executor.isShutdown();
-                System.out.println(executor.getPoolSize());
-                System.out.println(b);
+                System.out.println("执行完成");
                 return;
             }
-            updateImage(pageNumber++, pageSize, list, countDownLatch);
+            updateImage(pageNumber++, list, countDownLatch);
         }
     }
 
@@ -118,12 +120,36 @@ public class MyUserServiceImpl implements MyUserService {
             new ThreadPoolExecutor.AbortPolicy());
 
     @Test
-    public void updateImage(int pageNumber, int pageSize, List<User> list, CountDownLatch countDownLatch) {
-        System.out.println("num " + pageNumber + "size " + pageSize);
+    public void updateImage(int pageNumber, List<User> list, CountDownLatch countDownLatch) {
+        System.out.println("num " + pageNumber);
         list.forEach(l -> {
             executor.execute(() -> {
                 System.out.println(Thread.currentThread().getName() + " " + l.getId());
-                l.setNickName(l.getId() + "cqqqq");
+                supplyAsync(() -> {
+                    if (l.getUserName().contains("cq")) {
+                        l.setUserName("chenqi");
+                    }
+                    return l;
+                });
+                supplyAsync(() -> {
+                    if (l.getNickName() == null) {
+                        l.setNickName("cq");
+                    }
+                    return l;
+                });
+                supplyAsync(() -> {
+                    if (l.getEmail() == null) {
+                        l.setEmail("chenqi@cq.com");
+                    }
+                    return l;
+                });
+                supplyAsync(() -> {
+                    if (l.getPassWord() == null) {
+                        l.setPassWord("chenqichenqi");
+                    }
+                    return l;
+                });
+                l.setFlag(1);
                 userRepository.save(l);
                 countDownLatch.countDown();
             });
