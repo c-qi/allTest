@@ -115,9 +115,25 @@ public class MyUserServiceImpl implements MyUserService {
             Runtime.getRuntime().availableProcessors() * 2,
             0L,
             TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(100),
+            new LinkedBlockingQueue<Runnable>(2),
             threadFactory,
-            new ThreadPoolExecutor.AbortPolicy());
+            new CustomRejectedExecutionHandler()); // 使用自定义的拒绝策略，队列满了，阻塞等待，这样可以不使用countDownLatch来阻塞线程
+            // 使用拒绝策略-抛异常
+            // new ThreadPoolExecutor.AbortPolicy());
+
+
+    private class CustomRejectedExecutionHandler implements RejectedExecutionHandler {
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+            try {
+                // 核心改造点，由blockingqueue的offer改成put阻塞方法
+                System.out.println("放入了队列");
+                executor.getQueue().put(r);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Test
     public void updateImage(int pageNumber, List<User> list, CountDownLatch countDownLatch) {
@@ -151,14 +167,14 @@ public class MyUserServiceImpl implements MyUserService {
                 });
                 l.setFlag(1);
                 userRepository.save(l);
-                countDownLatch.countDown();
+                //countDownLatch.countDown();
             });
         });
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            countDownLatch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("执行完成");
     }
 
