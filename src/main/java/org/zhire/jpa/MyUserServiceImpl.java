@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,21 @@ public class MyUserServiceImpl implements MyUserService {
     private UserRepositoryTest userRepositoryTest;
 
     @Override
+    @Transactional
     public void insert() {
-        for (int i = 100; i < 10000; i++) {
-            User user = new User();
-            user.setNickName("cq" + i);
-            user.setId(Long.parseLong(i + ""));
-            userRepository.save(user);
+//        for (int i = 100; i < 10000; i++) {
+//            User user = new User();
+//            user.setNickName("cq" + i);
+//            user.setId(Long.parseLong(i + ""));
+//            userRepository.save(user);
+//        }
+        User user = new User();
+        user.setId(3020L);
+        user.setNickName("ccqcqwc");
+        User save = userRepository.save(user);
+        System.out.println(save);
+        while (true){
+
         }
     }
 
@@ -118,8 +128,8 @@ public class MyUserServiceImpl implements MyUserService {
             new LinkedBlockingQueue<Runnable>(2),
             threadFactory,
             new CustomRejectedExecutionHandler()); // 使用自定义的拒绝策略，队列满了，阻塞等待，这样可以不使用countDownLatch来阻塞线程
-            // 使用拒绝策略-抛异常
-            // new ThreadPoolExecutor.AbortPolicy());
+    // 使用拒绝策略-抛异常
+    // new ThreadPoolExecutor.AbortPolicy());
 
 
     private class CustomRejectedExecutionHandler implements RejectedExecutionHandler {

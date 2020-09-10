@@ -2,8 +2,11 @@ package org.zhire.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.zhire.pojo.User;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,22 +37,24 @@ public class TestController {
 
     @RequestMapping("/s")
     public String testwork() {
-         String s = "{" +
-                 "    \"name\": \"陈琦\"" +
-                 "}";
+        String s = "{" +
+                "    \"name\": \"陈琦\"" +
+                "}";
         // String s = "{'name':'陈琦'}";
         return s;
     }
+
     @RequestMapping("/j")
     public JSONObject j() {
         JSONObject j = new JSONObject();
-        j.put("name","陈琦");
+        j.put("name", "陈琦");
         return j;
     }
+
     @RequestMapping("/js")
     public String js() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("age","chernww");
+        jsonObject.put("age", "chernww");
         Object parse = JSON.parse(String.valueOf(jsonObject));
         //String s ="{\"key\":\"陈琦\"}";
         System.out.println(parse);
@@ -57,6 +62,7 @@ public class TestController {
         System.out.println(s1);
         return s1;
     }
+
     @RequestMapping("/jss")
     public JSONObject js(@RequestBody JSONObject jsonObject) {
         System.out.println(jsonObject);
