@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //import org.springframework.cache.annotation.EnableCaching;
@@ -33,6 +34,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJSONDoc
 @MapperScan("org.zhire.mapper")
 @EnableJpaAuditing
+@EnableWebSecurity  // 开启SpringSecurity
 public class SpringBootStart {
     public static void main(String[] args) {
         // 写本类的字节码【为的就是找到启动类上的注解】

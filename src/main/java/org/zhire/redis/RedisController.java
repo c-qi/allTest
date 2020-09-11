@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2020.4.13 16:01
  */
 @Slf4j
-@RestController
+//@RestController
 @RequestMapping("/redisLister")
 public class RedisController {
     @Autowired
