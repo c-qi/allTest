@@ -20,12 +20,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
+        int i = 1 / 0;
         return null;
     }
 
     @Override
     public User login(String name, String pass) {
-       return mapper.selectByParam(name,pass);
+        return mapper.selectByParam(name, pass);
     }
     // @Autowired
     // private UserMapper mapper;

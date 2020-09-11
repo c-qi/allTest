@@ -2,14 +2,12 @@ package org.zhire.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zhire.pojo.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/users")
@@ -67,5 +65,11 @@ public class TestController {
     public JSONObject js(@RequestBody JSONObject jsonObject) {
         System.out.println(jsonObject);
         return jsonObject;
+    }
+
+    @RequestMapping("/date")
+    public Date date(@RequestParam Date date) {
+        System.out.println(date);
+        return date;
     }
 }
