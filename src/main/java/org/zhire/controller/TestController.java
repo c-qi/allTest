@@ -9,11 +9,13 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zhire.demo.spring.ioc.IOCUser;
 import org.zhire.pojo.User;
 import org.zhire.thread.MyDelayQueue;
+import org.zhire.thread.QueuePool;
 import org.zhire.utils.R;
 import org.zhire.utils.SequenceGenerator;
 
@@ -36,6 +38,10 @@ public class TestController {
 
     @Autowired
     private SequenceGenerator sequenceGenerator;
+
+    @Autowired
+    @Qualifier("test")
+    private QueuePool queuePool;
 
     @GetMapping(value = "/test")
     public User test() {
@@ -72,6 +78,23 @@ public class TestController {
         new Thread(new MyDelayQueue()).start();
         log.info("延迟队列工作者初始化完成");
     }
+
+
+    /**
+     * 向阻塞队列里添加数据
+     *
+     * @return
+     */
+    @GetMapping(value = "/blockingQueueTest")
+    public void BlockingQueueTest() throws Exception {
+        for (int i = 0; i < 100; i++) {
+            final int a = i;
+            queuePool.execute(i + "", () -> {
+                System.out.println(Thread.currentThread().getName() + " " + a);
+            });
+        }
+    }
+
 
     @RequestMapping("/login")
     public String login(String name, String pwd, HttpServletRequest request) {
