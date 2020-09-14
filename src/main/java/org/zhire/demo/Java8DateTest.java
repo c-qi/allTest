@@ -1,14 +1,10 @@
 package org.zhire.demo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.core.date.DateUtil;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
-import org.zhire.pojo.User;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +14,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * @Author: chenqi
@@ -246,6 +243,12 @@ public class Java8DateTest {
         Date time = calendar.getTime();
         System.out.println(sf.format(time));
 
+    }
+
+    public static void main(String[] args) {
+        cn.hutool.core.date.DateTime day = DateUtil.offsetDay(new Date(), 365);
+        System.out.println(day.getTime());
+        System.out.println(day);
     }
 
 

@@ -62,5 +62,8 @@ public class MyUserController {
     public void findAll() {
          myUserService.findAllList();
     }
-
+    @RequestMapping("/update")
+    public void update(String id) {
+        myUserService.updateById(id);
+    }
 }

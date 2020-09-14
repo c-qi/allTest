@@ -1,24 +1,50 @@
 package org.zhire.controller;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.jsondoc.core.annotation.ApiMethod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.zhire.demo.spring.ioc.IOCUser;
 import org.zhire.pojo.User;
+import org.zhire.utils.R;
+import org.zhire.utils.SequenceGenerator;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 public class TestController {
 
+    @Autowired
+    private SequenceGenerator sequenceGenerator;
+
     @GetMapping(value = "/test")
     public User test() {
-        User user = new User();
-        user.setName("chenqi");
-        user.setPassword("1121");
-        return user;
+        System.out.println(sequenceGenerator.generate(11));
+        System.out.println(sequenceGenerator.generate(11));
+        System.out.println(sequenceGenerator.generate(11));
+        System.out.println(sequenceGenerator.generate(11));
+        System.out.println(sequenceGenerator.generate(11));
+        System.out.println(sequenceGenerator.generate(11));
+        return null;
     }
 
     @RequestMapping("/login")
@@ -72,4 +98,83 @@ public class TestController {
         System.out.println(date);
         return date;
     }
+
+    @GetMapping(value = "/outPutUsers")
+    public void outPutUsers(HttpServletResponse response) {
+        List<IOCUser> list = new ArrayList<>();
+        list.add(new IOCUser(1, "1231", "奥", System.currentTimeMillis(), IOCUser.STATUS.Default));
+        list.add(new IOCUser(2, "3123", "rwe奥", System.currentTimeMillis(), IOCUser.STATUS.NO));
+
+        // 通过工具类创建writer，默认创建xls格式
+        ExcelWriter writer = ExcelUtil.getWriter();
+        //自定义标题别名
+        writer.addHeaderAlias("id", "id");
+        writer.addHeaderAlias("name", "姓名");
+        writer.addHeaderAlias("address", "地址");
+        writer.addHeaderAlias("ctime", "创建");
+        writer.addHeaderAlias("status", "状态");
+
+        // 合并单元格后的标题行，使用默认标题样式
+        //  writer.merge(2, "申请人员信息");
+        // 只导出上面设置别名的字段
+        writer.setOnlyAlias(true);
+        // 一次性写出内容，使用默认样式，强制输出标题
+        writer.write(list, true);
+
+        // out为OutputStream，需要写出到的目标流
+        // response为HttpServletResponse对象
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+
+        // test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
+        String fileName = "user";
+        try {
+            fileName = URLEncoder.encode("用户信息", "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xls");
+        ServletOutputStream out = null;
+        try {
+            out = response.getOutputStream();
+            writer.flush(out, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭writer，释放内存
+            writer.close();
+        }
+        //此处记得关闭输出Servlet流
+        IoUtil.close(out);
+        // return Response.ok("");
+    }
+
+    @ApiMethod(description = "批量导入用户")
+    @PostMapping(value = "/importUsers")
+    public R importUsers(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new RuntimeException("file is null");
+        }
+        InputStream inputStream = null;
+        try {
+            inputStream = file.getInputStream();
+        } catch (Exception e) {
+            log.info("文件流读取失败：{}", e);
+        }
+        ExcelReader excelReader = ExcelUtil.getReader(inputStream);
+        List<List<Object>> excels = excelReader.read(1, excelReader.getRowCount());
+        log.info("读取到的数据：{}", JSON.toJSONString(excels));
+        return R.ok();
+    }
+
+    public static void main(String[] args) {
+        ExcelReader reader = ExcelUtil.getReader("/Users/admin/Downloads/用户信息模板.xls");
+        List<List<Object>> read = reader.read(1, reader.getRowCount());
+        for (List<Object> objects : read) {
+            System.out.println(objects);
+            System.out.println(objects.get(0));
+        }
+        System.out.println(read);
+    }
+
+
 }

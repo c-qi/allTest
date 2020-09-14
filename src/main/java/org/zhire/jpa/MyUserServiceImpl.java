@@ -37,14 +37,30 @@ public class MyUserServiceImpl implements MyUserService {
 //            user.setId(Long.parseLong(i + ""));
 //            userRepository.save(user);
 //        }
+        long count = userRepository.count();
+        System.out.println("前：" + count);
         User user = new User();
-        user.setId(3020L);
-        user.setNickName("ccqcqwc");
+        //user.setId(3020L);
+        user.setNickName("fqwqfw");
         User save = userRepository.save(user);
         System.out.println(save);
-        while (true){
+        long counta = userRepository.count();
+        System.out.println("后" + counta);
+//        while (true) {
+//
+//        }
+        supplyAsync(() -> testTran(save));
 
-        }
+    }
+
+    @Transactional()
+    ZpUserBusiness testTran(User user) {
+        ZpUserBusiness zpUserBusiness = new ZpUserBusiness();
+        zpUserBusiness.setUserId(user.getId());
+        zpUserBusiness.setFromType(ZpUserBusiness.FROMTYPE.WORKS);
+        ZpUserBusiness save = userRepositoryTest.save(zpUserBusiness);
+        int i = 1 / 0;
+        return save;
     }
 
     @Override
@@ -116,6 +132,19 @@ public class MyUserServiceImpl implements MyUserService {
             }
             updateImage(pageNumber++, list, countDownLatch);
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateById(String id) {
+        Optional<User> user = userRepository.findById(Long.parseLong(id));
+        User user1 = user.get();
+        user1.setUserName("update");
+        userRepository.save(user1);
+        while (true) {
+
+        }
+
     }
 
 

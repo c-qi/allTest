@@ -66,7 +66,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 /* ########第一段######## */
                         authorizeRequests()
                 // 限定"/user/welcome"请求赋予角色 ROLE_USER 或者 ROLE_ADMIN
-                .antMatchers("/users/**", "/user/**").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/users/**", "/user/**").hasAnyRole("USER", "ADMIN")
                 // 限定"/admin/"下所有请求权限赋予角色 ROLE_ADMIN
                 .antMatchers("/interceptor/**").hasAuthority("ROLE_ADMIN")
                 // 其他路径允许签名后访问

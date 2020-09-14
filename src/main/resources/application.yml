@@ -33,14 +33,14 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/MyTest
     username: root
     password: 1111
-#  redis:
-#   host: 127.0.0.1
-#   port: 6379
-#   pass:
-#   database: 0
-#   maxIdle: 300
-#   maxWait: 3000
-#   testOnBorrow: true
+  redis:
+   host: 127.0.0.1
+   port: 6379
+   pass:
+   database: 0
+   maxIdle: 300
+   maxWait: 3000
+   testOnBorrow: true
 #  rabbitmq:
 #    host: localhost
 #    port: 5672

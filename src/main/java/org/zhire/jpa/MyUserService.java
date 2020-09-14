@@ -16,4 +16,6 @@ public interface MyUserService {
     ZpUserBusiness findFirst(ZpUserBusiness.FROMTYPE fromType);
 
     void findAllList();
+
+    void updateById(String id);
 }
