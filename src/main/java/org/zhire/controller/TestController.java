@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zhire.demo.spring.ioc.IOCUser;
 import org.zhire.pojo.User;
+import org.zhire.thread.MyDelayQueue;
 import org.zhire.utils.R;
 import org.zhire.utils.SequenceGenerator;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -45,6 +46,31 @@ public class TestController {
         System.out.println(sequenceGenerator.generate(11));
         System.out.println(sequenceGenerator.generate(11));
         return null;
+    }
+
+    /**
+     * 向延迟队列添加数据
+     *
+     * @return
+     */
+    @GetMapping(value = "/delayQueueTest")
+    public User delayQueueTest() {
+        Map map = new HashMap<>();
+        map.put("name", "cq");
+        map.put("age", 11);
+        MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(1, TimeUnit.SECONDS, map));
+        MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(10, TimeUnit.SECONDS, map));
+        return null;
+    }
+
+
+    /**
+     * 初始化延迟队列
+     */
+    @PostConstruct
+    public void initDelayQueueWorker() {
+        new Thread(new MyDelayQueue()).start();
+        log.info("延迟队列工作者初始化完成");
     }
 
     @RequestMapping("/login")
@@ -176,5 +202,17 @@ public class TestController {
         System.out.println(read);
     }
 
+
+    @PostMapping(value = "/test")
+    public User testUser(@RequestHeader(value = "id", required = false) String id, @RequestBody User[] user) {
+        System.out.println(id);
+        if (null == id) {
+            System.out.println("nulllllll");
+        }
+        for (User user1 : user) {
+            System.out.println(user1.toString());
+        }
+        return new User();
+    }
 
 }
