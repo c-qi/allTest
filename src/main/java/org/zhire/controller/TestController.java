@@ -96,6 +96,17 @@ public class TestController {
     }
 
 
+    /**
+     * 使用自定义注解获取用户信息
+     *
+     * @return
+     */
+    @GetMapping(value = "/getUSer")
+    public IOCUser getUser(@org.zhire.annotation.User IOCUser user) {
+        return user;
+    }
+
+
     @RequestMapping("/login")
     public String login(String name, String pwd, HttpServletRequest request) {
         HttpSession session = request.getSession();
