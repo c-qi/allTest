@@ -5,6 +5,8 @@ import java.util.List;
 public interface MyUserService {
     void insert();
 
+    ZpUserBusiness testTran(User user);
+
     User findByUserName(String userName);
 
     User findByUserNameOrEmail(String userName, String email);

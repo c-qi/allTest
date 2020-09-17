@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,11 @@ public class MyUserServiceImpl implements MyUserService {
     private UserRepository userRepository;
     @Autowired
     private UserRepositoryTest userRepositoryTest;
+    @Autowired
+    private MyUserService myUserService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void insert() {
 //        for (int i = 100; i < 10000; i++) {
 //            User user = new User();
@@ -40,28 +43,33 @@ public class MyUserServiceImpl implements MyUserService {
         long count = userRepository.count();
         System.out.println("前：" + count);
         User user = new User();
-        //user.setId(3020L);
         user.setNickName("fqwqfw");
         User save = userRepository.save(user);
         System.out.println(save);
         long counta = userRepository.count();
         System.out.println("后" + counta);
-//        while (true) {
-//
-//        }
-        supplyAsync(() -> testTran(save));
-
+        try {
+            CompletableFuture<ZpUserBusiness> future = supplyAsync(() -> myUserService.testTran(save));
+            future.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
     }
 
-    @Transactional()
-    ZpUserBusiness testTran(User user) {
+    @Override
+    @Transactional
+    public ZpUserBusiness testTran(User user) {
+        ZpUserBusiness save = null;
         ZpUserBusiness zpUserBusiness = new ZpUserBusiness();
         zpUserBusiness.setUserId(user.getId());
         zpUserBusiness.setFromType(ZpUserBusiness.FROMTYPE.WORKS);
-        ZpUserBusiness save = userRepositoryTest.save(zpUserBusiness);
-        int i = 1 / 0;
+        save = userRepositoryTest.save(zpUserBusiness);
+        int a[] = {1};
+        System.out.println(a[2]);
         return save;
     }
+
 
     @Override
     public User findByUserName(String userName) {
