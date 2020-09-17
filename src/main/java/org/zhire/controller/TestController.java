@@ -6,10 +6,12 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zhire.demo.spring.ioc.IOCUser;
@@ -29,7 +31,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Slf4j
 @RestController
@@ -226,14 +228,42 @@ public class TestController {
         return R.ok();
     }
 
-    public static void main(String[] args) {
-        ExcelReader reader = ExcelUtil.getReader("/Users/admin/Downloads/用户信息模板.xls");
-        List<List<Object>> read = reader.read(1, reader.getRowCount());
-        for (List<Object> objects : read) {
-            System.out.println(objects);
-            System.out.println(objects.get(0));
+    private static ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("线程-%d").build();
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            Runtime.getRuntime().availableProcessors() * 2 >= 2 ? 2 : Runtime.getRuntime().availableProcessors() * 2,
+            Runtime.getRuntime().availableProcessors() * 2 >= 2 ? 2 : Runtime.getRuntime().availableProcessors() * 2,
+            0L,
+            TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(100),
+            threadFactory,
+            new CustomRejectedExecutionHandler()); // 使用自定义的拒绝策略，队列满了，阻塞等待
+
+
+    private static class CustomRejectedExecutionHandler implements RejectedExecutionHandler {
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+            try {
+                System.out.println("放入了队列");
+                executor.getQueue().put(r);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println(read);
+    }
+
+    public static void main(String[] args) throws Exception {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        ExcelReader reader = ExcelUtil.getReader("/Users/admin/Downloads/用户信息模板.xlsx");
+        List<List<Object>> read = reader.read(1, reader.getRowCount());
+            for (List<Object> objects : read) {
+                System.out.println(objects);
+                executor.execute(() -> {
+                    System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
+                });
+            }
+        watch.stop();
+        System.out.println("耗时：" + watch.getTotalTimeSeconds());
     }
 
 

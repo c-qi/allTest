@@ -31,7 +31,7 @@ public class CyclicBarrierTest4 {
                     {
                         try {
                             c.await();
-                            System.out.println(finalI);
+                            System.out.println(Thread.currentThread().getName() + " " + sheetBankWaterCount.get(Thread.currentThread().getName()));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -50,7 +50,7 @@ public class CyclicBarrierTest4 {
             result += sheet.getValue();
         }// 将结果输出
         sheetBankWaterCount.put("result", result);
-        System.out.println(result);
+        System.out.println("结果：" + result);
 
 
     }
