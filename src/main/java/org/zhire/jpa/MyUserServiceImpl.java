@@ -60,13 +60,15 @@ public class MyUserServiceImpl implements MyUserService {
     @Override
     @Transactional
     public ZpUserBusiness testTran(User user) {
+        long counta = userRepository.count();
+        System.out.println("mmm:"+counta);
         ZpUserBusiness save = null;
         ZpUserBusiness zpUserBusiness = new ZpUserBusiness();
         zpUserBusiness.setUserId(user.getId());
         zpUserBusiness.setFromType(ZpUserBusiness.FROMTYPE.WORKS);
         save = userRepositoryTest.save(zpUserBusiness);
-        int a[] = {1};
-        System.out.println(a[2]);
+        //int a[] = {1};
+        //System.out.println(a[2]);
         return save;
     }
 
