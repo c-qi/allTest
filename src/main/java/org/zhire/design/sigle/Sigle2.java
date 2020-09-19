@@ -14,6 +14,7 @@ public class Sigle2 {
     private Sigle2() {
     }
 
+    // 每次调用都会加锁解锁，效率低
     public synchronized static Sigle2 getSigle() {
         if (sigle == null) {
             sigle = new Sigle2();
