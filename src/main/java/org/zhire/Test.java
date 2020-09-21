@@ -10,7 +10,9 @@ import org.Person;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.zhire.pojo.User;
+import org.zhire.pojo.UserCopy;
 
 import java.io.*;
 import java.lang.ref.*;
@@ -831,13 +833,31 @@ public class Test {
 
     private volatile AtomicInteger pageNumber = new AtomicInteger(0);
 
+    /**
+     * AtomicInteger
+     */
     @org.junit.Test
     public void testtt() {
-        for (;;) {
+        for (; ; ) {
             System.out.println(pageNumber.get());
             pageNumber.addAndGet(1);
         }
+    }
 
-
+    /**
+     * BeanUtils.copyProperties
+     */
+    @org.junit.Test
+    public void testCopy() {
+        User user = new User();
+        user.setName("cq");
+        user.setPassword("1231");
+        UserCopy copy = new UserCopy();
+        BeanUtils.copyProperties(user, copy);
+        System.out.println(JSON.toJSONString(user));
+        copy.setId(1);
+        System.out.println(JSON.toJSONString(copy));
+        System.out.println(user == copy);
+        System.out.println(user.equals(copy));
     }
 }
