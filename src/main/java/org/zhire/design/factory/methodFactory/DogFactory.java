@@ -1,4 +1,4 @@
-package org.zhire.design.factory;
+package org.zhire.design.factory.methodFactory;
 
 import org.zhire.design.factory.simple.Animal;
 import org.zhire.design.factory.simple.Dog;
