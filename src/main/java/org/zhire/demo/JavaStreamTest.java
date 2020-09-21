@@ -102,11 +102,12 @@ public class JavaStreamTest {
         List<String> asList = asList("a1", "a2", "a3");
         asList.stream().forEach(System.out::println);
     }
+
     /**
      * java8 过滤
      */
     @Test
-    public void filter(){
+    public void filter() {
         List<User> list = new ArrayList<>();
         List<User> expertList =
                 list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
@@ -179,6 +180,7 @@ public class JavaStreamTest {
         concat = Stream.of("a", "B", "c", "D", "e", "F").filter(x -> x.compareTo("Z") > 0).reduce("", String::concat);
         System.out.println(concat);
     }
+
     @org.junit.Test
     public void tt() {
         int MAX_VALUE = 0x7fffffff;
@@ -221,9 +223,9 @@ public class JavaStreamTest {
      * filter过滤
      */
     @Test
-    public void testFiltef(){
+    public void testFiltef() {
         //创建一个字符串列表，每个字符串长度大于2
-        List<String>  costBeforeTax = Arrays.asList("abc","bcd","defg","jk");
+        List<String> costBeforeTax = Arrays.asList("abc", "bcd", "defg", "jk");
         List<String> filtered = costBeforeTax.stream().filter(x -> x.length() > 2).collect(Collectors.toList());
         System.out.printf("Original List : %s, filtered list : %s %n", costBeforeTax, filtered);
     }
@@ -232,10 +234,21 @@ public class JavaStreamTest {
      * distinct去重
      */
     @Test
-    public void distinct(){
+    public void distinct() {
         // 用所有不同的数字创建一个正方形列表
         List<Integer> numbers = Arrays.asList(9, 10, 3, 4, 7, 3, 4);
-        List<Integer> distinct = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
+        List<Integer> distinct = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
         System.out.printf("Original List : %s, Square Without duplicates : %s %n", numbers, distinct);
+    }
+
+    /**
+     * 字符串分割转list
+     */
+    @Test
+    public void tests() {
+        String s = "chenqi,qiqi,qi";
+        List<String> list = Arrays.stream(s.split(",")).collect(Collectors.toList());
+        System.out.println(list);
+
     }
 }
