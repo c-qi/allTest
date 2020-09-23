@@ -217,6 +217,9 @@ public class JavaStreamTest {
         List<Item> list = items.stream().sorted(Comparator.comparing(Item::getQty).reversed()).collect(toList());
         System.out.println(list);
 
+        int sums = items.stream().mapToInt(Item::getQty).sum();
+        System.out.println(sums);
+
     }
 
     /**

@@ -6,13 +6,12 @@ import org.jsondoc.core.annotation.ApiQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 // @Api(value = "jpa-API", description = "jpa") swagger的访问 // http://127.0.0.1:7971/swagger-ui.html#/
 @Api(name = "jpa-AP", description = "jpa") // jsondoc的访问 http://localhost:7971/jsondoc-ui.html# 输入 http://localhost:7971/jsondoc
-@RestController
+//@RestController
 @RequestMapping("/userTest")
 public class MyUserController {
     @Autowired

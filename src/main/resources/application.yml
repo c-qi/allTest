@@ -30,7 +30,7 @@ spring:
     name: allTest
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/MyTest
+    url: jdbc:mysql://127.0.0.1:3306/MyTest?useSSL=false
     username: root
     password: 1111
   redis:
@@ -38,10 +38,12 @@ spring:
    port: 6379
    pass:
    database: 0
-   maxIdle: 300
-   maxWait: 3000
-   testOnBorrow: true
-#  rabbitmq:
+   jedis:
+     pool:
+       max-active: 100
+       max-idle: 100
+       max-wait: 1000
+  #  rabbitmq:
 #    host: localhost
 #    port: 5672
 #    username: guest

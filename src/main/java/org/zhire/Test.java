@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.util.Objects.isNull;
+
 
 /**
  * @Author: chenqi
@@ -860,4 +862,22 @@ public class Test {
         System.out.println(user == copy);
         System.out.println(user.equals(copy));
     }
+
+    @org.junit.Test
+    public void testMaps() {
+        Integer a = null;
+        System.out.println(isNull(a));
+    }
+
+
+    @org.junit.Test
+    public void testMaweps() {
+        String s = String.valueOf(250.00 / (4 * 100)*100);
+        System.out.println(s.substring(0, s.indexOf(".")));
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(200.00 / (4 * 100)*100);
+    }
+
 }
