@@ -20,4 +20,6 @@ public interface MyUserService {
     void findAllList();
 
     void updateById(String id);
+
+    User insert(User user);
 }

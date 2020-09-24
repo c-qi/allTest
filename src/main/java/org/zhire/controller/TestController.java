@@ -45,6 +45,13 @@ public class TestController {
     @Qualifier("test")
     private QueuePool queuePool;
 
+
+    @PostMapping("/insert")
+    public JSONObject insert(@RequestBody User user) {
+        System.out.println(JSON.toJSONString(user));
+        return JSON.parseObject(JSON.toJSONString(user));
+    }
+
     @GetMapping(value = "/test")
     public User test() {
         System.out.println(sequenceGenerator.generate(11));
@@ -256,12 +263,12 @@ public class TestController {
         watch.start();
         ExcelReader reader = ExcelUtil.getReader("/Users/admin/Downloads/用户信息模板.xlsx");
         List<List<Object>> read = reader.read(1, reader.getRowCount());
-            for (List<Object> objects : read) {
-                System.out.println(objects);
-                executor.execute(() -> {
-                    System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
-                });
-            }
+        for (List<Object> objects : read) {
+            System.out.println(objects);
+            executor.execute(() -> {
+                System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
+            });
+        }
         watch.stop();
         System.out.println("耗时：" + watch.getTotalTimeSeconds());
     }

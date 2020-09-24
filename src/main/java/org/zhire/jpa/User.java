@@ -1,9 +1,10 @@
 package org.zhire.jpa;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
-
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,8 @@ import java.io.Serializable;
 @Data
 @Table(name = "user")
 @ApiObject // 　JSONDoc注解
+@DynamicInsert(true)
+@DynamicUpdate(true)
 public class User implements Serializable{
 
     @Id

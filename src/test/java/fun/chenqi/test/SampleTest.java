@@ -1,13 +1,14 @@
 package fun.chenqi.test;
 
-import org.zhire.SpringBootStart;
-import org.zhire.mapper.UserMapper;
-import org.zhire.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.zhire.SpringBootStart;
+import org.zhire.controller.TestController;
+import org.zhire.mapper.UserMapper;
+import org.zhire.pojo.User;
 
 import java.util.List;
 
@@ -21,11 +22,15 @@ public class SampleTest {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private TestController testController;
+
     @Test
     public void testSelect() {
-        System.out.println(("----- selectAll method test ------"));
-        List<User> userList = userMapper.selectList(null);
-        userList.forEach(System.out::println);
+        User user = new User();
+        user.setName("cw");
+        user.setPassword("cw");
+        testController.insert(user);
     }
 
 }

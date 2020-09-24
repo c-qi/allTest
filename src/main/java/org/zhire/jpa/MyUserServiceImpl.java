@@ -157,6 +157,11 @@ public class MyUserServiceImpl implements MyUserService {
 
     }
 
+    @Override
+    public User insert(User user) {
+        return userRepository.save(user);
+    }
+
 
     private ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("线程-%d").build();
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(

@@ -79,7 +79,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 使用 Spring Security 默认的登录页面
                 .and().formLogin()
                 // 启动 HTTP 基础验证
-                .and().httpBasic();
+                .and().httpBasic()
+                // 关闭csrf 避免post请求403
+                .and().csrf().disable();
 
 //        http
 //                // 访问/admin 下的请求需要管理员权限

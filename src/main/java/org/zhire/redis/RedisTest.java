@@ -31,7 +31,7 @@ public class RedisTest {
             4,
             1000L,
             TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(1000),
+            new LinkedBlockingQueue<Runnable>(100),
             threadFactory,
             new CustomRejectedExecutionHandler());
 
@@ -47,40 +47,30 @@ public class RedisTest {
         }
     }
 
+    /**
+     * 高并发访问Redis
+     */
     @Test
     public void test() {
-        //redisTemplate.boundHashOps("testRedis").put("name", "chenqi");
-        //System.out.println(redisTemplate.boundHashOps("testRedis").get("name"));
-        for (int i = 0; i < 100000; i++) {
-            int finalI = i;
+        for (long i = 10000000000L; i < 10000200000L; i++) {
+            long finalI = i;
             executor.execute(() -> {
-                //      try {
-                System.out.println(Thread.currentThread().getName() + " " + finalI + " "
-                        + redisTemplate.boundHashOps("testRedis").get("name"));
-                // } catch (Exception e) {
-                //     e.printStackTrace();
-                // }
-//                finally {
-//                    RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
-//                }
+                try {
+                    System.out.println(Thread.currentThread().getName() + " " + finalI + " "
+                            + redisTemplate.boundHashOps("testRedis").get(finalI));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
         }
-
-//        System.out.println(redisTemplate.boundHashOps("testRedis").get("name"));
 
     }
 
     @Test
     public void tes2t() {
-        for (int i = 0; i < 60; i++) {
-            int finalI = i;
-            new Thread(() -> {
-                System.out.println(Thread.currentThread().getName() + " " + finalI + " "
-                        + redisTemplate.boundHashOps("testRedis").get("name"));
-            }).start();
+        for (long i = 10000000000L; i < 10000900000L; i++) {
+            redisTemplate.boundHashOps("testRedis").put(i, i);
         }
-//        System.out.println(redisTemplate.boundHashOps("testRedis").get("name"));
-
     }
 
 }
