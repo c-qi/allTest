@@ -1,4 +1,4 @@
-package org.zhire.design.observer;
+package org.zhire.design.observer.observer1;
 
 
 /**
