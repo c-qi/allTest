@@ -1,4 +1,4 @@
-package org.zhire.design.strategy.newStrategy;
+package org.zhire.design.template;
 
 /**
  * 模板模式
@@ -7,7 +7,7 @@ package org.zhire.design.strategy.newStrategy;
  * 所有的⼦类都可以复⽤⽗类中 模板⽅法定义的流程代码。
  * Java IO类库中，有很多类的设计⽤到了模板模式，⽐如InputStream、OutputStream、Reader、Writer
  */
-public class StrategyTest {
+public class TemplateTest {
     public static void main(String[] args) {
         AbstractClass s = new ContreteClass1();
         s.templateMethod();

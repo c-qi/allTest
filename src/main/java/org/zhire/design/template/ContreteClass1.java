@@ -1,4 +1,4 @@
-package org.zhire.design.strategy.newStrategy;
+package org.zhire.design.template;
 
 public class ContreteClass1 extends AbstractClass {
     @Override
