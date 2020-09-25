@@ -14,6 +14,7 @@ public class AClass {
             }
         });
 
+        System.out.println("1314");
     }
 }
 
