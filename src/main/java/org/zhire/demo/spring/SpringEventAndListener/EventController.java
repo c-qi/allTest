@@ -16,6 +16,7 @@ public class EventController {
         Task task = new Task();
         task.setId(1);
         task.setName("cq");
+        // 发布监听事件
         application.publishEvent(new Event(this, task));
         return "ok";
 
