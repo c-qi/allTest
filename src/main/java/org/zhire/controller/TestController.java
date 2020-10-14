@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +45,10 @@ public class TestController {
     @Autowired
     @Qualifier("test")
     private QueuePool queuePool;
+
+    @Autowired
+    @Qualifier("taskExecutor")
+    private TaskExecutor taskExecutor;
 
 
     @PostMapping("/insert")
@@ -82,12 +87,19 @@ public class TestController {
     /**
      * 初始化延迟队列
      */
-    @PostConstruct
+    // @PostConstruct
     public void initDelayQueueWorker() {
         new Thread(new MyDelayQueue()).start();
         log.info("延迟队列工作者初始化完成");
     }
 
+    /**
+     * 异步线程池初始化延迟队列
+     */
+    @PostConstruct
+    public void test2() {
+        taskExecutor.execute(new MyDelayQueue());
+    }
 
     /**
      * 向阻塞队列里添加数据

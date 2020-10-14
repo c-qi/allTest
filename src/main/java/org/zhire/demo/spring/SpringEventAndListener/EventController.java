@@ -13,11 +13,13 @@ public class EventController {
 
     @RequestMapping("/get")
     public String get() {
-        Task task = new Task();
-        task.setId(1);
-        task.setName("cq");
-        // 发布监听事件
-        application.publishEvent(new Event(this, task));
+        for (int i = 0; i < 10; i++) {
+            Task task = new Task();
+            task.setId(i);
+            task.setName("cq");
+            // 发布监听事件
+            application.publishEvent(new Event(this, task));
+        }
         return "ok";
 
     }
