@@ -1,4 +1,4 @@
-package org.zhire.suanfa;
+package org.zhire.suanfa.shujujiegou;
 
 import java.util.Arrays;
 

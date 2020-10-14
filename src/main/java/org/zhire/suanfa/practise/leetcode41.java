@@ -1,4 +1,4 @@
-package org.zhire.suanfa;
+package org.zhire.suanfa.practise;
 
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.zhire.suanfa;
+package org.zhire.suanfa.practise;
 
 import io.swagger.models.auth.In;
 import org.assertj.core.util.Lists;

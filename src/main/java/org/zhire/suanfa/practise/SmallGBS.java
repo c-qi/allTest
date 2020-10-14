@@ -1,4 +1,4 @@
-package org.zhire.suanfa;
+package org.zhire.suanfa.practise;
 
 /**
  * 最大公约数
