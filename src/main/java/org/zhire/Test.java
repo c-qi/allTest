@@ -1,5 +1,8 @@
 package org.zhire;
 
+import cn.hutool.core.codec.Base64;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -14,9 +17,12 @@ import org.springframework.beans.BeanUtils;
 import org.zhire.pojo.User;
 import org.zhire.pojo.UserCopy;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.ref.*;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -872,12 +878,39 @@ public class Test {
 
     @org.junit.Test
     public void testMaweps() {
-        String s = String.valueOf(250.00 / (4 * 100)*100);
+        String s = String.valueOf(250.00 / (4 * 100) * 100);
         System.out.println(s.substring(0, s.indexOf(".")));
         System.out.println();
         System.out.println();
         System.out.println();
-        System.out.println(200.00 / (4 * 100)*100);
+        System.out.println(200.00 / (4 * 100) * 100);
+    }
+
+
+    @org.junit.Test
+    public void testMaweps33() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("csdfsdfs").append(",");
+        System.out.println(sb.substring(0, sb.length() - 1));
+    }
+
+    /**
+     * 生成带logo的二维码
+     */
+    @org.junit.Test
+    public void testMawdeps33() {
+        // 生成二维码
+        // File file = null;
+        try {
+            BufferedImage image = ImageIO.read(new URL("https://zhi.re/hot.png"));
+            // file = FileUtil.file();
+            QrConfig config = QrConfig.create().setImg(image).setMargin(4);
+            byte[] bytes = QrCodeUtil.generatePng("https://zhi.re", config);
+            String erCode = Base64.encode(bytes);
+            System.out.println("data:image/jpg;base64," + erCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
