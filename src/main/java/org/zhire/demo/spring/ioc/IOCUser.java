@@ -2,6 +2,8 @@ package org.zhire.demo.spring.ioc;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 public class IOCUser {
     private Integer id;
@@ -11,6 +13,23 @@ public class IOCUser {
     private STATUS status;
 
     public IOCUser(int i, String s, String s1) {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IOCUser iocUser = (IOCUser) o;
+        return Objects.equals(id, iocUser.id) &&
+                Objects.equals(name, iocUser.name) &&
+                Objects.equals(address, iocUser.address) &&
+                Objects.equals(ctime, iocUser.ctime) &&
+                status == iocUser.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, ctime, status);
     }
 
     public enum STATUS{

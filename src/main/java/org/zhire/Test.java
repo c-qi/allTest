@@ -6,6 +6,7 @@ import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.zhire.demo.spring.ioc.IOCUser;
 import org.zhire.pojo.User;
 import org.zhire.pojo.UserCopy;
 
@@ -119,7 +121,6 @@ public class Test {
 //        System.out.println(now.getMonthValue());
 //        System.out.println(now.getYear());
 //        System.out.println(LocalDate.now().toString());
-
 
     }
 
@@ -911,6 +912,49 @@ public class Test {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @org.junit.Test
+    public void t() {
+
+        ArrayList<User> list = new ArrayList<>();
+        ArrayList<Person> list2 = new ArrayList<>();
+        List<Object> res = new ArrayList<>();
+        User user = new User();
+        User user2 = new User();
+        Person person = new Person();
+        Person person2 = new Person();
+        person.setName("address01");
+        person2.setName("address02");
+        list2.add(person);
+        list2.add(person2);
+        user.setName("cq01");
+        user2.setName("cq02");
+        list.add(user);
+        list.add(user2);
+        list.forEach(l -> {
+            IOCUser iocUser = new IOCUser();
+            iocUser.setName(l.getName());
+            list2.forEach(ll -> {
+                iocUser.setAddress(ll.getName());
+                System.out.println(iocUser);
+                res.add(iocUser);
+                System.out.println(res);
+//                IOCUser iocUser2 = new IOCUser();
+//                BeanUtils.copyProperties(iocUser,iocUser2);
+//                iocUser2.setAddress(ll.getName());
+//                res.add(iocUser2);
+            });
+        });
+        // System.out.println(JSON.toJSONString(res);
+        // 上面的输出会打印：[{"address":"d3e2dd","name":"cqq"},{"$ref":"$[0]"},{"address":"d3e2dd","name":"c22qq"},{"$ref":"$[2]"}]
+        // {"$ref":"$[0]"}是重复引用的意思
+        // 实际上的输出是这样的：[{"address":"address02","name":"cq01"},{"address":"address02","name":"cq01"},
+        // {"address":"address02","name":"cq02"},{"address":"address02","name":"cq02"}]
+        // 原因 list存引用类型存放的是引用地址，里面的循环，其实最后保存的是最后一次遍历的值，所以之前保存的值会改变
+        System.out.println(JSON.toJSONString(res, SerializerFeature.DisableCircularReferenceDetect));
+
     }
 
 }
