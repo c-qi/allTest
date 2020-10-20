@@ -71,21 +71,43 @@ public class Jianzhi7 {
         return root;
     }
 
+    /**
+     * @param preorder      前序遍历数组
+     * @param preorderStart 前序遍历的开头
+     * @param preorderEnd   前序遍历的结尾
+     * @param inorder       中序遍历数组
+     * @param inorderStart  中序遍历的开头
+     * @param inorderEnd    中序遍历的结尾
+     * @param indexMap      使用一个Map存储中序遍历的每个元素及其对应的下标，目的是为了快速获得一个元素在中序遍历中的位置
+     *                      <p>
+     *                      前序遍历 preorder = [3,9,20,15,7]
+     *                      中序遍历 inorder = [9,3,15,20,7]
+     * @return
+     */
     public TreeNode buildTree(int[] preorder, int preorderStart, int preorderEnd,
                               int[] inorder, int inorderStart, int inorderEnd,
                               Map<Integer, Integer> indexMap) {
         if (preorderStart > preorderEnd) {
             return null;
         }
+        // 获取根节点位置-前序遍历的第一个元素
         int rootVal = preorder[preorderStart];
+        // 构建二叉树
         TreeNode root = new TreeNode(rootVal);
+        // 如果前序遍历的头等于前序遍历的尾 则当前树构建完成
         if (preorderStart == preorderEnd) {
             return root;
         } else {
+            // 获取前序遍历根节点在中序遍历中的下标
             int rootIndex = indexMap.get(rootVal);
-            int leftNodes = rootIndex - inorderStart, rightNodes = inorderEnd - rootIndex;
+            // 获取左子树 根节点的下标减去中序遍历的头结点下标
+            int leftNodes = rootIndex - inorderStart,
+                    // 获取右子树 中序遍历的尾结点下标减去根节点的下标
+                    rightNodes = inorderEnd - rootIndex;
+            // 递归构建左子树
             TreeNode leftSubtree = buildTree(preorder, preorderStart + 1, preorderStart + leftNodes,
                     inorder, inorderStart, rootIndex - 1, indexMap);
+            // 递归构建右子树
             TreeNode rightSubtree = buildTree(preorder, preorderEnd - rightNodes + 1, preorderEnd,
                     inorder, rootIndex + 1, inorderEnd, indexMap);
             root.left = leftSubtree;
