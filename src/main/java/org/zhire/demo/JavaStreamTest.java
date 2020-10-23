@@ -246,12 +246,16 @@ public class JavaStreamTest {
 
     /**
      * 字符串分割转list
+     * list转字符串
      */
     @Test
     public void tests() {
         String s = "chenqi,qiqi,qi";
         List<String> list = Arrays.stream(s.split(",")).collect(Collectors.toList());
+        List<String> lists = Arrays.asList("cq", "ccqq", "cxq");
+        String s1 = String.join(",", lists);
         System.out.println(list);
+        System.out.println(s1);
 
     }
 }
