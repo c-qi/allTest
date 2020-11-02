@@ -957,4 +957,24 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void oo() {
+        ArrayList<IOCUser> list = new ArrayList<>();
+        IOCUser user = new IOCUser();
+        IOCUser user2 = new IOCUser();
+        user.setId(1);
+        user2.setId(2);
+        list.add(user);
+        list.add(user2);
+        list.forEach(this::setValue);
+        System.out.println(list);
+    }
+
+    int f = 0;
+
+    private void setValue(IOCUser iocUser) {
+        iocUser.setAddress("address" + f);
+        f++;
+    }
+
 }

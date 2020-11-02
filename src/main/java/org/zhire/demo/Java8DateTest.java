@@ -207,12 +207,13 @@ public class Java8DateTest {
 
         //Java 8
         LocalDate today = LocalDate.now();
+        System.out.println("today"+today);
         //本月的第一天
         LocalDate firstday = LocalDate.of(today.getYear(), today.getMonth(), 1);
         //本月的最后一天
         LocalDate lastDay = today.with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println("本月的第一天" + firstday);
-        System.out.println("本月的最后一天" + lastDay);
+        System.out.println("本月的第一天" + firstday.toString());
+        System.out.println("本月的最后一天" + lastDay.toString());
         // Java 8
         DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         DateTimeFormatter newFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -221,6 +222,7 @@ public class Java8DateTest {
         System.out.println("newFormatter:"+date2.format(newFormatter));
         LocalDateTime yesterday = dt.minusDays(1);
         System.out.println("昨天的当前时刻："+newFormatter2.format(yesterday));
+        System.out.println(yesterday.toLocalDate().toString());
     }
 
     @Test
