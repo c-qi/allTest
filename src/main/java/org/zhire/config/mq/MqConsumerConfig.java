@@ -7,7 +7,6 @@ import com.aliyun.openservices.ons.api.bean.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.zhire.rocket.MyRocketDelayMQListener;
 import org.zhire.rocket.MyRocketMQTestListener;
 
@@ -19,7 +18,7 @@ import java.util.Properties;
  * 消费者配置
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class MqConsumerConfig {
 
     @Autowired

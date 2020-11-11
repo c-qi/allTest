@@ -5,7 +5,6 @@ import com.aliyun.openservices.ons.api.ConsumeContext;
 import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.MessageListener;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * 延时消息消费者
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Author by chenqi
  */
 @Slf4j
-@Component
+//@Component
 public class MyRocketDelayMQListener implements MessageListener {
     @Override
     public Action consume(Message message, ConsumeContext context) {

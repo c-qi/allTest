@@ -301,10 +301,10 @@ public class TestController {
         return new User();
     }
 
-    @Autowired
+    //@Autowired
     private ProducerBean producer;
 
-    @Autowired
+    //@Autowired
     private MyDataConfig myDataConfig;
 
     @RequestMapping("/mq")

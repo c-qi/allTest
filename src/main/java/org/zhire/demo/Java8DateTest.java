@@ -221,6 +221,7 @@ public class Java8DateTest {
         System.out.println(date2);
         System.out.println("newFormatter:"+date2.format(newFormatter));
         LocalDateTime yesterday = dt.minusDays(1);
+        System.out.println(yesterday+" 123123");
         System.out.println("昨天的当前时刻："+newFormatter2.format(yesterday));
         System.out.println(yesterday.toLocalDate().toString());
     }

@@ -1,7 +1,6 @@
 package org.zhire.config.mq;
 
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * topic和group的配置
@@ -9,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @author chenqi
  */
 @Data
-@Configuration
+//@Configuration
 //@ConfigurationProperties(prefix = "rocket-data")
 public class MyDataConfig {
 

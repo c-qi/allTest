@@ -2,7 +2,6 @@ package org.zhire.config.mq;
 
 import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
@@ -12,7 +11,7 @@ import java.util.Properties;
  * @author chenqi
  */
 @Data
-@Configuration
+//@Configuration
 //@ConfigurationProperties(prefix = "aliyun-ons")
 public class RocketMQConfig {
 

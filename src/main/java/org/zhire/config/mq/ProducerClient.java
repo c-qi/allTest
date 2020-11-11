@@ -3,12 +3,11 @@ package org.zhire.config.mq;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 生产者配置
  */
-@Configuration
+//@Configuration
 public class ProducerClient {
 
     @Autowired
