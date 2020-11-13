@@ -960,14 +960,23 @@ public class Test {
     @org.junit.Test
     public void oo() {
         ArrayList<IOCUser> list = new ArrayList<>();
+        ArrayList<IOCUser> list2 = new ArrayList<>();
         IOCUser user = new IOCUser();
         IOCUser user2 = new IOCUser();
         user.setId(1);
         user2.setId(2);
         list.add(user);
-        list.add(user2);
+        list2.add(user2);
         list.forEach(this::setValue);
         System.out.println(list);
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put(1, list);
+       // map.put(2, list2);
+        Collection<Object> values = map.values();
+        System.out.println(JSON.toJSONString(map));
+        ArrayList<Object> arrayList = new ArrayList<>(values);
+        System.out.println(arrayList);
+        System.out.println(values);
     }
 
     int f = 0;
