@@ -78,4 +78,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true
+logging:
+ level:
+  org.zhire.mapper: debug
+
 

@@ -1,11 +1,13 @@
 package org.zhire.service.impl;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zhire.mapper.UserMapper;
 import org.zhire.pojo.User;
 import org.zhire.service.UserService;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -25,8 +27,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User login(String name, String pass) {
-        return mapper.selectByParam(name, pass);
+        HashSet<String> set = new HashSet<>();
+        User user = mapper.selectByParam(name, pass);
+        set.add(user.getEmail());
+        System.out.println("sleep-----" + user.getEmail());
+        try {
+            Thread.sleep(1000 * 20);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        User user1 = mapper.selectByParam(name, pass);
+        set.add(user1.getEmail());
+        System.out.println(set);
+        return user;
+
     }
     // @Autowired
     // private UserMapper mapper;

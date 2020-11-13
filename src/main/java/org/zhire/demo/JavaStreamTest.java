@@ -109,8 +109,8 @@ public class JavaStreamTest {
     @Test
     public void filter() {
         List<User> list = new ArrayList<>();
-        List<User> expertList =
-                list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
+        //List<User> expertList =
+              //  list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
     }
 
     @org.junit.Test
