@@ -68,9 +68,13 @@ public class RedisTest {
 
     @Test
     public void tes2t() {
-        for (long i = 10000000000L; i < 10000900000L; i++) {
-            redisTemplate.boundHashOps("testRedis").put(i, i);
-        }
+        Boolean ifAbsent = redisTemplate.opsForValue().setIfAbsent("ifabsent", "1", 10, TimeUnit.MINUTES);
+        // 不存在 创建 成功 true ，存在 创建 失败 false
+        System.out.println(ifAbsent);
+        // 不会改变上面的值
+        Boolean ifAbsent2 = redisTemplate.opsForValue().setIfAbsent("ifabsent", "2", 10, TimeUnit.MINUTES);
+        System.out.println(ifAbsent2);
+        System.out.println(redisTemplate.opsForValue().get("ifabsent"));
     }
 
 }
