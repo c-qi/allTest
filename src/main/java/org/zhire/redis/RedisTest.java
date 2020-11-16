@@ -1,5 +1,6 @@
 package org.zhire.redis;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.zhire.SpringBootStart;
 
+import java.util.Set;
 import java.util.concurrent.*;
 
 /**
@@ -75,6 +77,21 @@ public class RedisTest {
         Boolean ifAbsent2 = redisTemplate.opsForValue().setIfAbsent("ifabsent", "2", 10, TimeUnit.MINUTES);
         System.out.println(ifAbsent2);
         System.out.println(redisTemplate.opsForValue().get("ifabsent"));
+    }
+
+    @Test
+    public void test3() {
+        redisTemplate.opsForSet().add("setValue", "A", "B", "C", "B", "D", "E", "F");
+        // 无序
+        Set set = redisTemplate.opsForSet().members("setValue");
+        System.out.println(JSON.toJSONString(set));
+        // 随机弹出数据
+        Object popValue = redisTemplate.opsForSet().pop("setValue");
+        System.out.print("通过pop(K key)方法弹出变量中的元素:" + popValue);
+        Object popValue2 = redisTemplate.opsForSet().pop("setValue");
+        System.out.print("通过pop(K key)方法弹出变量中的元素:" + popValue2);
+        Set set2 = redisTemplate.opsForSet().members("setValue");
+        System.out.println(JSON.toJSONString(set2));
     }
 
 }
