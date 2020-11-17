@@ -1,6 +1,8 @@
 package org.zhire.suanfa.shujujiegou;
 
 
+import java.util.Arrays;
+
 /**
  * @Author: chenqi
  * @Date: 2020.7.15 14:50
@@ -18,7 +20,8 @@ public class Sort {
         // sortByXz(nums3);
         //  sortByXz2(nums3);
         //quickSort(nums4);
-        sortByQuick(nums4);
+        //sortByQuick(nums4);
+        sortByQuick2(nums4);
 
     }
 
@@ -210,6 +213,40 @@ public class Sort {
     }
 
     private static int getMiddle(int[] nums, int left, int right) {
+        int on = nums[right];
+        int i = left;
+        for (int j = left; j < right; j++) {
+            if (nums[j] < on) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+            }
+        }
+        int temp = nums[i];
+        nums[i] = nums[right];
+        nums[right] = temp;
+        return i;
+    }
+
+
+    private static void sortByQuick2(int[] nums) {
+        sortByQuickMethod2(nums, 0, nums.length-1);
+        System.out.println(Arrays.toString(nums));
+
+    }
+
+    private static void sortByQuickMethod2(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int middle = getMddle2(nums, left, right);
+        sortByQuickMethod2(nums, left, middle - 1);
+        sortByQuickMethod2(nums, middle + 1, right);
+
+    }
+
+    private static int getMddle2(int[] nums, int left, int right) {
         int on = nums[right];
         int i = left;
         for (int j = left; j < right; j++) {

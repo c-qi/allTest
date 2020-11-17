@@ -55,6 +55,6 @@ public class Jz22 {
         nodeNext.next = nodeNextNext;
         nodeNextNext.next = nodeNextNextNext;
         System.out.println(node);
-        System.out.println(getKthFromEnd(node, 5));
+        System.out.println(getKthFromEnd(node, 3));
     }
 }

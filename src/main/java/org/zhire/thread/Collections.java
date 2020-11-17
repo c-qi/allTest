@@ -1,12 +1,8 @@
 package org.zhire.thread;
 
-import java.util.*;
-
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.sun.javafx.collections.MappingChange;
 import org.junit.Test;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
