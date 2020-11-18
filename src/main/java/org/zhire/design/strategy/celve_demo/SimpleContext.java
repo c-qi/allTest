@@ -16,19 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class SimpleContext {
 
+    @Autowired
+    private final Map<String, Strategy> strategyMap = new ConcurrentHashMap<>();
 
-   @Autowired
-   private final Map<String, Strategy> strategyMap = new ConcurrentHashMap<>();
-
-    public SimpleContext(Map<String, Strategy> strategyMap) {
-        this.strategyMap.clear();
-        for (Map.Entry<String, Strategy> entry : strategyMap.entrySet()) {
-            String k = entry.getKey();
-            Strategy v = entry.getValue();
-            Strategy put = this.strategyMap.put(k, v);
-            System.out.println(put);
-        }
-    }
 
     public String getResource(String poolId) {
         return strategyMap.get(poolId).getVpcList(poolId);
