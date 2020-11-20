@@ -1,6 +1,10 @@
 package org.zhire;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.fastjson.JSON;
@@ -971,7 +975,7 @@ public class Test {
         System.out.println(list);
         HashMap<Object, Object> map = new HashMap<>();
         map.put(1, list);
-       // map.put(2, list2);
+        // map.put(2, list2);
         Collection<Object> values = map.values();
         System.out.println(JSON.toJSONString(map));
         ArrayList<Object> arrayList = new ArrayList<>(values);
@@ -986,4 +990,49 @@ public class Test {
         f++;
     }
 
+    /**
+     * 对称加密
+     */
+    @org.junit.Test
+    public void t77() {
+        String content = "test12345";
+        //随机生成密钥
+        byte[] key = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded();
+        //构建
+        SymmetricCrypto aes = new SymmetricCrypto(SymmetricAlgorithm.AES, key);
+
+        //加密为16进制表示
+        String encryptHex = aes.encryptHex(content);
+        System.out.println("加密后：" + encryptHex);
+        //解密为字符串
+        String decryptStr = aes.decryptStr(encryptHex, CharsetUtil.CHARSET_UTF_8);
+        System.out.println("解密后：" + decryptStr);
+
+    }
+
+    /**
+     * 带负数的数组排序
+     */
+    @org.junit.Test
+    public void t773() {
+        int[] a = {-2, 3, -4, 5, 1};
+        int[] b = new int[a.length];
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < 0) {
+                int abs = Math.abs(a[i]);
+                list.add(abs);
+                b[i] = abs;
+            } else {
+                b[i] = a[i];
+            }
+        }
+        Arrays.sort(b);
+        for (int i = 0; i < b.length; i++) {
+            if (list.contains(b[i])) {
+                b[i] = -(b[i]);
+            }
+        }
+        System.out.println(Arrays.toString(b));
+    }
 }
