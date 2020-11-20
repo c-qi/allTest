@@ -1,5 +1,6 @@
 package org.zhire.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -71,6 +72,21 @@ public class TestController {
         System.out.println(sequenceGenerator.generate(11));
         return null;
     }
+
+
+    @GetMapping(value = "/test23")
+    public Map<String,Object> test222() {
+        Map<String, Object> map = new HashMap<>();
+        ArrayList<User> list = CollUtil.newArrayList();
+        User user = new User();
+        user.setName("cq");
+        user.setManagerId(12345678987654321L);
+        list.add(user);
+        map.put("list",list);
+        System.out.println(JSON.toJSONString(map));
+        return map;
+    }
+
 
     /**
      * 向延迟队列添加数据

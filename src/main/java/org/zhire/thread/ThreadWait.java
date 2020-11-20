@@ -22,7 +22,7 @@ public class ThreadWait {
                     }
                     System.out.println("aaaa");
                     a = 1;
-                    object.notifyAll();
+                    object.notifyAll(); // 唤醒等待的线程，锁释放后，被唤醒的线程会争夺资源
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
