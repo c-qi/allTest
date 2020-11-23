@@ -11,6 +11,7 @@ public class MySendService {
     private MySource source;
 
     public void sendMsg(String msg) {
-        source.myOutput().send(MessageBuilder.withPayload(msg).setHeader("flag","cq").build());
+        //source.myOutput().send(MessageBuilder.withPayload(msg).setHeader("flag","cq").build());
+        source.myOutput().send(MessageBuilder.withPayload(msg).build());
     }
 }

@@ -12,24 +12,16 @@ import org.springframework.messaging.support.ErrorMessage;
 public class RecevieInputService {
 
     // condition 消费过滤
-    @StreamListener(value = MySource.input, condition = "headers['flag'] == 'cq'")
+    //@StreamListener(value = MySource.input, condition = "headers['flag'] == 'cq'")
+    @StreamListener(value = MySource.input)
     public void onReceiver(byte[] msg) {
         System.out.println("消费者1收到消息:" + Thread.currentThread().getId() + " " + new String(msg));
-        int value = 0;
-        try {
-            Thread.sleep(3000);
-            value = Integer.parseInt(new String(msg));
-            value = 10 / value;
-            System.out.println("value:" + value);
-        } catch (Exception e) {
-            throw new RuntimeException("FAIL");
-        }
     }
 
 
     @StreamListener(MySource.input2)
-    public void onReceiver2(byte[] msg) {
-        System.out.println("消费者2收到消息:" + new String(msg));
+    public void onReceiver3(byte[] msg) {
+        System.out.println("消费者3收到消息:" + new String(msg));
     }
 
     /**
