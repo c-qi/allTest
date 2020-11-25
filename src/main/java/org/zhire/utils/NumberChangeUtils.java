@@ -1,7 +1,9 @@
 package org.zhire.utils;
 
 import com.google.common.base.Joiner;
+import org.joda.time.DateTime;
 
+import javax.validation.constraints.NotNull;
 import java.util.LinkedList;
 
 public class NumberChangeUtils {
@@ -35,5 +37,21 @@ public class NumberChangeUtils {
         }
         return Joiner.on("").join(result);
     }
-
+    public static void main(String[] args) {
+        String limitCountKey = keyBuilder("KEY", DateTime.now().toString("yyyyMMdd"), "17777823345");
+        System.out.println(limitCountKey);
+    }
+    /**
+     * redis的key键规则定义
+     * @param prefix
+     * @param args
+     * @return
+     */
+    public static String keyBuilder(@NotNull String prefix, String... args) {
+        StringBuilder key = new StringBuilder(prefix);
+        for (String arg : args) {
+            key.append(":").append(arg);
+        }
+        return key.toString();
+    }
 }
