@@ -2,6 +2,7 @@ package org.zhire;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.ZipUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
@@ -38,6 +39,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.Objects.isNull;
+
+//import cn.hutool.core.io.file.FileReader;
 
 
 /**
@@ -1034,5 +1037,34 @@ public class Test {
             }
         }
         System.out.println(Arrays.toString(b));
+    }
+
+    @org.junit.Test
+    public void read() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("/script.sql"));
+            String line;
+            // long i = 0;
+//            Map<String, String> map = new HashMap<>();
+            while ((line = br.readLine()) != null) {
+                //   i++;
+                // System.out.println(line);
+                // String s = line.replace("----", ",");
+                //List<String> list = Arrays.stream(s.split(",")).collect(Collectors.toList());
+//                map.put(list.get(0), list.get(1));
+            }
+            System.out.println("ok");
+            // System.out.println(i);
+            // System.out.println(JSON.toJSONString(map));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @org.junit.Test
+    public void zi() {
+        ZipUtil.unzip("/xx.rar");
     }
 }

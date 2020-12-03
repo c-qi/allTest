@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zhire.annotation.User;
 import org.zhire.demo.spring.ioc.IOCUser;
@@ -41,7 +42,7 @@ public class TokenController {
 
 
     @RequestMapping("/get")
-    public String get(@User IOCUser user) {
+    public String get(@User IOCUser user, @RequestParam String mobile) {
         return user.toString();
     }
 

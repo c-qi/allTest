@@ -50,6 +50,10 @@ public class MyInterceptor implements HandlerInterceptor {
             log.info("解析出userId为：[{}]", userId);
             request.setAttribute("userId", userId);
             request.setAttribute("userName", userName);
+            String uri = request.getRequestURI();
+            System.out.println("uri：" + uri);
+            String mobile = request.getParameter("mobile");
+            System.out.println("mobile:" + mobile);
         } catch (Exception e) {
             log.info("token验证失败，过期或者不合法，请求地址：[{}], 请求参数：[{}]， token:[{}]", request.getRequestURI(), JSONObject.toJSONString(request.getParameterMap()), token);
             R error = R.error("token无效！");
