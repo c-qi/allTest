@@ -16,7 +16,7 @@ public class SendTemplateMsg {
 
     @Test
     public void test() {
-        // sendTemplate();
+         sendTemplate();
     }
 
     /**
@@ -37,8 +37,9 @@ public class SendTemplateMsg {
 
     // String appid, Long userId, String bussinessCode, List<String> keyWords
     public void sendTemplate() {
-        //String token = getToken();
-        String token = "38_n9RvsPz_hR6vEEECL1mtknVNbpYcVfpwSVHlsbb6hkfOyI7YpCbBv7QjBnakLkJCsbZa3Vrx6wxeEjND2z61zr7n4-kLP5iCAO5B9cTdjkn2JHvwkeHUSJ5gu3qZwa7qpBpqUx4NB7cV3BZ0BYOaAFAQND";
+        String token = getToken();
+        //String token = "38_n9RvsPz_hR6vEEECL1mtknVNbpYcVfpwSVHlsbb6hkfOyI7YpCbBv7QjBnakLkJCsbZa3Vrx6wxeEjND2z61zr7n4-kLP5iCAO5B9cTdjkn2JHvwkeHUSJ5gu3qZwa7qpBpqUx4NB7cV3BZ0BYOaAFAQND";
+
         String postUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
         JSONObject jsonObject = new JSONObject();
         // openId
@@ -68,6 +69,8 @@ public class SendTemplateMsg {
         jsonObject.put("data", data);
 
         String string = HttpUtil.post(postUrl, jsonObject.toJSONString());
+
+
         JSONObject result = JSON.parseObject(string);
         System.out.println(result);
 
