@@ -28,6 +28,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.ref.*;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -1063,8 +1064,88 @@ public class Test {
 
     }
 
+    /**
+     * 解压
+     */
     @org.junit.Test
     public void zi() {
         ZipUtil.unzip("/xx.rar");
     }
+
+    // 常用的通配符为： T，E，K，V，？
+    // ？ 表示不确定的 java 类型
+    // T (type) 表示具体的一个 java 类型
+    // K V (key value) 分别代表 java 键值中的 Key Value
+    // E (element) 代表 Element
+    @org.junit.Test
+    public void fanxin() {
+        List<Integer> list = new ArrayList<>();
+        list.add(12);
+        //这里直接添加会报错
+        // list.add("a");
+        Class<? extends List> clazz = list.getClass();
+        try {
+            Method add = clazz.getDeclaredMethod("add", Object.class);
+            //但是通过反射添加，是可以的
+            add.invoke(list, "kl");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(list);
+
+        Generic<Integer> genericInteger = new Generic<Integer>(123456);
+
+        // 创建不同类型数组： Integer, Double 和 Character
+        Integer[] intArray = {1, 2, 3};
+        String[] stringArray = {"Hello", "World"};
+        printArray(intArray);
+        printArray(stringArray);
+
+    }
+
+    // 1.泛型类：
+    //此处T可以随便写为任意标识，常见的如T、E、K、V等形式的参数常用于表示泛型
+    //在实例化泛型类时，必须指定T的具体类型
+    public class Generic<T> {
+
+        private T key;
+
+        public Generic(T key) {
+            this.key = key;
+        }
+
+        public T getKey() {
+            return key;
+        }
+    }
+
+    // 2.泛型接口 ：
+    public interface Generator<T> {
+        public T method();
+    }
+
+    // 实现泛型接口，不指定类型：
+    class GeneratorImpl<T> implements Generator<T> {
+        @Override
+        public T method() {
+            return null;
+        }
+    }
+
+    // 实现泛型接口，指定类型：
+    class GeneratorImpl2<T> implements Generator<String> {
+        @Override
+        public String method() {
+            return "hello";
+        }
+    }
+
+    // 3.泛型方法 ：
+    public static <E> void printArray(E[] inputArray) {
+        for (E element : inputArray) {
+            System.out.printf("%s ", element);
+        }
+        System.out.println();
+    }
+
 }
