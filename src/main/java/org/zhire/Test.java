@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.Person;
@@ -1146,6 +1147,21 @@ public class Test {
             System.out.printf("%s ", element);
         }
         System.out.println();
+    }
+
+    /**
+     * ImmutableMap
+     */
+    @org.junit.Test
+    public void temap() {
+        getss("cq", 1);
+        getss("cq2", 2);
+    }
+
+    private void getss(String n, Integer a) {
+        Map<String, Object> map = ImmutableMap.of("name", n, "age", a);
+        System.out.println(JSON.toJSONString(map));
+
     }
 
 }
