@@ -1316,4 +1316,28 @@ public class Test {
         return u;
     }
 
+    /**
+     * ArrayList和LinkedList插入性能对比
+     * 数据量小的情况下 LinkedList快
+     * 数据量大的情况下 ArrayList快
+     */
+    @org.junit.Test
+    public void te2eee() {
+        long l = System.currentTimeMillis();
+        ArrayList list = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            list.add(i);
+        }
+        long l2 = System.currentTimeMillis();
+        System.out.println(l2 - l);
+
+        long l3 = System.currentTimeMillis();
+        LinkedList list2 = new LinkedList();
+        for (int i = 0; i < 100000; i++) {
+            list2.add(i);
+        }
+        long l4 = System.currentTimeMillis();
+        System.out.println(l4 - l3);
+    }
+
 }
