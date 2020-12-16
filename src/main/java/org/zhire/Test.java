@@ -1300,4 +1300,20 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void tes() {
+        User user = new User();
+        user.setName("cq");
+        User user1 = get(user);
+        System.out.println(user);
+        System.out.println(user.equals(user1));
+    }
+
+    private User get(User u) {
+        u.setName("chenqi");
+        u.setManagerId(1L);
+        System.out.println(u);
+        return u;
+    }
+
 }

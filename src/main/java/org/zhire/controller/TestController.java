@@ -292,14 +292,22 @@ public class TestController {
     public static void main(String[] args) throws Exception {
         StopWatch watch = new StopWatch();
         watch.start();
-        ExcelReader reader = ExcelUtil.getReader("/Users/admin/Downloads/用户信息模板.xlsx");
+        ExcelReader reader = ExcelUtil.getReader("/Users/admin/Documents/获奖用户信息模板.xlsx");
         List<List<Object>> read = reader.read(1, reader.getRowCount());
-        for (List<Object> objects : read) {
-            System.out.println(objects);
-            executor.execute(() -> {
-                System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
-            });
-        }
+       // for (List<Object> objects : read) {
+           // System.out.println(objects);
+//            executor.execute(() -> {
+//                System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
+//            });
+       // }
+        read.forEach(l->{
+            String mobile = (String) l.get(0);
+            Long level = (Long) l.get(1);
+            Long payInfo = (Long) l.get(2);
+            System.out.println(mobile);
+            System.out.println(level);
+            System.out.println(payInfo);
+        });
         watch.stop();
         System.out.println("耗时：" + watch.getTotalTimeSeconds());
     }
