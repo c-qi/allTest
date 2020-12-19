@@ -874,7 +874,7 @@ public class Test {
         UserCopy copy = new UserCopy();
         BeanUtils.copyProperties(user, copy);
         System.out.println(JSON.toJSONString(user));
-        copy.setId(1);
+        copy.setId(1L);
         System.out.println(JSON.toJSONString(copy));
         System.out.println(user == copy);
         System.out.println(user.equals(copy));

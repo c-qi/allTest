@@ -16,6 +16,7 @@ public class User implements Serializable {
     private String email;
     private Integer age;
     private Long managerId;
+    private Long id;
 
 
     public User() {

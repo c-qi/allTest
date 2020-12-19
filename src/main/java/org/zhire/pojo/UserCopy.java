@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Data
 public class UserCopy extends User{
-    private Integer id;
+    private Long id;
 
     @Override
     public boolean equals(Object o) {
