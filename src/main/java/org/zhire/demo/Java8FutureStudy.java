@@ -11,6 +11,9 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.concurrent.CompletableFuture.runAsync;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
 /**
  * CompletableFuture使用总结
  * supplyAsync() 异步执行
@@ -94,7 +97,7 @@ public class Java8FutureStudy {
 
         // todo 异步获取价格优化代码
         public Future<Double> getPriceAsyncBetter(String product) {
-            return CompletableFuture.supplyAsync(() ->
+            return supplyAsync(() ->
                     calculatePrice(product));
         }
 
@@ -115,7 +118,7 @@ public class Java8FutureStudy {
             // 使用CompletableFuture以异步方式计算每种商品的价格
             List<CompletableFuture<Double>> futureList = shops.stream().map(
                     shop ->
-                            CompletableFuture.supplyAsync(() -> shop.getPrice(product))).collect(Collectors.toList());
+                            supplyAsync(() -> shop.getPrice(product))).collect(Collectors.toList());
             // 等待所有异步操作结束
             List<Double> list = futureList.stream().map(CompletableFuture::join).collect(Collectors.toList());
             return list;
@@ -136,14 +139,14 @@ public class Java8FutureStudy {
         public List<Double> findPricesBetterByBest(String product) {
             List<Double> list = new ArrayList<>();
             List<CompletableFuture<Double>> futureList = shops.stream()
-                    .map(shop -> CompletableFuture.supplyAsync(
+                    .map(shop -> supplyAsync(
                             // 异步方式获取产品价格
                             () -> shop.getPrice(product)))
                     // 对上面的返回值加1
                     .map(future -> future.thenApply((Add::priceAdd)))
                     // 使用另外的异步执行价格减操作
                     .map(future -> future.thenCompose(
-                            add -> CompletableFuture.supplyAsync(
+                            add -> supplyAsync(
                                     () -> Del.priceDel(add))))
                     .collect(Collectors.toList());
             List<Double> doubles = futureList.stream().map(CompletableFuture::join).collect(Collectors.toList());
@@ -153,14 +156,14 @@ public class Java8FutureStudy {
         // 流水线原始操作 这里不返回最后计算出来的值
         public Stream<CompletableFuture<Double>> findPricesBetterByBest2(String product) {
             Stream<CompletableFuture<Double>> futureStream = shops.stream()
-                    .map(shop -> CompletableFuture.supplyAsync(
+                    .map(shop -> supplyAsync(
                             // 异步方式获取产品价格
                             () -> shop.getPrice(product)))
                     // 对上面的返回值加1
                     .map(future -> future.thenApply((Add::priceAdd)))
                     // 使用另外的异步执行价格减操作
                     .map(future -> future.thenCompose(
-                            add -> CompletableFuture.supplyAsync(
+                            add -> supplyAsync(
                                     () -> Del.priceDel(add))));
             return futureStream;
         }
@@ -297,8 +300,8 @@ public class Java8FutureStudy {
 
     @Test
     public void t() throws Exception {
-        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> get(1));
-        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> get("s"));
+        CompletableFuture<Integer> future = supplyAsync(() -> get(1));
+        CompletableFuture<String> future1 = supplyAsync(() -> get("s"));
         //CompletableFuture.allOf(future,future1).join();
         System.out.println(future.get());
         System.out.println(future1.get());
@@ -306,15 +309,23 @@ public class Java8FutureStudy {
     }
 
     public Integer get(int i) {
-        i = i + 1;
-        System.out.println(i);
+        i += 1;
         return i;
     }
 
     public String get(String s) {
-        s = s + s;
-        System.out.println(s);
+        s += s;
         return s;
+    }
+
+    @Test
+    public void tt() throws Exception {
+        // 异步操作 不需要返回值
+        CompletableFuture<Void> f1 = runAsync(() -> get(1));
+        // 异步操作 需要返回值
+        CompletableFuture<Integer> f2 = supplyAsync(() -> get(1));
+        System.out.println(f2.get());
+
     }
 
 }
