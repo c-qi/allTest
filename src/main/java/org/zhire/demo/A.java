@@ -1,8 +1,19 @@
 package org.zhire.demo;
 
-import lombok.Data;
-
-@Data
+//@Data
 public class A {
-    private long id = 1L;
+    public long id = 1L;
+
+    public A() {
+        r();
+        w();
+    }
+
+    public void r() {
+        System.out.println("rrrr");
+    }
+
+    private void w() {
+        System.out.println("wwww");
+    }
 }
