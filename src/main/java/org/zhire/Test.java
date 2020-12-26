@@ -1340,4 +1340,15 @@ public class Test {
         System.out.println(l4 - l3);
     }
 
+
+    @org.junit.Test
+    public void t0() {
+        int i = 2;
+        // i -= i++;
+        i = i++;
+        System.out.println(i);
+        i = i - i;
+        System.out.println(i);
+
+    }
 }
