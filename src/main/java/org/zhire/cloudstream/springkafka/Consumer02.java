@@ -13,7 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Consumer02 {
 
-    @KafkaListener(topics = Producer.TOPIC, groupId = "kafka-consumer-02-group-" + Producer.TOPIC)
+    /**
+     * concurrency 设置消费者线程数
+     *
+     * @param record
+     */
+    @KafkaListener(topics = Producer.TOPIC, groupId = "kafka-consumer-02-group-" + Producer.TOPIC, concurrency = "2")
     public void onMessage(ConsumerRecord<String, String> record) {
         log.info("消费者2，线程编号:{} 消息内容：{}", Thread.currentThread().getId(), record.value());
     }

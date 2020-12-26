@@ -44,4 +44,18 @@ public class SpringKafkaController {
 
     }
 
+    @RequestMapping("/t3")
+    private String t3() {
+        int age = 10;
+        log.info("同步发送结果：{}", producer.syncSend2(age));
+        return "OK";
+    }
+
+    @RequestMapping("/t4")
+    private String t4() {
+        for (int i = 1; i < 3; i++) {
+            log.info("同步发送结果：{}", producer.syncSend3(i));
+        }
+        return "OK";
+    }
 }
