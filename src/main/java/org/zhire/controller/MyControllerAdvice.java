@@ -1,13 +1,14 @@
 package org.zhire.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.*;
+import org.zhire.config.MyException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -18,16 +19,23 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 控制器的通知
  */
 @Slf4j
-@ControllerAdvice(
+@RestControllerAdvice(
         // 指定拦截的包
         basePackages = {"org.zhire.controller.*"},
         // 限定被标注为@Controller 的类才被拦截
         annotations = Controller.class)
+//@ControllerAdvice(
+//        // 指定拦截的包
+//        basePackages = {"org.zhire.controller.*"},
+//        // 限定被标注为@Controller 的类才被拦截
+//        annotations = Controller.class)
 public class MyControllerAdvice {
 
     // 绑定格式化、参数转换规则和增加验证器等
@@ -43,11 +51,29 @@ public class MyControllerAdvice {
 
     // 异常处理，使得被拦截的控制器方法发生异常时，都能用相同的视图响应
     @ExceptionHandler(value = Exception.class)
-    public Object exception(HttpServletRequest request, Exception ex) {
+    public Map exception(HttpServletRequest request, Exception ex) {
         String content = ExceptionUtil.print(request, ex);
         log.error("异常：{}", content);
-        return ex;
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("code", 9999);
+        map.put("message", ex.getMessage());
+        log.info("返回：{}", JSON.toJSONString(map));
+        return map;
     }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(MyException.class)
+    public Map starExceptionhandler(HttpServletRequest request, MyException ex) {
+        String content = ExceptionUtil.print(request, ex);
+        log.error("异常：{}", content);
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("code", ex.getCode());
+        map.put("message", ex.getMessage());
+        log.info("返回：{}", JSON.toJSONString(map));
+        return map;
+    }
+
 
     public static class ExceptionUtil {
         private final static char COLON = ':';

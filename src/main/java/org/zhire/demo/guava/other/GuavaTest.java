@@ -1,10 +1,12 @@
-package org.zhire.demo.guava.map;
+package org.zhire.demo.guava.other;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.*;
 import org.junit.Test;
+import org.zhire.pojo.User;
 
 import java.util.*;
 
@@ -147,5 +149,100 @@ public class GuavaTest {
         // {c=3}
         System.out.println(entriesInCommon);
 
+    }
+
+    /**
+     * range
+     */
+    @Test
+    public void testRange() {
+        System.out.println("open:" + Range.open(1, 10));
+        System.out.println("closed:" + Range.closed(1, 10));
+        System.out.println("closedOpen:" + Range.closedOpen(1, 10));
+        System.out.println("openClosed:" + Range.openClosed(1, 10));
+        System.out.println("greaterThan:" + Range.greaterThan(10));
+        System.out.println("atLeast:" + Range.atLeast(10));
+        System.out.println("lessThan:" + Range.lessThan(10));
+        System.out.println("atMost:" + Range.atMost(10));
+        System.out.println("all:" + Range.all());
+        System.out.println("closed:" + Range.closed(10, 10));
+        System.out.println("closedOpen:" + Range.closedOpen(10, 10));
+        // 会抛出异常
+        // System.out.println("open:" + Range.open(10, 10));
+    }
+
+    @Test
+    public void testWordCount() {
+        String strWorld = "wer|dfd|dd|dfd|dda|de|dr";
+        String[] words = strWorld.split("\\|");
+        Map<String, Integer> countMap = new HashMap();
+        for (String word : words) {
+            Integer count = countMap.get(word);
+            if (count == null) {
+                countMap.put(word, 1);
+            } else {
+                countMap.put(word, count + 1);
+            }
+        }
+        System.out.println("countMap：");
+        for (String key : countMap.keySet()) {
+            System.out.println(key + " count：" + countMap.get(key));
+        }
+    }
+
+    @Test
+    public void testMultsetWordCount() {
+        String strWorld = "wer|dfd|dd|dfd|dda|de|dr";
+        String[] words = strWorld.split("\\|");
+        List<String> wordList = new ArrayList<>(Arrays.asList(words));
+
+        Multiset<String> wordsMultiset = HashMultiset.create();
+        wordsMultiset.addAll(wordList);
+        System.out.println(JSON.toJSONString(wordsMultiset));
+
+        for (String key : wordsMultiset.elementSet()) {
+            System.out.println(key + " count：" + wordsMultiset.count(key));
+        }
+    }
+
+    @Test
+    public void preconditions() throws Exception {
+
+        getPersonByPrecondition(8, "cq");
+
+        try {
+            getPersonByPrecondition(-9, "cq");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            getPersonByPrecondition(8, "");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            getPersonByPrecondition(8, null);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void getPersonByPrecondition(int age, String name) throws Exception {
+        Preconditions.checkNotNull(name, "neme为null");
+        Preconditions.checkArgument(name.length() > 0, "neme为空");
+        Preconditions.checkArgument(age > 0, "age 必须大于0");
+        System.out.println("a person age:" + age + ",neme:" + name);
+    }
+
+    @Test
+    public void t(){
+        Multimap<Integer, User> map2 = ArrayListMultimap.create();
+        map2.put(1, new User("cq"));
+        map2.put(1, new User("cqq"));
+        map2.put(2, new User("cq2q"));
+        map2.put(2, new User("cq22q"));
+        System.out.println(JSON.toJSONString(map2.asMap()));
     }
 }
