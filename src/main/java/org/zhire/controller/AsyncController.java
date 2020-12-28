@@ -6,7 +6,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zhire.demo.AsyncTaskDemo;
+import org.zhire.demo.test.AsyncTaskDemo;
 
 import java.util.concurrent.Future;
 

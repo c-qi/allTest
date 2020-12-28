@@ -1,4 +1,4 @@
-package org.zhire.demo;
+package org.zhire.demo.test;
 
 //@Data
 public class B extends A {

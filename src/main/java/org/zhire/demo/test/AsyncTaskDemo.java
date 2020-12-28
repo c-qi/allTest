@@ -1,4 +1,4 @@
-package org.zhire.demo;
+package org.zhire.demo.test;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;

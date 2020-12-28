@@ -1,4 +1,4 @@
-package org.zhire.demo;
+package org.zhire.demo.test;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;

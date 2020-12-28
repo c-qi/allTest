@@ -1,4 +1,4 @@
-package org.zhire.demo;
+package org.zhire.demo.test;
 
 /**
  * @Author: chenqi

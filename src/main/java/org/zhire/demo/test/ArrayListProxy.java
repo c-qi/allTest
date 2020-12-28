@@ -1,4 +1,4 @@
-package org.zhire.demo;
+package org.zhire.demo.test;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
