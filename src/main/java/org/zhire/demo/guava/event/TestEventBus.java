@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @Date 2020/12/28 11:17
  * @Author by chenqi
@@ -19,10 +21,15 @@ public class TestEventBus {
     @Autowired
     private EventListener eventListener;
 
+    @PostConstruct
+    public void init() {
+        eventBus.register(eventListener);
+    }
+
 
     @RequestMapping("/test")
     public void testReceiveEvent() {
-        eventBus.register(eventListener);
+        // eventBus.register(eventListener);
         eventBus.post(new TestEvent(1, "cq"));
         eventBus.post(new TestEvent(2, "cq2"));
         eventBus.post(new TestEvent(3, "cq3"));

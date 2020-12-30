@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 public class EventListener {
 
     @Subscribe
-    public void listen(TestEvent event) {
+    public void listen(TestEvent event) throws Exception {
         log.info("thread:{},content:{}", Thread.currentThread().getId(), JSON.toJSONString(event));
+        Thread.sleep(3000);
     }
 
 
