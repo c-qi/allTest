@@ -277,10 +277,14 @@
         </dependency>
         <!-- 引入 Spring-Kafka 依赖 -->
         <!-- 已经内置 kafka-clients 依赖，所以无需重复引入 -->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.kafka</groupId>-->
+            <!--<artifactId>spring-kafka</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
     <repositories>
         <repository>

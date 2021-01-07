@@ -3,7 +3,6 @@ package org.zhire.cloudstream.springkafka;
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
@@ -13,7 +12,7 @@ import java.util.HashMap;
  * @Date 2020/12/26 15:36
  * @Author by chenqi
  */
-@Component
+//@Component
 public class Producer {
 
     public static final String TOPIC = "spring-kafka-demo";

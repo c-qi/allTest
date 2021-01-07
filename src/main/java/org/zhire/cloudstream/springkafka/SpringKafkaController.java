@@ -5,15 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Date 2020/12/26 15:59
  * @Author by chenqi
  */
 @Slf4j
-@RestController
-@RequestMapping("/kafkaSpring")
+//@RestController
+//@RequestMapping("/kafkaSpring")
 public class SpringKafkaController {
 
     @Autowired

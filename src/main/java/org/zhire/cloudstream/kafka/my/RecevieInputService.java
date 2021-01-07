@@ -1,7 +1,6 @@
 package org.zhire.cloudstream.kafka.my;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.context.IntegrationContextUtils;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@EnableBinding(value = MySource.class)
+//@EnableBinding(value = MySource.class)
 public class RecevieInputService {
 
     // condition 消费过滤

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Author by chenqi
  */
 @Slf4j
-@Component
+//@Component
 public class Consumer02 {
 
     /**

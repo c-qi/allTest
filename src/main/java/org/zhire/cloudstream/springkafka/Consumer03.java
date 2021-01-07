@@ -12,7 +12,7 @@ import java.util.Map;
  * @Author by chenqi
  */
 @Slf4j
-@Component
+//@Component
 public class Consumer03 {
 
     @KafkaListener(topics = Producer.TOPIC2, groupId = "kafka-consumer-03-group-" + Producer.TOPIC)

@@ -1,7 +1,7 @@
 package org.zhire.jvm;
 
-import org.zhire.pojo.User;
 import org.junit.Test;
+import org.zhire.jpa.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,5 +103,18 @@ public class GcTest {
         while (true) {
             list.add(new User());
         }
+    }
+
+    @Test
+    public void t() {
+        System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024 + " M");
+        System.out.println(Runtime.getRuntime().maxMemory() / 1024 / 1024 + " M");
+        System.out.println(Runtime.getRuntime().totalMemory() / 1024 / 1024 + " M");
+        for (int i = 0; i < 100000; i++) {
+            System.out.print(i);
+        }
+        System.out.println();
+        System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024 + " M");
+
     }
 }

@@ -2,7 +2,6 @@ package org.zhire.cloudstream.springkafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import java.util.Map;
  * @Author by chenqi
  */
 @Slf4j
-@Component
+//@Component
 public class Consumer01 {
 
     @KafkaListener(topics = Producer.TOPIC, groupId = "kafka-consumer-01-group-" + Producer.TOPIC)

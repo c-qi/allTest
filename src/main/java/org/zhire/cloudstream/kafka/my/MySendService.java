@@ -1,8 +1,6 @@
 package org.zhire.cloudstream.kafka.my;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
 import org.zhire.pojo.User;
 
@@ -11,7 +9,7 @@ import java.util.Random;
 import static java.lang.Long.valueOf;
 
 //绑定自定义通道
-@EnableBinding(MySource.class)
+//@EnableBinding(MySource.class)
 public class MySendService {
 
     @Autowired
