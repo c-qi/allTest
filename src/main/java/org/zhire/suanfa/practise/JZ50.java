@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * 剑指 Offer 50. 第一个只出现一次的字符
@@ -25,12 +26,14 @@ public class JZ50 {
         if (null == s || "".equals(s)) return ' ';
         if (s.length() == 1) return s.charAt(0);
         char[] array = s.toCharArray();
-        HashMap<Character, Integer> hashMap = new HashMap<>();
+        HashMap<Character, Integer> hashMap = new LinkedHashMap<>();
         for (int i = 0; i < array.length; i++) {
             if (null == hashMap.get(array[i]))
                 hashMap.put(array[i], 1);
             else hashMap.put(array[i], hashMap.get(array[i]) + 1);
         }
+        System.out.println("hashMap:" + hashMap);
+
         ArrayList<Object> list = new ArrayList<>();
         hashMap.forEach((k, v) -> {
             if (v == 1) {
@@ -38,13 +41,15 @@ public class JZ50 {
                 list.add(k);
             }
         });
-        System.out.println(list.get(0));
-        return ' ';
+        Character o = ' ';
+        if (!list.isEmpty())
+            o = (Character) list.get(0);
+        return o;
     }
 
     @Test
     public void t() {
-        System.out.println(firstUniqChar("leetcode"));
+        System.out.println(firstUniqChar("cc"));
     }
 
 
