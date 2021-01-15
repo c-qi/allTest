@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,5 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<Map<String, Object>> findAllUserInfo(int page, int pazeSize);
 
     Page<User> findAllByFlag(Pageable pageable, int i);
+
+    List<User> findAllByIdIn(ArrayList<Long> list);
 }
 

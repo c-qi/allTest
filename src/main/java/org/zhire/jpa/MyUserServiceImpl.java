@@ -61,7 +61,7 @@ public class MyUserServiceImpl implements MyUserService {
     @Transactional
     public ZpUserBusiness testTran(User user) {
         long counta = userRepository.count();
-        System.out.println("mmm:"+counta);
+        System.out.println("mmm:" + counta);
         ZpUserBusiness save = null;
         ZpUserBusiness zpUserBusiness = new ZpUserBusiness();
         zpUserBusiness.setUserId(user.getId());
@@ -160,6 +160,19 @@ public class MyUserServiceImpl implements MyUserService {
     @Override
     public User insert(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void findIn() {
+        System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024 + " M");
+        ArrayList<Long> list = new ArrayList<>();
+        for (Long i = 0L; i < 30000L; i++) {
+            list.add(i);
+        }
+        System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024 + " M");
+
+        System.out.println(userRepository.findAllByIdIn(list));
+
     }
 
 

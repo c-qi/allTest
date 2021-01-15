@@ -22,4 +22,6 @@ public interface MyUserService {
     void updateById(String id);
 
     User insert(User user);
+
+    void findIn();
 }
