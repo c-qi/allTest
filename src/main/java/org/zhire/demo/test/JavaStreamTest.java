@@ -1,5 +1,6 @@
 package org.zhire.demo.test;
 
+import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.Person;
@@ -110,7 +111,7 @@ public class JavaStreamTest {
     public void filter() {
         List<User> list = new ArrayList<>();
         //List<User> expertList =
-              //  list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
+        //  list.stream().filter(l -> !l.getName().equals("cq")).collect(Collectors.toList());
     }
 
     @org.junit.Test
@@ -256,6 +257,45 @@ public class JavaStreamTest {
         String s1 = String.join(",", lists);
         System.out.println(list);
         System.out.println(s1);
+
+    }
+
+    @Test
+    public void t3() {
+        List<String> list = Stream.of(new String[]{"Hello", "World"}).flatMap(str -> Arrays.stream(str.split(""))).distinct()
+                .collect(Collectors.toList());
+        System.out.println(list);
+        List<Stream<String>> collect = Stream.of(new String[]{"Hello", "World"}).map(str -> Arrays.stream(str.split(""))).distinct()
+                .collect(Collectors.toList());
+        System.out.println(collect);
+    }
+
+    @Test
+    public void ttt() {
+//        Integer isDefault = Optional.ofNullable(queryByUser(userId))
+//                .filter(List::isEmpty)
+//                .map(list -> 1)
+//                .orElse(0);
+
+//        Optional.ofNullable(request.getMobile())
+//                .map(mobile -> userServiceV2.getUserByMobile(mobile, subject))
+//                .map(Response::getPayload)
+//                .map(User::getId)
+//                .ifPresent(request::setUid);
+
+         List<Integer> list = CollUtil.newArrayList(1, 2, 3);
+        // List<Integer> list = null;
+         Optional.ofNullable(list)
+                .map(this::setId)
+                .ifPresent(l -> l.forEach(System.out::println));
+    }
+
+    private List<Integer> setId(List<Integer> ids) {
+        List<Integer> list = new ArrayList<>();
+        ids.forEach(l -> {
+            list.add(l + 1);
+        });
+        return list;
 
     }
 }
