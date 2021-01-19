@@ -115,6 +115,8 @@ public class GcTest {
         }
         System.out.println();
         System.out.println(Runtime.getRuntime().freeMemory() / 1024 / 1024 + " M");
+        System.out.println(Runtime.getRuntime().maxMemory() / 1024 / 1024 + " M");
+        System.out.println(Runtime.getRuntime().totalMemory() / 1024 / 1024 + " M");
 
     }
 }
