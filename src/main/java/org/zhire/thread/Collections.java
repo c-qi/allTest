@@ -90,6 +90,11 @@ public class Collections {
 
         /**
          * 线程安全 ReentrantLock
+         * CopyOnWriteArrayList 类的所有可变操作（add，set 等等）都是通过创建底层数组的新副本来实现的。
+         * 当 List 需要被修改的时候，我并不修改原有内容，而是对原有数据进行一次复制，将修改的内容写入副本。
+         * 写完之后，再将修改完的副本替换原来的数据，这样就可以保证写操作不会影响读操作了。
+         *
+         * 读取操作没有任何同步控制和锁操作，理由就是内部数组 array 不会发生修改，只会被另外一个 array 替换，因此可以保证数据安全。
          */
         CopyOnWriteArrayList copy = new CopyOnWriteArrayList();
         copy.add(null);

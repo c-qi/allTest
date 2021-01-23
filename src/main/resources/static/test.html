@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <SCRIPT>
+
+        // AES解密方法
+        function decryptByAES(ciphertext, key) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var result = CryptoJS.AES.decrypt(ciphertext, keyHex, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            var result_value = result.toString(CryptoJS.enc.Utf8);
+            return result_value;
+        }
+
+        // 解密测试
+        // 加密key,需要和后端保持一致
+        var key = '12345ABCDErwerw2';
+        // 待解密的字符串
+        var s = "eCsZzd5aL/dGnqj/oEc6XA==";
+        message = decryptByAES(s, key);
+        console.log(message);
+
+    </SCRIPT>
+
+</head>
+<body>
+
+</body>
+</html>
