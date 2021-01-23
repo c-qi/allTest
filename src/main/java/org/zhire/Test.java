@@ -39,6 +39,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import static java.util.Objects.isNull;
 
@@ -1215,5 +1216,30 @@ public class Test {
         i = i - i;
         System.out.println(i);
 
+    }
+
+    @org.junit.Test
+    public void tr() {
+        int a = 1;
+        Integer b = getSupplier(() -> a + 1);
+        System.out.println(b);
+
+        int[] numbers = {100, 200, 300, 400, 500, -600, -700, -800, -900, -1000};
+        int numberMax = getSupplier(
+                () -> {
+                    int max = numbers[0];
+                    for (int number : numbers) {
+                        if (max < number) {
+                            max = number;
+                        }
+                    }
+                    return max;
+                }
+        );
+        System.out.println("数组中的最大值为：" + numberMax);
+    }
+
+    public <T> T getSupplier(Supplier<T> supplier) {
+        return supplier.get();
     }
 }
