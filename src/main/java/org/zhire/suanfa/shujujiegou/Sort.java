@@ -231,7 +231,7 @@ public class Sort {
 
 
     private static void sortByQuick2(int[] nums) {
-        sortByQuickMethod2(nums, 0, nums.length-1);
+        sortByQuickMethod2(nums, 0, nums.length - 1);
         System.out.println(Arrays.toString(nums));
 
     }
@@ -249,7 +249,7 @@ public class Sort {
     private static int getMddle2(int[] nums, int left, int right) {
         int on = nums[right];
         int i = left;
-        for (int j = left; j < right; j++) {
+        for (int j = i; j < right; j++) {
             if (nums[j] < on) {
                 int temp = nums[i];
                 nums[i] = nums[j];

@@ -1,11 +1,9 @@
 package org.zhire.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.zhire.pojo.User;
 import org.zhire.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +20,30 @@ public class UserController {
     public List<User> findUser(@PathVariable String name) {
         List<User> userList = userService.findName(name);
         return userList;
+    }
+
+    @PostMapping("/findUser2")
+    public String findUser2(String name) {
+        System.out.println(name);
+        return name;
+    }
+
+    @PostMapping("/findUser3")
+    public String findUser3(@RequestParam String name) {
+        System.out.println(name);
+        return name;
+    }
+
+    @PostMapping("/findUser4")
+    public String findUser4(@RequestBody(required = false) String name) {
+        System.out.println(name);
+        return name;
+    }
+
+    @PostMapping("/findUser5")
+    public String findUser4(@RequestBody Object request) {
+        System.out.println(request);
+        return request + "";
     }
 
     @RequestMapping("/findAll")

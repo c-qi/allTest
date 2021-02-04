@@ -1191,18 +1191,22 @@ public class Test {
     public void te2eee() {
         long l = System.currentTimeMillis();
         ArrayList list = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000; i++) {
             list.add(i);
+            System.out.print(i);
         }
         long l2 = System.currentTimeMillis();
+        System.out.println();
         System.out.println(l2 - l);
 
         long l3 = System.currentTimeMillis();
         LinkedList list2 = new LinkedList();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000; i++) {
             list2.add(i);
+            System.out.print(i);
         }
         long l4 = System.currentTimeMillis();
+        System.out.println();
         System.out.println(l4 - l3);
     }
 
