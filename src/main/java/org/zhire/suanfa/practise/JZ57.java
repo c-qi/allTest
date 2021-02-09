@@ -35,6 +35,33 @@ public class JZ57 {
         return result;
     }
 
+    // 1 2 3 4 5   6   7
+
+    /**
+     * 双指针解法
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum2(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        int[] ints = new int[2];
+        while (l < r) {
+            int s = nums[l] + nums[r];
+            if (s < target) {
+                l++;
+            } else if (s > target) {
+                r--;
+            } else {
+                ints[0] = nums[l];
+                ints[1] = nums[r];
+                return ints;
+            }
+        }
+        return null;
+    }
+
 
     public int bSearch(int[] nums, int s) {
         int l = 0;
@@ -56,5 +83,6 @@ public class JZ57 {
     @Test
     public void t() {
         System.out.println(Arrays.toString(twoSum(new int[]{2, 7, 11, 15}, 26)));
+        System.out.println(Arrays.toString(twoSum2(new int[]{2, 7, 11, 15}, 26)));
     }
 }
