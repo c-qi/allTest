@@ -1,6 +1,6 @@
 server:
-  port: ${random.int[10000,19999]} # 随机端口，方便启动多个消费者
-#  port: 8081 # 随机端口，方便启动多个消费者
+#  port: ${random.int[10000,19999]} # 随机端口，方便启动多个消费者
+  port: 8081 # 随机端口，方便启动多个消费者
 canal:
  server: 192.168.84.22:11111
  destination: example
@@ -80,6 +80,7 @@ spring:
     username: root
     password: 1111
   redis:
+   url: redis://127.0.0.1:6379
    host: 127.0.0.1
    port: 6379
    password:

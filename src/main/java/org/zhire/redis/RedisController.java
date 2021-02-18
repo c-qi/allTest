@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zhire.redis.redission.DistributedLock;
 
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 public class RedisController {
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private DistributedLock distributedLock;
 
     @RequestMapping("/test")
     public String testLister() {
@@ -55,4 +60,21 @@ public class RedisController {
         log.info("set2:{}", set2);
     }
 
+    @RequestMapping("/test3")
+    public String testLock(@RequestParam Long id) {
+        log.info("加锁id:{}", id);
+        distributedLock.lockAndExec(id + "", this::doSomething);
+        log.info("释放锁:{}", id);
+        return "OK";
+    }
+
+    private String doSomething() {
+        log.info("time:{}", System.currentTimeMillis());
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "OK";
+    }
 }
