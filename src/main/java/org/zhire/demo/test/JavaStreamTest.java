@@ -283,9 +283,9 @@ public class JavaStreamTest {
 //                .map(User::getId)
 //                .ifPresent(request::setUid);
 
-         List<Integer> list = CollUtil.newArrayList(1, 2, 3);
+        List<Integer> list = CollUtil.newArrayList(1, 2, 3);
         // List<Integer> list = null;
-         Optional.ofNullable(list)
+        Optional.ofNullable(list)
                 .map(this::setId)
                 .ifPresent(l -> l.forEach(System.out::println));
     }
@@ -297,5 +297,29 @@ public class JavaStreamTest {
         });
         return list;
 
+    }
+
+    /**
+     * map对原来的集合操作后返回一个新的集合。此集合和原集合无任何关系，且不会改变原集合的任何东西
+     * foreach操作的是原集合，返回的还是原集合
+     */
+    @Test
+    public void t33() {
+        User user = new User();
+        user.setId(1L);
+        User user2 = new User();
+        user2.setId(2L);
+        ArrayList<User> list = CollUtil.newArrayList();
+        list.add(user);
+        list.add(user2);
+        List<User> users = list.stream().map(this::getUser).collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(users));
+    }
+
+    private User getUser(User user) {
+        Random random = new Random();
+        random.nextInt(100);
+        user.setName(random.nextInt() + "");
+        return user;
     }
 }
