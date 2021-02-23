@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
+    <SCRIPT>
+
+        function decryptByRSA(content) {
+            var encrypt = new JSEncrypt();
+            var publicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1IhSaww71oYPyGms/7JzRH+PV0V9l5hvFiPYI74TeDOesyRLp3LxwTIqmWWBU4DAI20vh+wCCTUxROyE7fFnVuMein0mGqemLmSXUm7KhJtvVz5hLUne446Z6gk3buk5nnGa3a8VLEoWfCIb9VCAf9radX44q6fjIpZPMRyFPrEtz4+EN9eBJ8r6GcURcsWF9WrfVrS5bDH+lB1+LDfrgQD+XxWnLa2PODExvcnY4ROcQL0VBJT10S3avD3rXzGrWMHeo2fu0RWdCy2sTR8aHC4wqQFDWPNyqsa5l9IWzdf84GccGGsLrFHU9+HWKjWC15+lppUVEGGog4JLs3zSswIDAQAB';
+            encrypt.setPublicKey(publicKey);
+            var param = encrypt.decrypt(content);
+            console.log(param);
+            return param;
+        }
+
+        function decryptByRSAJIAMI(content) {
+            var encrypt = new JSEncrypt();
+            var publicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1IhSaww71oYPyGms/7JzRH+PV0V9l5hvFiPYI74TeDOesyRLp3LxwTIqmWWBU4DAI20vh+wCCTUxROyE7fFnVuMein0mGqemLmSXUm7KhJtvVz5hLUne446Z6gk3buk5nnGa3a8VLEoWfCIb9VCAf9radX44q6fjIpZPMRyFPrEtz4+EN9eBJ8r6GcURcsWF9WrfVrS5bDH+lB1+LDfrgQD+XxWnLa2PODExvcnY4ROcQL0VBJT10S3avD3rXzGrWMHeo2fu0RWdCy2sTR8aHC4wqQFDWPNyqsa5l9IWzdf84GccGGsLrFHU9+HWKjWC15+lppUVEGGog4JLs3zSswIDAQAB';
+            encrypt.setPublicKey(publicKey);
+            return encrypt.encrypt(content);
+        }
+
+        function decryptByRSA2(content) {
+            var encrypt = new JSEncrypt();
+           // var priKey = 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDUiFJrDDvWhg/Iaaz/snNEf49XRX2XmG8WI9gjvhN4M56zJEuncvHBMiqZZYFTgMAjbS+H7AIJNTFE7ITt8WdW4x6KfSYap6YuZJdSbsqEm29XPmEtSd7jjpnqCTdu6TmecZrdrxUsShZ8Ihv1UIB/2tp1fjirp+Milk8xHIU+sS3Pj4Q314EnyvoZxRFyxYX1at9WtLlsMf6UHX4sN+uBAP5fFactrY84MTG9ydjhE5xAvRUElPXRLdq8PetfMatYwd6jZ+7RFZ0LLaxNHxocLjCpAUNY83KqxrmX0hbN1/zgZxwYawusUdT34dYqNYLXn6WmlRUQYaiDgkuzfNKzAgMBAAECggEANPramMbO79YxfwMg1gjVBSFLSTUQbsbYAkvjKF3Mmq07hWqp1U8pBsELr3uHNpqkyu//5kEl7MeuxYC0TmBcI2OwjFNQOVrLaUs4EZt+rnnU0onBTbnZbx5wLdAoWmSXMXEeat6nR4gcfMs/7vInZjfXN2zEkb3jOA8CJLr4WDz79JWnjmzMbQq0mjgPvPNGwEMFImNo4TAFy0g43tavuB/Zm2Ql260B3u4Z1LZVm2EmMHxVBIKtyki8Vz8L7pj9La1phym1XbeslM6U1LzPoCbY95oFzQkg1KH0k3Nk4VoQN7yIGNig9TuaBOL/AUnzZbiOKxsW6DDDi5T3BJW82QKBgQD+Xa4Tk9wy98zKzYwY70V6cq9aFfc+u2i7NHdUIfFCXxrNUxSg+1UzL9RleU8BmgtuuuMgpbd8wvaVodZclEtOK40K4xeZB3GMOG3eoVc/vn89Cvev/q/lM9dCJYiAnlaUBD5GyGqeMsT9dWqxbrWh38ySxMpl25rx/MmvsurBVwKBgQDV5dgpQz7YYh54bjtKY5SLwsN1f4lrYyilfny/A29o025KEWn6RkuMcCkjSSGYdgut0Ydxw5SmX6T3KTzmwOtZvANWlhhilVV97PJkRRnhJtDD+UCaJwY08uNZttQKifgRuPf+HHOq4zQxZoaQfX6FOcOwBoylmJlWQqSS463UBQKBgEFiNzLVGQ8I311qBI8MQiG9hRF0//7iEYO9csbviqJy6+LHblALCtWDf+ctjX9t525pH6TutAGf496GoSFfBRRs4W5g/VnarfdLMgK+Gj1KbE52mUBmCTSzZKueFj5pdPvLM27iaXWMu1Ijcm91c77OVjmL2DLihiuZvQYqyWk1AoGAALH3iuLKEH/5I2EQVkSOlgmzAu3AL5Yp6qfHlgNX2FpfkGQQGR0jX7h5mcDCGDHCBfWZYBhHombLLXZ32TQlT6xZwm1IdQGRPpCHlSXYWK/8m7ZyrE2WKpPjg0Yh2ErsgHo+bBgBlDuaztJLe6q8v4gZh7ftuxgM34fl6whMZ1UCgYAR/0pUywGWqnexXAUgfc+pgzLzTdbphHcdAFvTryuvCTi9Xxb5UmTWzIjhdRNehKvQkq1D/xrrmhZkeVOmxV+3YQLbq6/qdvhqeaXY54YYScXI3HANss/GQyhcTuQDkE+vKCpWs9zW9KArNoShZ09GNuoqE9+ip8SKJVRjeIsUUw==';
+            var priKey = 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCkQ/xBtxfW7xI4yZVxDHXfbt3uTm/A2ZiZg6vUWauFe4CXAie5UnDO4NrV5/yKjNzZNClWhMPurnF52SlGt3tOjqlJ45cgRN7cdEVJ/nnNLZOQ2U+ShwCnhs6ja/T7KeydKgsJgR/BHLqzV3f9P+lcd8t3IXTyxi0xE0V0e4lLeICBN3pELBu2/riheCWZMEed9nzZRJ9ksj+qHw+UhRuUvucxfODh98Q1HDiJ5BI6WUv+/ANbhE5J9U25wKvH5sn7Fb5UFMJQJKTxbtpatHw/ynspCQIWCjgzTL/hAzimMSzGHpI9ICHlBDgUEUQYvekpPvGAWL3o0LFPTHuMDG6/AgMBAAECggEAMKucIHR5ccugIIdJ6hcBDdSxmRxQbFmMp1+mF+MBuSkgrp2K25QbrJBfBqYX441dGlYkMWhhDWVOZgX7/uH6fQo0CpqOepctWTByHzxxJmPspyxcMVQi04BT1YP1MD35x49fec9ycytp/h1ahgTbxfQQqxmUpyIk3beSCrNXuK5gDcv81PcKXsMRbygc1f2UTv5s5TCDCTY7pEb94D1tE8fW7IO8kVwiMNrocWbPUWbNjM3kA+tkNqJ5FLxmBRVLSimwuay5LMrfKYqCfd3di5OKZv94OgKRRCutRQJAoZZna4ZB92ABsqVCBErlXm4QmW4C5ZIkfVVAuDVRs3moQQKBgQDPZhEOSbErUHFb3d+c7zM2N7F+kL/G9ukdQRLQxXyrMucy0xR1ZM0DK3EJ0cUagLzOKubxOMwCcJxU8WKDRZvNwwSWmpGy09jopCGwSMV7MZcHulLoZjk+GM6E17u2XIawa95HC5DWvA5pMRTt/oCVXUFWnb5Xsl4yVVV639DP7wKBgQDKwlgx57VZ85JlW1h2IF9IPGN5r/Byhd5gDOLEgEG3vhbzTYYsnWerHQ9+L6dbLf6ydnWd9r9BaD/Ld75WDVYvuLM5IqwGKGu+/GkxPKuXOXtUExzxZ4h5+aCD9YlaUSq/088ADTnZdKXoEscNcXGS38IQOaC6A8yQ4w0ZgBN+MQKBgHqGJNtZA7bADkgkep9e3NVR76UC5JkpcyxaLkBx+yW0q8tl0fdMdqVBu8T+TUBL/76Yr9igIj3qwyCXfghpThMv+/zxEdQgvUsq89AOHcSa1ku1cpdjFLwvsYnfXUDtxpBhGW7FUWrarHTOjzvOl64l6py+Eh4C/Q0lRpuRr+23AoGARg2dkSiAROLd2r0TtER9ByUuLVX3WmocKc1p8ABsNEKuBUPsrq93qOwydSOby+n5TMmW24vsCnotSGxHy81x0K0c5wmuq7X9fBATfBp9IpOOo76yykk+Iv53UgBcg2L1xS82HstzCEnAJI2QTnm6hsdecmKmwH4diJWZ6gyRL5ECgYA5wSC7OQTLysZK96dKozJ/TcJoxAFL3AJ7jVe/Y7dXHii/pmvThmxdWDFX/RoaY0GYU2w07FWApJMQ1g25LuQqnWsL8/zBYPaLaHybdZkYrBUNANye3zvwj3movzr2dejoR1gdnYuhqw5KGUxdaqCa49T4PHv9t/MCzXStAQc9DA==';
+            encrypt.setPrivateKey(priKey);
+            return encrypt.decrypt(content);
+        }
+
+
+        // 解密测试
+        // 待解密的字符串
+        var s = 'FGKr2zYgGrLq7RQ2W/iQl0jWLok2jg94XHyrInRP4MyiY7A60jD8AyBusY6tyHQ/W+J9i7yJD0QIODIClqIg4SFDQOqv8dHAtKZT5tKymEvL8jriRdyRkfmA594RtOV1NJE0JMRqtM7fRgSomeDqyMCyVjVjSmwyBSj6q2GV/MvSUUReoQ0BlJkItFiv/6mKbr9lbGfBl73Cbriol6jM0bHlXz+JRvSdW6Jk5rTKVAxQAqFecwWKp0sUZjF5NYr0er7eIXtMVwZpLiSU0FK0pTNMn6j4FFq3uN6a2rYR+DL8zgVWziGMilmAjFF5fqPDL7lJqPoJvzHe2vjH0PuJVQ==';
+        var result = decryptByRSA2(s);
+
+        console.log(result);
+        var rsajiami = decryptByRSAJIAMI('张三');
+        console.log(rsajiami);
+
+        var result2 = decryptByRSA2(rsajiami);
+        console.log(result2);
+
+
+    </SCRIPT>
+
+</head>
+<body>
+
+</body>
+</html>

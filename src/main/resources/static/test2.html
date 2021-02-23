@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
+    <SCRIPT>
+
+        function decryptByRSA(content) {
+            var encrypt = new JSEncrypt();
+            var priKey = 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCkQ/xBtxfW7xI4yZVxDHXfbt3uTm/A2ZiZg6vUWauFe4CXAie5UnDO4NrV5/yKjNzZNClWhMPurnF52SlGt3tOjqlJ45cgRN7cdEVJ/nnNLZOQ2U+ShwCnhs6ja/T7KeydKgsJgR/BHLqzV3f9P+lcd8t3IXTyxi0xE0V0e4lLeICBN3pELBu2/riheCWZMEed9nzZRJ9ksj+qHw+UhRuUvucxfODh98Q1HDiJ5BI6WUv+/ANbhE5J9U25wKvH5sn7Fb5UFMJQJKTxbtpatHw/ynspCQIWCjgzTL/hAzimMSzGHpI9ICHlBDgUEUQYvekpPvGAWL3o0LFPTHuMDG6/AgMBAAECggEAMKucIHR5ccugIIdJ6hcBDdSxmRxQbFmMp1+mF+MBuSkgrp2K25QbrJBfBqYX441dGlYkMWhhDWVOZgX7/uH6fQo0CpqOepctWTByHzxxJmPspyxcMVQi04BT1YP1MD35x49fec9ycytp/h1ahgTbxfQQqxmUpyIk3beSCrNXuK5gDcv81PcKXsMRbygc1f2UTv5s5TCDCTY7pEb94D1tE8fW7IO8kVwiMNrocWbPUWbNjM3kA+tkNqJ5FLxmBRVLSimwuay5LMrfKYqCfd3di5OKZv94OgKRRCutRQJAoZZna4ZB92ABsqVCBErlXm4QmW4C5ZIkfVVAuDVRs3moQQKBgQDPZhEOSbErUHFb3d+c7zM2N7F+kL/G9ukdQRLQxXyrMucy0xR1ZM0DK3EJ0cUagLzOKubxOMwCcJxU8WKDRZvNwwSWmpGy09jopCGwSMV7MZcHulLoZjk+GM6E17u2XIawa95HC5DWvA5pMRTt/oCVXUFWnb5Xsl4yVVV639DP7wKBgQDKwlgx57VZ85JlW1h2IF9IPGN5r/Byhd5gDOLEgEG3vhbzTYYsnWerHQ9+L6dbLf6ydnWd9r9BaD/Ld75WDVYvuLM5IqwGKGu+/GkxPKuXOXtUExzxZ4h5+aCD9YlaUSq/088ADTnZdKXoEscNcXGS38IQOaC6A8yQ4w0ZgBN+MQKBgHqGJNtZA7bADkgkep9e3NVR76UC5JkpcyxaLkBx+yW0q8tl0fdMdqVBu8T+TUBL/76Yr9igIj3qwyCXfghpThMv+/zxEdQgvUsq89AOHcSa1ku1cpdjFLwvsYnfXUDtxpBhGW7FUWrarHTOjzvOl64l6py+Eh4C/Q0lRpuRr+23AoGARg2dkSiAROLd2r0TtER9ByUuLVX3WmocKc1p8ABsNEKuBUPsrq93qOwydSOby+n5TMmW24vsCnotSGxHy81x0K0c5wmuq7X9fBATfBp9IpOOo76yykk+Iv53UgBcg2L1xS82HstzCEnAJI2QTnm6hsdecmKmwH4diJWZ6gyRL5ECgYA5wSC7OQTLysZK96dKozJ/TcJoxAFL3AJ7jVe/Y7dXHii/pmvThmxdWDFX/RoaY0GYU2w07FWApJMQ1g25LuQqnWsL8/zBYPaLaHybdZkYrBUNANye3zvwj3movzr2dejoR1gdnYuhqw5KGUxdaqCa49T4PHv9t/MCzXStAQc9DA==';
+            encrypt.setPrivateKey(priKey);
+            return encrypt.decrypt(content);
+        }
+
+        // 解密测试
+        // 待解密的字符串
+        var s = 'FGKr2zYgGrLq7RQ2W/iQl0jWLok2jg94XHyrInRP4MyiY7A60jD8AyBusY6tyHQ/W+J9i7yJD0QIODIClqIg4SFDQOqv8dHAtKZT5tKymEvL8jriRdyRkfmA594RtOV1NJE0JMRqtM7fRgSomeDqyMCyVjVjSmwyBSj6q2GV/MvSUUReoQ0BlJkItFiv/6mKbr9lbGfBl73Cbriol6jM0bHlXz+JRvSdW6Jk5rTKVAxQAqFecwWKp0sUZjF5NYr0er7eIXtMVwZpLiSU0FK0pTNMn6j4FFq3uN6a2rYR+DL8zgVWziGMilmAjFF5fqPDL7lJqPoJvzHe2vjH0PuJVQ==';
+        var result = decryptByRSA(s);
+        console.log(result);
+
+
+    </SCRIPT>
+
+</head>
+<body>
+
+</body>
+</html>

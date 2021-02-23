@@ -563,15 +563,19 @@ public class Test {
      */
     @org.junit.Test
     public void testSwitch() {
-        int l = 0;
+        int l = 2;
         // char, byte, short, int, Character, Byte, Short, Integer, String, or an enum
         switch (l) {
             case 0:
-                System.out.println(true);
+                System.out.println(0);
+                break;
+            case 1:
+                System.out.println(1);
                 break;
             default:
-                System.out.println("default");
+                break;
         }
+        System.out.println("11111");
     }
 
     @org.junit.Test
