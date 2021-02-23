@@ -2,7 +2,6 @@ package org.zhire.redis;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,10 +20,10 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/redisLister")
 public class RedisController {
-    @Autowired
+    //@Autowired
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    //@Autowired
     private DistributedLock distributedLock;
 
     @RequestMapping("/test")

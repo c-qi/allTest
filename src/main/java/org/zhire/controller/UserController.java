@@ -1,12 +1,16 @@
 package org.zhire.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
 import org.zhire.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -63,6 +67,17 @@ public class UserController {
             response.sendRedirect("/admin/main.html");
         }
         return "ok";
+    }
+
+    @RequestMapping("/findTest")
+    public UserDTO findTest(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        System.out.println(JSON.toJSONString(userDTO));
+        if (bindingResult.hasErrors())
+            throw new RuntimeException("缺少必传字段");
+        UserDTO u = new UserDTO()
+                .setName("cq")
+                .setPassword("23424");
+        return u;
     }
 
 
