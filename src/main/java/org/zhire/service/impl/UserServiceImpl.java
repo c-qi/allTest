@@ -2,15 +2,20 @@ package org.zhire.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.zhire.mapper.UserMapper;
+import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
 import org.zhire.service.UserService;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
+@Validated
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper mapper;
@@ -45,6 +50,14 @@ public class UserServiceImpl implements UserService {
         return user;
 
     }
+
+    @Override
+    public @NotNull List<UserDTO> findListDTO() {
+        // 返回空会报错
+        // return null;
+        return Collections.emptyList();
+    }
+
     // @Autowired
     // private UserMapper mapper;
 
