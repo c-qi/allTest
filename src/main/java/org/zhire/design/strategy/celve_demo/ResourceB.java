@@ -1,5 +1,6 @@
 package org.zhire.design.strategy.celve_demo;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class ResourceB implements Strategy {
 
     @Override
-    public String getVpcList(String id) {
+    public String getVpcList(JSONObject id) {
         System.out.println("B strategy" + "=====" + id);
-        return id;
+        return id.toJSONString();
     }
 
 }
