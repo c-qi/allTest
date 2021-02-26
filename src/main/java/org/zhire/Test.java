@@ -1250,4 +1250,40 @@ public class Test {
     public <T> T getSupplier(Supplier<T> supplier) {
         return supplier.get();
     }
+
+    /**
+     * List 的随机访问
+     */
+    @org.junit.Test
+    public void ty() {
+        // 调用别人的服务获取到list
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        if (list instanceof RandomAccess) {
+            // 内部数组实现，可以随机访问
+            System.out.println(list.get(list.size() - 1));
+        } else {
+            // 内部可能是链表实现，随机访问效率低
+            System.out.println(list.get(0));
+        }
+
+    }
+
+    /**
+     * 在 java 集合类库中，List 的 contains 方法普遍时间复杂度是 O(n) ，
+     * 如果在代码中需要频繁调用 contains 方法查找数据，
+     * 可以先将 list 转换成 HashSet 实现，将 O(n) 的时间复杂度降为 O(1) 。
+     */
+    @org.junit.Test
+    public void ty23() {
+        ArrayList<Integer> list = new ArrayList<>();
+        Set<Integer> set = new HashSet(list);
+        for (int i = 0; i <= Integer.MAX_VALUE; i++) {
+            // 时间复杂度O(1)
+            set.contains(i);
+        }
+
+    }
 }
