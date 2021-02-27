@@ -1257,7 +1257,7 @@ public class Test {
     @org.junit.Test
     public void ty() {
         // 调用别人的服务获取到list
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = new LinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
