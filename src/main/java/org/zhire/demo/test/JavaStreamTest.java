@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.Person;
 import org.junit.Test;
+import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
 import org.zhire.utils.Item;
 
@@ -243,6 +244,27 @@ public class JavaStreamTest {
         List<Integer> numbers = Arrays.asList(9, 10, 3, 4, 7, 3, 4);
         List<Integer> distinct = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
         System.out.printf("Original List : %s, Square Without duplicates : %s %n", numbers, distinct);
+    }
+
+    /**
+     * 对象去重
+     */
+
+    @Test
+    public void trt3() {
+        List<UserDTO> list = new ArrayList<>();
+        UserDTO dto = new UserDTO().setName("cq").setPassword("q3wq").setId(1L);
+        UserDTO dto1 = new UserDTO().setName("cq").setPassword("q3wq").setId(1L);
+        UserDTO dto2 = new UserDTO().setName("cq").setPassword("q3wq").setId(1L);
+        list.add(dto);
+        list.add(dto1);
+        list.add(dto2);
+        list = list.stream().collect(
+                Collectors.collectingAndThen(
+                        Collectors.toCollection(() ->
+                                new TreeSet<>(Comparator.comparing(UserDTO::getName))), ArrayList::new)
+        );
+        System.out.println(JSON.toJSONString(list));
     }
 
     /**
