@@ -2,6 +2,8 @@ package org.zhire.demo.test;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.Person;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.zhire.utils.Item;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.Character.isDigit;
@@ -343,5 +346,24 @@ public class JavaStreamTest {
         random.nextInt(100);
         user.setName(random.nextInt() + "");
         return user;
+    }
+
+    /**
+     * IntStream.range遍历
+     */
+    @Test
+    public void t233() {
+        JSONArray array = new JSONArray();
+        IntStream.range(0, array.size()).mapToObj(array::getJSONObject).forEach(System.out::println);
+    }
+
+    /**
+     * parallelStream并发的添加list会有丢数据问题，使用newCopyOnWriteArrayList解决
+     */
+    @Test
+    public void t232() {
+        ArrayList<Object> list = Lists.newArrayList();
+        List<Object> list2 = Lists.newCopyOnWriteArrayList();
+        list.parallelStream().forEach(list2::add);
     }
 }
