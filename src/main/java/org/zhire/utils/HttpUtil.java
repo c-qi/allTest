@@ -47,6 +47,7 @@ public class HttpUtil {
                 count++;
             }
             HttpGet httpGet = new HttpGet(url);
+            httpGet.setHeader("X-Auth-Token", "123421");
             // 执行get请求.
             result = EntityUtils.toString(httpClient.execute(httpGet).getEntity(), "UTF-8");
             //释放连接
