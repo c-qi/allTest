@@ -158,8 +158,25 @@ public class MyUserServiceImpl implements MyUserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User insert(User user) {
-        return userRepository.save(user);
+        //User save = userRepository.save(user);
+        this.inOne();
+        this.inTwo();
+        return new User();
+    }
+
+    private void inOne() {
+        User user = new User();
+        user.setUserName("cq2021");
+        userRepository.save(user);
+    }
+
+    private void inTwo() {
+        User user = new User();
+        user.setUserName("cq203321");
+        userRepository.save(user);
+        int i = 1 / 0;
     }
 
     @Override

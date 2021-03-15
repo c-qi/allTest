@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.zhire.config.MyException;
 import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
 import org.zhire.service.UserService;
@@ -82,10 +81,10 @@ public class UserController {
     }
 
     @RequestMapping("/findListDTO")
-    public List<UserDTO> findListDTO(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+    public List<UserDTO> findListDTO(@Valid @RequestBody UserDTO userDTO) {
         System.out.println(JSON.toJSONString(userDTO));
-        if (bindingResult.hasErrors())
-            throw new MyException(99999, "缺少必传字段");
+//        if (bindingResult.hasErrors())
+//            throw new MyException(99999, "缺少必传字段");
         return userService.findListDTO();
     }
 

@@ -37,8 +37,8 @@ public class GuavaTest {
         map2.put("aa", 2);
         map2.put("bb", 3);
         map2.put("bb", 4);
-        System.out.println(JSON.toJSONString(map2.asMap()));
-        System.out.println(map2.get("aa"));  // [1, 2]
+        System.out.println("创建一个map,key是字符串:" + JSON.toJSONString(map2.asMap()));
+        System.out.println("创建一个map,key是字符串:" + map2.get("aa"));  // [1, 2]
 
 
         // 无序 + 可重复 set
@@ -237,12 +237,48 @@ public class GuavaTest {
     }
 
     @Test
-    public void t(){
+    public void t() {
         Multimap<Integer, User> map2 = ArrayListMultimap.create();
         map2.put(1, new User("cq"));
         map2.put(1, new User("cqq"));
         map2.put(2, new User("cq2q"));
         map2.put(2, new User("cq22q"));
         System.out.println(JSON.toJSONString(map2.asMap()));
+
+        System.out.println(JSON.toJSONString(getMap("chenqi", "18")));
+        System.out.println(JSON.toJSONString(getMap("chenqi2", "13")));
+    }
+
+    private Map getMap(String s, String s2) {
+        ImmutableMap<String, String> iMap = ImmutableMap.of("k1", s, "k2", s2);
+        return iMap;
+    }
+
+    @Test
+    public void tr() {
+        ImmutableSet<String> imSet = ImmutableSet.of("peida", "jerry", "harry", "lisa");
+        System.out.println("imSet：" + imSet);
+        ImmutableList<String> imlist = ImmutableList.copyOf(imSet);
+        System.out.println("imlist：" + imlist);
+        ImmutableSortedSet<String> imSortSet = ImmutableSortedSet.copyOf(imSet);
+        System.out.println("imSortSet：" + imSortSet);
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < 20; i++) {
+            list.add(i + "x");
+        }
+        System.out.println("list：" + list);
+        ImmutableList<String> imInfolist = ImmutableList.copyOf(list.subList(2, 18));
+        System.out.println("imInfolist：" + imInfolist);
+        int imInfolistSize = imInfolist.size();
+        System.out.println("imInfolistSize：" + imInfolistSize);
+        ImmutableSet<String> imInfoSet = ImmutableSet.copyOf(imInfolist.subList(2, imInfolistSize - 3));
+        System.out.println("imInfoSet：" + imInfoSet);
+    }
+
+    @Test
+    public void rer() {
+        ImmutableSet<Integer> set = ImmutableSet.of(2, 1, 0, 2, -1, 99);
+        ImmutableSortedSet<Integer> copy = ImmutableSortedSet.copyOf(set);
+        System.out.println(copy);
     }
 }
