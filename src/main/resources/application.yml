@@ -110,4 +110,10 @@ logging:
  level:
   org.zhire.mapper: debug
 
+xgx:
+ tykMap:
+  s1: 1234
+  s2: 91250
+  s3: 2365
+
 

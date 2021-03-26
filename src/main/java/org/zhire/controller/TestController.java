@@ -19,6 +19,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.zhire.config.MapConfig;
 import org.zhire.config.mq.MyDataConfig;
 import org.zhire.demo.spring.ioc.IOCUser;
 import org.zhire.pojo.User;
@@ -26,6 +27,7 @@ import org.zhire.thread.MyDelayQueue;
 import org.zhire.thread.QueuePool;
 import org.zhire.utils.R;
 import org.zhire.utils.SequenceGenerator;
+import org.zhire.utils.SignUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletOutputStream;
@@ -75,14 +77,14 @@ public class TestController {
 
 
     @GetMapping(value = "/test23")
-    public Map<String,Object> test222() {
+    public Map<String, Object> test222() {
         Map<String, Object> map = new HashMap<>();
         ArrayList<User> list = CollUtil.newArrayList();
         User user = new User();
         user.setName("cq");
         user.setManagerId(12345678987654321L);
         list.add(user);
-        map.put("list",list);
+        map.put("list", list);
         System.out.println(JSON.toJSONString(map));
         return map;
     }
@@ -294,13 +296,13 @@ public class TestController {
         watch.start();
         ExcelReader reader = ExcelUtil.getReader("/Users/admin/Documents/获奖用户信息模板.xlsx");
         List<List<Object>> read = reader.read(1, reader.getRowCount());
-       // for (List<Object> objects : read) {
-           // System.out.println(objects);
+        // for (List<Object> objects : read) {
+        // System.out.println(objects);
 //            executor.execute(() -> {
 //                System.out.println(Thread.currentThread().getName() + " " + objects.get(0));
 //            });
-       // }
-        read.forEach(l->{
+        // }
+        read.forEach(l -> {
             String mobile = (String) l.get(0);
             Long level = (Long) l.get(1);
             Long payInfo = (Long) l.get(2);
@@ -380,4 +382,41 @@ public class TestController {
             log.error("发送消息 失败. Topic:{} message:{} 异常信息：{}", myDataConfig.getPayDelayName(), sb, e);
         }
     }
+
+    @PostMapping("/check")
+    public String check(@RequestParam String method,
+                        @RequestParam String appId,
+                        @RequestParam String timestamp,
+                        @RequestParam String v,
+                        @RequestParam String signMethod,
+                        @RequestParam String sign,
+                        @RequestBody Map<String, String> map,
+                        HttpServletRequest servletRequest) {
+        String requestBody = null;
+        try {
+            SignUtils.CheckResult checkResult = SignUtils.checkSign2(servletRequest, "XGXTEST", map);
+            if (checkResult.getSuccess()) {
+                log.info("checkSign success");
+                // 获取body
+                requestBody = checkResult.getRequestBody();
+            } else {
+                log.error("checkSign fail");
+            }
+        } catch (Exception e) {
+            log.error("checkSign error", e);
+        }
+
+        return requestBody;
+
+    }
+
+    @Autowired
+    private MapConfig mapConfig;
+
+    @GetMapping("/map")
+    public String check() {
+        Map<String, Integer> map = mapConfig.getSkuMap();
+        return JSON.toJSONString(map);
+    }
+
 }

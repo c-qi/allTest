@@ -76,9 +76,9 @@ public class Java8DateTest {
         System.out.println("nowText=" + nowText);
 
         // 字符串转日期时间
-        String datetimeText = "1999-12-31 23:59:59";
+        String datetimeText = "2020-02-02 21:59:59";
         LocalDateTime datetime = LocalDateTime.parse(datetimeText, formatter);
-        System.out.println(datetime);
+        System.out.println("datetime:"+datetime);
 
         // Instant         时间戳
         //Duration        持续时间、时间差
@@ -96,6 +96,7 @@ public class Java8DateTest {
         LocalDateTime parse = LocalDateTime.parse(s, dtf);
         LocalDate localDate = parse.toLocalDate();
         System.out.println(parse);
+        System.out.println(localDate);
 
     }
 
