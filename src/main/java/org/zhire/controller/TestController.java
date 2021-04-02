@@ -234,7 +234,7 @@ public class TestController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xls");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".csv");
         ServletOutputStream out = null;
         try {
             out = response.getOutputStream();
@@ -417,6 +417,18 @@ public class TestController {
     public String check() {
         Map<String, Integer> map = mapConfig.getSkuMap();
         return JSON.toJSONString(map);
+    }
+
+
+    @PostMapping("/postt")
+    public String postt(HttpServletRequest request) {
+
+        Map<String, String[]> map = request.getParameterMap();
+        map.forEach((k, v) -> {
+            System.out.println(k);
+            System.out.println(Arrays.toString(v));
+        });
+        return "ok";
     }
 
 }

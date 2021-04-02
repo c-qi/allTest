@@ -20,6 +20,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
@@ -52,7 +57,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>4.6.1</version>
+            <version>5.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.mindrot</groupId>

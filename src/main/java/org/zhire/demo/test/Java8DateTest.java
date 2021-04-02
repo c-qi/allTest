@@ -78,7 +78,7 @@ public class Java8DateTest {
         // 字符串转日期时间
         String datetimeText = "2020-02-02 21:59:59";
         LocalDateTime datetime = LocalDateTime.parse(datetimeText, formatter);
-        System.out.println("datetime:"+datetime);
+        System.out.println("datetime:" + datetime);
 
         // Instant         时间戳
         //Duration        持续时间、时间差
@@ -102,6 +102,7 @@ public class Java8DateTest {
 
     /**
      * joda工具类对日期处理
+     *
      * @throws Exception
      */
     @org.junit.Test
@@ -208,7 +209,7 @@ public class Java8DateTest {
 
         //Java 8
         LocalDate today = LocalDate.now();
-        System.out.println("today"+today);
+        System.out.println("today" + today);
         //本月的第一天
         LocalDate firstday = LocalDate.of(today.getYear(), today.getMonth(), 1);
         //本月的最后一天
@@ -220,10 +221,10 @@ public class Java8DateTest {
         DateTimeFormatter newFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDate date2 = LocalDate.now();
         System.out.println(date2);
-        System.out.println("newFormatter:"+date2.format(newFormatter));
+        System.out.println("newFormatter:" + date2.format(newFormatter));
         LocalDateTime yesterday = dt.minusDays(1);
-        System.out.println(yesterday+" 123123");
-        System.out.println("昨天的当前时刻："+newFormatter2.format(yesterday));
+        System.out.println(yesterday + " 123123");
+        System.out.println("昨天的当前时刻：" + newFormatter2.format(yesterday));
         System.out.println(yesterday.toLocalDate().toString());
     }
 
@@ -254,6 +255,19 @@ public class Java8DateTest {
         System.out.println(day.getTime());
         System.out.println(day);
     }
+
+    @Test
+    public void ttt() {
+        DateTimeFormatter newFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:00");
+        DateTimeFormatter newFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:59");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(newFormatter1.format(now));
+        LocalDateTime localDateTime = LocalDateTime.now().minusMinutes(30);
+        System.out.println(newFormatter2.format(localDateTime));
+
+    }
+
+
 
 
 }

@@ -6,6 +6,7 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
+import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
 import com.alibaba.fastjson.JSON;
@@ -1284,6 +1285,24 @@ public class Test {
             // 时间复杂度O(1)
             set.contains(i);
         }
+
+    }
+
+    @org.junit.Test
+    public void tre() {
+        String pinyin = PinyinUtil.getPinyin("长沙"," ");
+        System.out.println(pinyin);
+
+    }
+
+    @org.junit.Test
+    public void tre32() {
+        Map<String, Object> map = Maps.newTreeMap();
+        map.put("z","cq");
+        map.put("c","cq3");
+        map.put("b","cq3");
+        System.out.println(JSON.toJSONString(map));
+
 
     }
 }

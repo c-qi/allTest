@@ -1,6 +1,7 @@
 package org.zhire.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -19,6 +20,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @Date 2021/3/24 17:32
@@ -207,5 +209,25 @@ public class SignUtils {
                 stream.close();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        TreeMap<String, Object> map = Maps.newTreeMap();
+        map.put("method", "check");
+        map.put("time_range", "1234123f");
+        map.put("appid", "1234");
+        map.put("timestamp", 1552298843);
+        map.put("start_time", "2015-12-01 17:00:00");
+        System.out.println(JSON.toJSONString(map));
+        String secret = "hello";
+        StringBuffer sb = new StringBuffer(secret);
+        map.forEach((k,v)->{
+             sb.append(k).append(v);
+        });
+        sb.append(secret);
+        System.out.println(sb);
+        String md5 = MD5Util.getMD5(sb.toString());
+        System.out.println(md5);
+
     }
 }
