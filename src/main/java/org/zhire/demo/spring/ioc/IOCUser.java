@@ -1,10 +1,18 @@
 package org.zhire.demo.spring.ioc;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
 @Data
+@Accessors(chain = true)
+@ToString(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IOCUser {
     private Integer id;
     private String name;

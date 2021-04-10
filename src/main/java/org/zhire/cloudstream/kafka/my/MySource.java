@@ -1,6 +1,5 @@
 package org.zhire.cloudstream.kafka.my;
 
-import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
@@ -14,10 +13,10 @@ public interface MySource {
     @Output(myOutput)
     MessageChannel myOutput();
 
-    @Input(input)
+//    @Input(input)
     SubscribableChannel receive();
 
-    @Input(input2)
+//    @Input(input2)
     SubscribableChannel receive2();
 
 }
