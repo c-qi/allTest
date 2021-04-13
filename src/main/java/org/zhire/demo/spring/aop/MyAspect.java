@@ -31,10 +31,10 @@ public class MyAspect {
     }
 
     @Around("pointCut()")
-    public void around(ProceedingJoinPoint jp) throws Throwable {
+    public Object around(ProceedingJoinPoint jp) throws Throwable {
         System.out.println("around before......");
         // 回调目标对象的原有方法
-        jp.proceed();
         System.out.println("around after......");
+        return jp.proceed();
     }
 }

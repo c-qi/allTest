@@ -15,4 +15,6 @@ public interface UserService {
 
     @NotNull
     List<UserDTO> findListDTO();
+
+    void dojob(String name);
 }

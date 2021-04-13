@@ -1,6 +1,8 @@
 package org.zhire;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ZipUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -9,6 +11,7 @@ import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import cn.hutool.extra.pinyin.PinyinUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -33,6 +36,7 @@ import java.lang.ref.*;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -1290,7 +1294,7 @@ public class Test {
 
     @org.junit.Test
     public void tre() {
-        String pinyin = PinyinUtil.getPinyin("长沙"," ");
+        String pinyin = PinyinUtil.getPinyin("长沙", " ");
         System.out.println(pinyin);
 
     }
@@ -1298,11 +1302,43 @@ public class Test {
     @org.junit.Test
     public void tre32() {
         Map<String, Object> map = Maps.newTreeMap();
-        map.put("z","cq");
-        map.put("c","cq3");
-        map.put("b","cq3");
+        map.put("z", "cq");
+        map.put("c", "cq3");
+        map.put("b", "cq3");
         System.out.println(JSON.toJSONString(map));
+    }
 
+    @org.junit.Test
+    public void tre32342() {
+        try {
+            Map<String, String> map = CollUtil.newHashMap(4096);
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            new ClassPathResource("static/district.txt").getStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                String[] s = line.split(" ");
+                System.out.println(Arrays.toString(s));
+                map.put(s[0], s[1]);
+            }
+            log.info("map:{}", map.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @org.junit.Test
+    public void tre3233342() throws IOException {
+        Map<String, String> map = CollUtil.newHashMap(256);
+        org.springframework.core.io.ClassPathResource resource = new org.springframework.core.io.ClassPathResource("static/countries.json");
+        cn.hutool.json.JSON json = JSONUtil.readJSONObject(resource.getFile(), Charset.defaultCharset());
+        cn.hutool.json.JSONArray records = ((cn.hutool.json.JSONObject) json).getJSONArray("RECORDS");
+        records.forEach(l -> {
+            Map map1 = JSONObject.parseObject(JSON.toJSONString(l), Map.class);
+            map.put(map1.get("cname").toString(), map1.get("name").toString());
+        });
+        System.out.println(JSON.toJSONString(map));
     }
 }
+

@@ -88,4 +88,10 @@ public class UserController {
         return userService.findListDTO();
     }
 
+    @GetMapping("/dojob")
+    public List<User> dojob(@RequestParam String name) {
+        userService.dojob(name);
+        return null;
+    }
+
 }

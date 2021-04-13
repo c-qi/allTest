@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zhire.demo.spring.ioc.IOCUser;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/aop")
 public class AOPController {
@@ -14,9 +16,9 @@ public class AOPController {
     private AOPService aopService;
 
     @RequestMapping("/r")
-    public void printUser(@RequestParam String  name) {
+    public List<IOCUser> printUser(@RequestParam String name) {
         IOCUser user = new IOCUser();
         user.setName(name);
-        aopService.printUser(user);
+        return aopService.printUser(user);
     }
 }

@@ -86,6 +86,8 @@ public class SpringBootStart {
          * 		listeners.running(context);
          * 		return context;
          */
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "5");
+
         SpringApplication.run(SpringBootStart.class, args);
 
     }

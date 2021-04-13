@@ -1,5 +1,6 @@
 package org.zhire.service.impl;
 
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -10,9 +11,7 @@ import org.zhire.service.UserService;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Validated
@@ -56,6 +55,32 @@ public class UserServiceImpl implements UserService {
         // 返回空会报错
         // return null;
         return Collections.emptyList();
+    }
+
+    private static List<Integer> list = new ArrayList();
+
+    static {
+        for (int i = 0; i < 60; i++) {
+            list.add(i);
+        }
+    }
+
+
+    @Override
+    public void dojob(String name) {
+        System.out.println("name:" + name);
+        Set<Long> set = Sets.newHashSet();
+        list.parallelStream().forEach(l -> {
+            set.add(Thread.currentThread().getId());
+            System.out.println("线程：" + Thread.currentThread().getId() + " 数据：" + l);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        System.out.println("name---:" + set);
+
     }
 
     // @Autowired
