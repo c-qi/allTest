@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -35,9 +34,9 @@ public class LanguageUtil {
                             new ClassPathResource("static/district.txt").getStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+//                System.out.println(line);
                 String[] s = line.split(" ");
-                System.out.println(Arrays.toString(s));
+//                System.out.println(Arrays.toString(s));
                 areaMap.put(s[0], s[1]);
             }
         } catch (Exception e) {
