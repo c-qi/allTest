@@ -47,6 +47,13 @@ public class Jz24 {
 
     // 基于双链表
     public ListNode reverseList2(ListNode head) {
+        // 1 2 3 4 5
+        // null
+        // 1
+        // 2 1
+        // 3 2 1
+        // 4 3 2 1
+        // 5 4 3 2 1
         ListNode node = null;
         while (head != null) {
             // 记录下个结点 下次循环用
