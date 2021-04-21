@@ -65,6 +65,15 @@ public class Jz24 {
         return node;
     }
 
+    // 递归
+    public ListNode reverseList3(ListNode head) {
+        if (head.next == null) return head;
+        ListNode last = reverseList3(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
+    }
+
     @Test
     public void r() {
         ListNode node = new ListNode(4);
@@ -75,8 +84,9 @@ public class Jz24 {
         nodeNext.next = nodeNextNext;
         nodeNextNext.next = nodeNextNextNext;
         System.out.println(node);
-        System.out.println(reverseList(node));
-        // System.out.println(reverseList2(node));
+//        System.out.println(reverseList(node));
+//        System.out.println(reverseList2(node));
+        System.out.println(reverseList3(node));
     }
 
 }
