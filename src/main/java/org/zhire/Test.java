@@ -1,5 +1,7 @@
 package org.zhire;
 
+import cn.hutool.bloomfilter.bitMap.BitMap;
+import cn.hutool.bloomfilter.bitMap.IntMap;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
@@ -1339,6 +1341,24 @@ public class Test {
             map.put(map1.get("cname").toString(), map1.get("name").toString());
         });
         System.out.println(JSON.toJSONString(map));
+    }
+
+    @org.junit.Test
+    public void ter() {
+        long l = System.currentTimeMillis();
+        BitMap map = new IntMap(5000);
+        for (int i = 0; i < 5000; i++) {
+            map.add(i);
+        }
+        System.out.println(System.currentTimeMillis() - l + " " + map.contains(5000));
+
+        long l2 = System.currentTimeMillis();
+        Map<Integer, Integer> map1 = new HashMap<>(5000);
+        for (int i = 0; i < 5000; i++) {
+            map1.put(i, i);
+        }
+        System.out.println(System.currentTimeMillis() - l2 + " " + map1.containsKey(5000));
+
     }
 }
 
