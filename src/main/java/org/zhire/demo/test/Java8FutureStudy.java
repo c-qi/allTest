@@ -1,5 +1,7 @@
 package org.zhire.demo.test;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Sets;
 import lombok.Data;
 import org.junit.Test;
 import org.springframework.util.StopWatch;
@@ -7,12 +9,12 @@ import org.springframework.util.StopWatch;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.concurrent.CompletableFuture.runAsync;
-import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.concurrent.CompletableFuture.*;
 
 /**
  * CompletableFuture使用总结
@@ -291,7 +293,7 @@ public class Java8FutureStudy {
                 map(f -> f.thenAccept(p -> list.add(p)))
                 .toArray(size -> new CompletableFuture[size]);
         System.out.println("-------------");
-        CompletableFuture.allOf(array).join();
+        allOf(array).join();
         System.out.println("-------------");
         watch.stop();
         System.out.println(watch.getTotalTimeMillis());
@@ -309,7 +311,13 @@ public class Java8FutureStudy {
     }
 
     public Integer get(int i) {
-        i += 1;
+        i *= i;
+        System.out.println(Thread.currentThread().getName() + " " + i + " " + "ok");
+        try {
+            Thread.sleep(1000 * 60 * 1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return i;
     }
 
@@ -320,11 +328,39 @@ public class Java8FutureStudy {
 
     @Test
     public void tt() throws Exception {
+        Set<Long> set = Sets.newHashSet();
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            list.add(i + "");
+        }
+        list.parallelStream().forEach(l -> {
+            set.add(Thread.currentThread().getId());
+            System.out.println(Thread.currentThread().getName() + " " + l);
+        });
+        System.out.println("--------" + JSON.toJSONString(set));
+        Thread.sleep(3000);
         // 异步操作 不需要返回值
+        CompletableFuture<Void> f5 = runAsync(() -> {
+            list.parallelStream().forEach(l -> {
+                System.out.println(Thread.currentThread().getName() + " " + l);
+            });
+        });
         CompletableFuture<Void> f1 = runAsync(() -> get(1));
+        CompletableFuture<Void> f2 = runAsync(() -> get(2));
+        CompletableFuture<Void> f3 = runAsync(() -> get(3));
+        CompletableFuture<Void> f4 = runAsync(() -> get(4));
         // 异步操作 需要返回值
-        CompletableFuture<Integer> f2 = supplyAsync(() -> get(1));
-        System.out.println(f2.get());
+//        CompletableFuture<Integer> f11 = supplyAsync(() -> get(1));
+        CompletableFuture<Integer> f6 = supplyAsync(() -> get(5));
+        CompletableFuture<Integer> f7 = supplyAsync(() -> get(6));
+        CompletableFuture<Integer> f8 = supplyAsync(() -> get(7));
+        CompletableFuture<Integer> f9 = supplyAsync(() -> get(8));
+        CompletableFuture<Integer> f10 = supplyAsync(() -> get(9));
+
+
+        allOf(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10).join();
+//        allOf(f1, f2, f3, f4, f5).join();
 
     }
 
