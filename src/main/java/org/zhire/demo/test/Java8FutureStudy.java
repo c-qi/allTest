@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.concurrent.CompletableFuture.*;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 /**
  * CompletableFuture使用总结
@@ -364,4 +365,30 @@ public class Java8FutureStudy {
 
     }
 
+    @Test
+    public void t2() throws Exception {
+        CompletableFuture<Integer> f1 =
+                supplyAsync(() -> {
+                    try {
+                        System.out.println(0);
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return 0;
+                });
+        CompletableFuture<Integer> f2 = supplyAsync(() -> 0)
+                .thenApply(i -> i + 3)
+                .whenComplete((t, u) -> {
+                    System.out.println(t);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).handle((j, k) -> j * j);
+        allOf(f1, f2).join();
+        System.out.println(f2.get());
+        System.out.println(f1.get());
+    }
 }

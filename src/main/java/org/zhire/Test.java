@@ -1360,5 +1360,45 @@ public class Test {
         System.out.println(System.currentTimeMillis() - l2 + " " + map1.containsKey(5000));
 
     }
+
+    @org.junit.Test
+    public void tr33() {
+        int[] a = {1, 3, 2, 5, 4, 0, -1};
+        sortNum(a);
+        System.out.println(Arrays.toString(a));
+        int b = getNum(a, 0);
+        System.out.println(b);
+    }
+
+    private void sortNum(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[i] > a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+
+    private int getNum(int[] a, int b) {
+        int l = 0;
+        int r = a.length - 1;
+        while (l <= r) {
+            int m = (l + r) / 2;
+            if (a[m] > b) {
+                r = m - 1;
+            } else if (a[m] < b) {
+                l = m + 1;
+            } else {
+                return m;
+            }
+        }
+        return -1;
+    }
+
+
 }
+
 
