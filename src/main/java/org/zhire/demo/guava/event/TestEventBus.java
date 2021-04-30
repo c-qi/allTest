@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.PostConstruct;
-
 /**
  * @Date 2020/12/28 11:17
  * @Author by chenqi
@@ -18,13 +16,13 @@ public class TestEventBus {
     @Autowired
     private EventBus eventBus;
 
-    @Autowired
-    private EventListener eventListener;
+//    @Autowired
+//    private EventListener eventListener;
 
-    @PostConstruct
-    public void init() {
-        eventBus.register(eventListener);
-    }
+//    @PostConstruct
+//    public void init() {
+//        eventBus.register(eventListener);
+//    }
 
 
     @RequestMapping("/test")

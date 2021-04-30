@@ -12,7 +12,8 @@ public class FinallTest {
     static final String s = "aaa";
 
     public static void main(String[] args) {
-        System.out.println(s);
+        FinallClassTo to = new FinallClassTo();
+        System.out.println(to.name);
     }
 
 

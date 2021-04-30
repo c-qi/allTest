@@ -1,6 +1,7 @@
 package org.zhire.demo.guava.event;
 
 import com.google.common.eventbus.EventBus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,9 +12,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EventBusConfig {
 
+    @Autowired
+    private EventListener eventListener;
+
     @Bean
     public EventBus getEventBus() {
-        return new EventBus();
+        EventBus eventBus = new EventBus();
+        eventBus.register(eventListener);
+        return eventBus;
     }
 
 }
