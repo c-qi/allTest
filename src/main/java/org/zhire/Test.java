@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -1398,6 +1399,56 @@ public class Test {
         return -1;
     }
 
+    @org.junit.Test
+    public void rew1() {
+        String s = "1,2,3";
+        List list = new ArrayList(Arrays.asList(s.split(",")));
+        System.out.println(list);
+        System.out.println(Joiner.on(",").join(list));
+    }
+
+    /**
+     * LinkedHashMap实现LRU(最近最少使用算法)
+     */
+    @org.junit.Test
+    public void rew13() {
+        LinkedHashMap map = new LinkedHashMap(10, 0.75f, true) {
+            private static final long serialVersionUID = 1;
+
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > 10;
+            }
+        };
+        map.put("a", 1);
+        map.put("b", 2);
+        map.put("c", 3);
+        map.put("d", 4);
+        map.put("e", 5);
+        map.put("f", 6);
+        map.put("g", 7);
+        map.put("h", 8);
+        map.put("i", 9);
+        map.put("j", 10);
+        map.forEach((k, v) -> {
+            System.out.println("k:" + k + " v:" + v);
+        });
+        System.out.println();
+        map.get("a");
+        map.get("a");
+        map.get("a");
+        map.get("a");
+        map.get("a");
+        map.get("a");
+        map.get("a");
+        map.put("m", 11);
+        map.put("n", 12);
+
+        map.forEach((k, v) -> {
+            System.out.println("k:" + k + " v:" + v);
+        });
+
+    }
 
 }
 
