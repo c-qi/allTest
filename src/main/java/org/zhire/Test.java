@@ -1368,8 +1368,33 @@ public class Test {
         sortNum(a);
         System.out.println(Arrays.toString(a));
         int b = getNum(a, 0);
+        int c = getNum2(a, 0, 0, a.length - 1);
         System.out.println(b);
+        System.out.println(c);
     }
+
+    /**
+     * 二分递归
+     *
+     * @param a
+     * @param i
+     * @param l
+     * @param r
+     * @return
+     */
+    private int getNum2(int[] a, int i, int l, int r) {
+        if (l > r)
+            return -1;
+        int m = (l + r) / 2;
+        if (a[m] > i) {
+            return getNum2(a, i, l, m - 1);
+        } else if (a[m] < i) {
+            return getNum2(a, i, m + 1, r);
+        } else {
+            return i;
+        }
+    }
+
 
     private void sortNum(int[] a) {
         for (int i = 0; i < a.length; i++) {
@@ -1449,6 +1474,35 @@ public class Test {
         });
 
     }
+    /**
+     * 二分查找(递归和非递归)
+     * 反转链表(递归和非递归)
+     * 常用Java集合类
+     * HashMap为什么长度是2的n次幂,数据结构,扩容(包括元素移动的细节),线程不安全的问题
+     * ConcurrentHashMap怎么保证线程安全, 1.7和1.8有什么变化,为什么要要这么优化
+     * CopyOnWriteList怎么保证线程安全, 为什么这么做
+     * Java synchronized关键字的作用,原理,锁升级、锁粗化、锁消除
+     * volatile关键字的作用,原理
+     * MVCC
+     * 事务的ACID ,每一项是如何保证的
+     * MySQL的索引结构,为什么是B+树而不是B树
+     * 先升序后降序的数组排序
+     * 求递增数组中相加等于10的元素对
+     * 17^400 - 19100计算结果能不能被10整除
+     * 一个urI对应一个random值 ,要求设计-个系统 ,根据url查询random值,具体到表怎么设计,索引怎么
+     * 加，代码怎么写
+     * 镜像二叉树(递归和非递归)
+     * 删除二叉搜索树的某一个节点
+     * 给定数组,求第k大的数字
+     * 单例模式的几种写法,解释为什么
+     * tcp握手挥手过程,以及socket的状态变化
+     * 线程的状态,以及变化的时机
+     * Java内存模型,堆的组成, gc过程
+     * synchronized修饰同一个类的两个静态***同步吗,为什么
+     * 线程池设置了coreSize和maxSize之后,如果线程数量已经达到了coreSize ,这个时候进来一个任务,会怎么处理
+     * SQL查询优化怎么做
+     */
+
 
 }
 

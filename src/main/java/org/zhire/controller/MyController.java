@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zhire.config.MyException;
+import org.zhire.demo.test.InterfaceTest;
 import org.zhire.pojo.User;
 import org.zhire.wechat.WxService;
 
@@ -28,6 +29,9 @@ import java.util.Optional;
 public class MyController {
     @Autowired
     private WxService wxService;
+
+    @Autowired
+    private InterfaceTest interfaceTest;
 
     @GetMapping(value = "/test2")
     public Map<String, Object> test222() {
@@ -60,6 +64,16 @@ public class MyController {
         String name = "";
         if (name.length() == 0) throw new MyException(9999, "neme为空");
         return "OK";
+    }
+
+
+    @RequestMapping(value = "/t3")
+    String tt3() {
+        String address = interfaceTest.getAddress(1);
+        System.out.println(address);
+        String name = interfaceTest.getName();
+        System.out.println(name);
+        return address;
     }
 
     public static void main(String[] args) {

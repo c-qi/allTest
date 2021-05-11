@@ -18,6 +18,7 @@ public class TryCatchFinally {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("catch");
+            System.exit(0);
             // catch里面有return语句时先不执行 先执行finally内代码
             return "catch";
         } finally {
