@@ -225,6 +225,14 @@ public class JavaStreamTest {
         int sums = items.stream().mapToInt(Item::getQty).sum();
         System.out.println(sums);
 
+
+        // 按字段分组
+//        List<OutBoundYiZhiRecord> recordList = new ArrayList<>();
+//        Map<String, List<Long>> listMap = recordList.stream()
+//                .collect(Collectors.groupingBy(OutBoundYiZhiRecord::getMobile,
+//                        Collectors.mapping(OutBoundYiZhiRecord::getJobId, Collectors.toList())));
+//        log.info("map:{}", JSON.toJSONString(listMap));
+
     }
 
     /**
