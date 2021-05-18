@@ -16,6 +16,7 @@ import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -100,7 +101,6 @@ public class TestController {
         Map map = new HashMap<>();
         map.put("name", "cq");
         map.put("age", 11);
-        MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(1, TimeUnit.SECONDS, map));
         MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(10, TimeUnit.SECONDS, map));
         return null;
     }
@@ -115,12 +115,17 @@ public class TestController {
         log.info("延迟队列工作者初始化完成");
     }
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     /**
      * 异步线程池初始化延迟队列
      */
     @PostConstruct
     public void test2() {
-        taskExecutor.execute(new MyDelayQueue());
+        taskExecutor.execute(new MyDelayQueue(redisTemplate));
+        log.info("延迟队列工作者初始化完成");
+
     }
 
     /**

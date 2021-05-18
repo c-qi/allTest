@@ -3,6 +3,9 @@ package org.zhire.thread;
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +18,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 @Slf4j
+@Component
 public class MyDelayQueue implements Delayed, Runnable {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
     /**
      * 延迟时间
      */
@@ -47,10 +54,15 @@ public class MyDelayQueue implements Delayed, Runnable {
     public MyDelayQueue() {
     }
 
+    public MyDelayQueue(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
     @Override
     public int compareTo(Delayed o) {
         return (int) (this.getDelay(TimeUnit.MILLISECONDS) - o.getDelay(TimeUnit.MILLISECONDS));
     }
+
 
     @Override
     public void run() {
@@ -58,6 +70,8 @@ public class MyDelayQueue implements Delayed, Runnable {
             MyDelayQueue task;
             while ((task = DELAY_QUEUE.take()) != null) {
                 log.info("延时队列，收到任务，任务内容：[{}]", JSON.toJSONString(task));
+                Object o = redisTemplate.opsForValue().get("test");
+                log.info("r:{}", o);
             }
         } catch (Exception e) {
             log.error("获取延迟任务异常", e);
@@ -84,6 +98,7 @@ public class MyDelayQueue implements Delayed, Runnable {
         MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(4, TimeUnit.SECONDS, map));
         MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(5, TimeUnit.SECONDS, map));
         MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(6, TimeUnit.SECONDS, map));
+        MyDelayQueue.DELAY_QUEUE.add(new MyDelayQueue(30, TimeUnit.SECONDS, map));
 
         MyDelayQueue myDelayQueue = new MyDelayQueue();
         Thread thread = new Thread(myDelayQueue);
