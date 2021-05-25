@@ -43,7 +43,7 @@ public class RedisController {
 
     @RequestMapping("/test2")
     public void setTest() {
-        redisTemplate.delete("setTest");
+        redisTemplate.delete("xsetTest");
         Long add = redisTemplate.boundSetOps("setTest").add(1, 2, 3, 4, 5, 6, 7, 8);
         log.info("add:{}", add);
         Set set = redisTemplate.boundSetOps("setTest").members();
@@ -70,7 +70,7 @@ public class RedisController {
     private String doSomething() {
         log.info("time:{}", System.currentTimeMillis());
         try {
-            Thread.sleep(30000);
+            Thread.sleep(1000*60*3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

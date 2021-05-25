@@ -16,44 +16,54 @@ public class ThreadWait {
     public static void main(String[] args) {
         Thread A = new Thread(() -> {
             synchronized (object) {
-                try {
-                    while (a != 0) {
-                        object.wait();
+                for (; ; ) {
+                    try {
+                        while (a != 0) {
+                            object.wait();
+                        }
+                        System.out.println("aaaa");
+                        a = 1;
+                        object.notifyAll(); // 唤醒等待的线程，锁释放后，被唤醒的线程会争夺资源
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    System.out.println("aaaa");
-                    a = 1;
-                    object.notifyAll(); // 唤醒等待的线程，锁释放后，被唤醒的线程会争夺资源
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+
             }
         });
 
         Thread B = new Thread(() -> {
             synchronized (object) {
-                try {
-                    while (a != 1) {
-                        object.wait();
+                for (; ; ) {
+                    try {
+                        while (a != 1) {
+                            object.wait();
+                        }
+                        System.out.println("bbbb");
+                        a = 2;
+                        object.notifyAll();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    System.out.println("bbbb");
-                    a = 2;
-                    object.notifyAll();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+
             }
 
         });
 
         Thread C = new Thread(() -> {
             synchronized (object) {
-                try {
-                    while (a != 2) {
-                        object.wait();
+                for (; ; ) {
+                    try {
+                        while (a != 2) {
+                            object.wait();
+                        }
+                        a = 0;
+                        System.out.println("cccc");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    System.out.println("cccc");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
                 }
 
             }

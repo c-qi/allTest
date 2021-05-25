@@ -1,5 +1,6 @@
 package org.zhire.thread;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
 import java.util.*;
@@ -21,19 +22,25 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @Date: 2019.12.3 14:13
  */
 public class Collections {
+    @Test
+    public void t() {
+        System.out.println(Collections.class);
+    }
+
     public static void main(String[] args) {
         /**
          * 1.7和1.8扩容机制不同
          */
-        Map map = new HashMap();
+        HashMap map = new HashMap();
         map.put(null, 0);
         map.put(1, 324);
         map.put(2, 234);
         map.put(6, 546);
         map.put(5, 865);
-        System.out.println(map);
-        System.out.println(map.get(null));
-
+        map.put(Collections.class, "cq");
+        map.put(String.class, String.class);
+        System.out.println(JSON.toJSONString(map));
+        System.out.println(map.get(Collections.class));
         /**
          * 基于hash表 安全 synchronized k-v不为空
          */
