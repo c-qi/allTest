@@ -22,6 +22,9 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnel;
+import com.google.common.hash.Funnels;
 import lombok.extern.slf4j.Slf4j;
 import org.Person;
 import org.mindrot.jbcrypt.BCrypt;
@@ -1360,6 +1363,25 @@ public class Test {
         }
         System.out.println(System.currentTimeMillis() - l2 + " " + map1.containsKey(5000));
 
+    }
+
+    /**
+     * 谷歌BloomFilter布隆过滤器
+     */
+    @org.junit.Test
+    public void tf() {
+        Funnel<CharSequence> funnel = Funnels.stringFunnel(Charset.defaultCharset());
+        BloomFilter f = BloomFilter.create(funnel, 1000000000, 0.03);
+        long l = System.currentTimeMillis();
+        System.out.println(l);
+        for (int i = 0; i < 1000000; i++) {
+            f.put(i + "hello");
+        }
+        long l2 = System.currentTimeMillis();
+        System.out.println(l2);
+        System.out.println(f.mightContain("999999999hello"));
+        long l3 = System.currentTimeMillis() - l2;
+        System.out.println(l3);
     }
 
     @org.junit.Test
