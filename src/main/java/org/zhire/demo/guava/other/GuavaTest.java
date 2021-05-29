@@ -5,6 +5,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.*;
+import com.google.common.util.concurrent.RateLimiter;
 import org.junit.Test;
 import org.zhire.pojo.User;
 
@@ -280,5 +281,35 @@ public class GuavaTest {
         ImmutableSet<Integer> set = ImmutableSet.of(2, 1, 0, 2, -1, 99);
         ImmutableSortedSet<Integer> copy = ImmutableSortedSet.copyOf(set);
         System.out.println(copy);
+    }
+
+    private RateLimiter rateLimiter = RateLimiter.create(3);
+
+    /**
+     * guava限流
+     */
+    @Test
+    public void curr() {
+        getIn(1);
+        getIn(2);
+        getIn(3);
+        getIn(4);
+        getIn(5);
+        getIn(6);
+        getIn(7);
+        getIn(8);
+        getIn(9);
+    }
+
+    public Integer getIn(int a) {
+        System.out.println(Thread.currentThread().getId() + " 等待时间:" + rateLimiter.acquire());
+        int r = a * a;
+        System.out.println(Thread.currentThread().getId() + "：" + r);
+        try {
+//            Thread.sleep(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return r;
     }
 }

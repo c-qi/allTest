@@ -18,7 +18,7 @@ public class EventListener {
     @Subscribe
     public void listen(TestEvent event) throws Exception {
         log.info("thread:{},content:{}", Thread.currentThread().getName(), JSON.toJSONString(event));
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
 
