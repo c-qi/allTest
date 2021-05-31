@@ -2,6 +2,7 @@ package org.zhire.redis;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +11,8 @@ import org.zhire.redis.redission.DistributedLock;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/redisLister")
 public class RedisController {
-    //@Autowired
+//    @Autowired
     private RedisTemplate redisTemplate;
 
     //@Autowired
@@ -70,10 +73,48 @@ public class RedisController {
     private String doSomething() {
         log.info("time:{}", System.currentTimeMillis());
         try {
-            Thread.sleep(1000*60*3);
+            Thread.sleep(1000 * 60 * 3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return "OK";
+    }
+
+    @RequestMapping("/test4")
+    public String test34() {
+        CompletableFuture.runAsync(() -> {
+            Set keys = redisTemplate.boundHashOps("my-test-key").keys();
+            for (Object key : keys) {
+                Object o = redisTemplate.boundHashOps("my-test-key").get(key);
+                System.out.println(o);
+            }
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CompletableFuture<Object> future = CompletableFuture.supplyAsync(() ->
+                redisTemplate.boundHashOps("my-test-key").get(300000 + ""));
+        try {
+            Object o = future.get();
+            System.out.println("sssss:" + o);
+            return o + "";
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public static void main(String[] args) {
+        Thread thread = new Thread(() -> {
+            System.out.println("12312");
+        });
+        Thread.State state = thread.getState();
+        System.out.println(state);
+        thread.start();
+        System.out.println(state);
+        thread.start();
     }
 }
