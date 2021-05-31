@@ -1,6 +1,7 @@
 package org.zhire.demo.guava.other;
 
 import com.alibaba.fastjson.JSON;
+import com.aliyun.openservices.shade.com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -312,4 +313,99 @@ public class GuavaTest {
         }
         return r;
     }
+
+    @Test
+    public void join() {
+        //Join可以连接list、数组中的元素
+        String str = Joiner.on(",").join(Lists.newArrayList("a", "b", "c"));
+        String str1 = Joiner.on("#").join(new String[]{"a", "b", "c"});
+        //指定第一个、第二个字符串，再跟list中的元素进行连接
+        String str2 = Joiner.on("@").join("first", "second", Lists.newArrayList("a", "b", "c"));
+        System.out.println(str);
+        System.out.println(str1);
+        System.out.println(str2);
+
+        //跳过list中的空值，这里的空值是指null，并不包括空字符串
+        String str3 = Joiner.on(",").skipNulls().join(Lists.newArrayList("a", "b", " ", null, "c", null));
+        System.out.println(str3);
+
+        //useForNull(str)用指定的字符串来替换空值
+        String str4 = Joiner.on(",").useForNull("#").join(Lists.newArrayList("a", "b", " ", null, "c", null));
+        System.out.println(str4);
+
+
+        Map<String, String> map = Maps.newHashMap();
+        map.put("a", "1");
+        map.put("b", "2");
+        map.put("c", "3");
+        //withKeyValueSeparator用:来连接map的key和value，再将连接好的key和value用逗号分隔
+        String str5 = Joiner.on(",").withKeyValueSeparator(":").join(map);
+        System.out.println(str5);
+    }
+
+    @Test
+    public void splitterTest() {
+
+        List<String> list = Splitter.on(",").splitToList("a,b,c,d");
+        System.out.println(list);
+
+        Splitter.on(",").split("a,b,c,d").forEach(s -> {
+            System.out.println(s);
+        });
+
+        //过滤掉空字符串，但不包括空格
+        List<String> list1 = Splitter.on(",").omitEmptyStrings().splitToList("a,b,, ,c,d");
+        System.out.println("list1:" + list1);  //输出：[a, b,  ,c, d]
+
+        //去掉字符串中的空格，再进行过滤空元素
+        List<String> list2 = Splitter.on(",").omitEmptyStrings().trimResults().splitToList("a,b,, ,c,d");
+        System.out.println("list2:" + list2); //输出 [a, b, c, d]
+
+        //limit表示最多把字符串分隔成多少份
+        List<String> list3 = Splitter.on("#").omitEmptyStrings().trimResults().limit(2).splitToList("a#b#c#d");
+        System.out.println("list3:" + list3);
+
+        //将字串还原成map，是Joiner的逆向操作，注意：字符串的格式必须满足“a:1#b:2”这种格式，格式不对会导致还原map失败
+        Map<String, String> map = Splitter.on("#").omitEmptyStrings().trimResults().withKeyValueSeparator(":").split("a:1#b:2");
+        System.out.println("map:" + map);
+
+    }
+
+    @Test
+    public void charMatcherTest() {
+        String str = "aj\tld1\b23aAbCs  kF45JAb  c56sl";
+        //移除str中的a
+        String a = CharMatcher.is('a').removeFrom(str);
+        System.out.println(a);
+        //移除str中的a
+        String a1 = CharMatcher.isNot('a').retainFrom(str);
+        System.out.println(a1);
+        //保留str中的a,b,c字符
+        String abc = CharMatcher.anyOf("abc").retainFrom(str);
+        System.out.println(abc);
+        //保留str中的a,b,c字符
+        String abc1 = CharMatcher.noneOf("abc").removeFrom(str);
+        System.out.println(abc1);
+        //匹配str中的a-j的字母，全部替换成数字6
+        String s = CharMatcher.inRange('a', 'j').replaceFrom(str, "6");
+        System.out.println(s);
+        //去str中的空格
+        String s1 = CharMatcher.breakingWhitespace().removeFrom(str);
+        System.out.println(s1);
+        //去掉str中的数字
+        String s2 = CharMatcher.digit().removeFrom(str);
+        System.out.println(s2);
+        //去掉控制字符(\t,\n,\b...)
+        String s3 = CharMatcher.javaIsoControl().removeFrom(str);
+        System.out.println(s3);
+        //获取str中的小写字母
+        String s4 = CharMatcher.javaLowerCase().retainFrom(str);
+        System.out.println(s4);
+        //获取str中的大写字母
+        String s5 = CharMatcher.javaUpperCase().retainFrom(str);
+        System.out.println(s5);
+        //组合条件：获取str中的大写字母和数字
+        System.out.println(CharMatcher.javaUpperCase().or(CharMatcher.digit()).retainFrom(str));
+    }
+
 }
