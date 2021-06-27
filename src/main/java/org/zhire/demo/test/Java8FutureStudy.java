@@ -1,7 +1,11 @@
 package org.zhire.demo.test;
 
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.ListenableFuture;
 import lombok.Data;
 import org.junit.Test;
 import org.springframework.util.StopWatch;
@@ -390,5 +394,34 @@ public class Java8FutureStudy {
         allOf(f1, f2).join();
         System.out.println(f2.get());
         System.out.println(f1.get());
+    }
+
+    @Test
+    public void tere() {
+        CompletableFuture<Integer> f1 = supplyAsync(() -> this.add(1));
+        CompletableFuture<Integer> f2 = supplyAsync(() -> this.add(2));
+        allOf(f1, f2).join();
+        try {
+            System.out.println(f1.get(3, TimeUnit.SECONDS));
+            System.out.println(f2.get(10, TimeUnit.SECONDS));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Future<Integer> integerFuture = ThreadUtil.execAsync(() -> add(1));
+        try {
+            System.out.println(integerFuture.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Integer add(int i) {
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        i += i;
+        return i;
     }
 }

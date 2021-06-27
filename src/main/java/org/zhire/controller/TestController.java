@@ -58,6 +58,12 @@ public class TestController {
     @Qualifier("taskExecutor")
     private TaskExecutor taskExecutor;
 
+    // 2343
+    public static void main(String[] args) {
+        for (int i = 7000; i < 8000; i++) {
+            System.out.println(i);
+        }
+    }
 
     @PostMapping("/insert")
     public JSONObject insert(@RequestBody User user) {
@@ -296,7 +302,7 @@ public class TestController {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main2(String[] args) throws Exception {
         StopWatch watch = new StopWatch();
         watch.start();
         ExcelReader reader = ExcelUtil.getReader("/Users/admin/Documents/获奖用户信息模板.xlsx");

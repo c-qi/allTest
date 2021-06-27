@@ -284,7 +284,7 @@ public class GuavaTest {
         System.out.println(copy);
     }
 
-    private RateLimiter rateLimiter = RateLimiter.create(3);
+    private final RateLimiter rateLimiter = RateLimiter.create(100);
 
     /**
      * guava限流

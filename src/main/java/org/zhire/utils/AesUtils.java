@@ -1,9 +1,13 @@
 package org.zhire.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Date 2021/1/23 15:10
@@ -74,8 +78,15 @@ public class AesUtils {
     public static void main(String[] args) {
         // 加密的key,前后端需要保持一致
         String key = "12345ABCDErwerw2";
+        Map<String, String> map = Maps.newHashMap();
+        map.put("dmUserMobile","177****2234");
+        map.put("dmOrgId","13233");
+        map.put("dmUserId","1234112");
+        map.put("dmCompanyName","猎聘北京有限公司");
+        String s2 = JSON.toJSONString(map);
+        System.out.println(s2);
         // 加密
-        String s = encrypt("hello", key);
+        String s = encrypt(s2, key);
         System.out.println(s);
         // 解密
         String s1 = decrypt(s, key);

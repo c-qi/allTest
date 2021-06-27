@@ -13,6 +13,7 @@ import org.zhire.utils.Item;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -316,11 +317,16 @@ public class JavaStreamTest {
 //                .map(User::getId)
 //                .ifPresent(request::setUid);
 
-        List<Integer> list = CollUtil.newArrayList(1, 2, 3);
-        // List<Integer> list = null;
+//        List<Integer> list = CollUtil.newArrayList(1, 2, 3);
+        List<Integer> list = null;
         Optional.ofNullable(list)
                 .map(this::setId)
                 .ifPresent(l -> l.forEach(System.out::println));
+        User user =null;
+        Optional<Object> o = Optional.of(user);
+        if (o.isPresent()) {
+            System.out.println(9999);
+        }
     }
 
     private List<Integer> setId(List<Integer> ids) {
@@ -373,5 +379,27 @@ public class JavaStreamTest {
         ArrayList<Object> list = Lists.newArrayList();
         List<Object> list2 = Lists.newCopyOnWriteArrayList();
         list.parallelStream().forEach(list2::add);
+    }
+
+    /**
+     * Optional处理null
+     */
+    @Test
+    public void testOptional() {
+        Optional<List<User>> list = this.get();
+        list.ifPresent(System.out::println);
+    }
+
+    private Optional<List<User>> get() {
+        User user = new User();
+        user.setName("Cq");
+        user.setId(1L);
+        List<User> list = new ArrayList<>();
+        list.add(user);
+        if (CollUtil.isEmpty(list)) {
+            System.out.println(true);
+            return Optional.empty();
+        }
+        return Optional.of(list);
     }
 }

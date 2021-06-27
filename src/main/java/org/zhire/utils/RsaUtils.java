@@ -1,5 +1,7 @@
 package org.zhire.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import sun.misc.BASE64Decoder;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Map;
 
 /**
  * @Date 2021/2/23 14:21
@@ -183,7 +186,15 @@ public class RsaUtils {
             String privateKey = Base64.encodeBase64String(pairPrivate.getEncoded());
             System.out.println("私钥：" + privateKey);
             // 使用公钥加密
-            String content = "张三";
+            // 加密的key,前后端需要保持一致
+            String key = "12345ABCDErwerw2";
+            Map<String, String> map = Maps.newHashMap();
+            map.put("mobile","177****82234");
+            map.put("orgId","13233");
+            map.put("userId","1234112");
+            map.put("company","百度在线网络技术（北京）有限公司");
+            String s2 = JSON.toJSONString(map);
+            String content = s2;
             String txtByPublic = encryptByPublicKey(content, publicKey, Cipher.ENCRYPT_MODE);
             System.out.println("公钥加密结果：" + txtByPublic);
             String txtByPrivate = encryptByprivateKey(txtByPublic, privateKey, Cipher.DECRYPT_MODE);

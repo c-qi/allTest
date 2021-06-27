@@ -3,6 +3,7 @@ package org.zhire.jpa;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
+@Slf4j
 @Service
 public class MyUserServiceImpl implements MyUserService {
     @Autowired
@@ -75,12 +77,18 @@ public class MyUserServiceImpl implements MyUserService {
 
     @Override
     public User findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+        User user = userRepository.findByUserName(userName);
+        log.info("user:{}", user);
+        Optional<User> user1 = Optional.of(user);
+        log.info("user1:{}", user1);
+        return user;
     }
 
     @Override
     public User findByUserNameOrEmail(String userName, String email) {
-        return userRepository.findByUserNameOrEmail(userName, email);
+        Optional<User> user = userRepository.findByUserNameOrEmail(userName, email);
+        System.out.println("user: " + user);
+        return user.orElseGet(User::new);
     }
 
     @Override

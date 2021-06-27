@@ -27,6 +27,7 @@ import com.google.common.hash.Funnel;
 import com.google.common.hash.Funnels;
 import lombok.extern.slf4j.Slf4j;
 import org.Person;
+import org.apache.kafka.common.protocol.types.Field;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1496,6 +1498,7 @@ public class Test {
         });
 
     }
+
     /**
      * 二分查找(递归和非递归)
      * 反转链表(递归和非递归)
@@ -1524,6 +1527,64 @@ public class Test {
      * 线程池设置了coreSize和maxSize之后,如果线程数量已经达到了coreSize ,这个时候进来一个任务,会怎么处理
      * SQL查询优化怎么做
      */
+
+    @org.junit.Test
+    public void rrtre() {
+        System.out.println(mod(1, 3));
+        System.out.println(mod(2, 3));
+        System.out.println(mod(3, 3));
+        System.out.println(mod(4, 3));
+        System.out.println(mod(5, 3));
+        System.out.println(mod(6, 3));
+        System.out.println(mod(7, 3));
+        System.out.println(mod(8, 3));
+        System.out.println(mod(9, 3));
+        System.out.println(mod(10, 3));
+        System.out.println(mod(11, 3));
+    }
+
+    public static String mod(long key, int radix) {
+        if (radix == 1) {
+            return "";
+        }
+        int suffix = (int) (key % radix);
+        if (suffix < 0) {
+            suffix += radix;
+        }
+        return String.format("_%0" + pads(radix) + "d", suffix);
+    }
+
+    private static int pads(int radix) {
+        return (int) Math.ceil(Math.log10(radix));
+    }
+
+    @org.junit.Test
+    public void tefcs() {
+        Map<Long, Long> map = Collections.emptyMap();
+        List<Long> list = Arrays.asList(1L, 2L, 3L);
+        list.forEach(l -> {
+            if (map.containsKey(l)) {
+                System.out.println("11");
+            }
+        });
+    }
+
+    /**
+     * Timestamp
+     */
+    @org.junit.Test
+    public void gsasf() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp);
+    }
+
+    @org.junit.Test
+    public void trrt() {
+        List<Integer> ins = Arrays.asList(3, 2, 5, 6, 9);
+        // 集合反转
+        Collections.reverse(ins);
+        System.out.println(JSON.toJSONString(ins));
+    }
 
 
 }

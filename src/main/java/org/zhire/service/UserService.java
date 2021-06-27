@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface UserService {
-    List<User> findName(String name);
+   public List<User> findName(String name);
 
     List<User> findAll();
 

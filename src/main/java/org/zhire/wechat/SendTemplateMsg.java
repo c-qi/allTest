@@ -37,34 +37,33 @@ public class SendTemplateMsg {
 
     // String appid, Long userId, String bussinessCode, List<String> keyWords
     public void sendTemplate() {
-        String token = getToken();
-        //String token = "38_n9RvsPz_hR6vEEECL1mtknVNbpYcVfpwSVHlsbb6hkfOyI7YpCbBv7QjBnakLkJCsbZa3Vrx6wxeEjND2z61zr7n4-kLP5iCAO5B9cTdjkn2JHvwkeHUSJ5gu3qZwa7qpBpqUx4NB7cV3BZ0BYOaAFAQND";
-
+//        String token = getToken();
+        String token = "45_04IH8bAMTHfLee0XcIoEcf4Vm3acn3FFzrBeBuoaTVOmDjL3hEFGD9Cfa_kJg542OS7QQdL-oVPmD9hn3GuE3DOMo8c9Gq2IxTU54zNWmlhJVcxdcMu4EsWDw1iZifqM9w4JKZMiX5K_LEKIBLVdAJAVFP";
         String postUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
         JSONObject jsonObject = new JSONObject();
         // openId
         jsonObject.put("touser", "owEcX65sUmmMfIhOIQ5yhxnzbaBw");
-        jsonObject.put("template_id", "vwAOEs3BdPYhYNo6VV8UWbXJ1ci-H0irFDx8YXYotPE");
-        jsonObject.put("url", "http://www.baidu.com");
+        jsonObject.put("template_id", "xbowNsoG9GP9-cyfIEMXQ13ebyVByx3sms_e-Fro5LQ");
+        jsonObject.put("url", "http://www.qq.com");
 
         JSONObject data = new JSONObject();
         JSONObject first = new JSONObject();
         first.put("value", "chenqi");
         first.put("color", "#173177");
         JSONObject keyword1 = new JSONObject();
-        keyword1.put("value", "17");
+        keyword1.put("value", "1888");
         keyword1.put("color", "#173177");
         JSONObject keyword2 = new JSONObject();
-        keyword2.put("value", "boy");
+        keyword2.put("value", "girl");
         keyword2.put("color", "#173177");
         JSONObject remark = new JSONObject();
         remark.put("value", "hello");
         remark.put("color", "#173177");
 
-        data.put("first", first);
+//        data.put("first", first);
         data.put("keyword1", keyword1);
         data.put("keyword2", keyword2);
-        data.put("remark", remark);
+//        data.put("remark", remark);
 
         jsonObject.put("data", data);
 
