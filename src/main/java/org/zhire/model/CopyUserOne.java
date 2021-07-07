@@ -11,8 +11,8 @@ public class CopyUserOne {
 //    @Alias("userName")
     private String userName;
 
-//    @Alias("userAge")
-    private Integer userAge;
+    @Alias("userAge")
+    private String userAge;
 
     private String password;
 

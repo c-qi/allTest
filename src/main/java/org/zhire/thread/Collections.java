@@ -114,6 +114,9 @@ public class Collections {
         set.add("cq");
         set.add("cq");
         set.add("cq");
+        Optional first = set.stream().findFirst();
+        if (first.isPresent())
+            System.out.println("ffff:" + first.get());
         System.out.println(set);
 
 

@@ -77,7 +77,12 @@ public class MyController {
     }
 
     public static void main(String[] args) {
-        Optional.ofNullable(null).ifPresent(System.out::println);
+        User user = new User();
+//        user.setEmail("cq");
+        String s = Optional.of(user).map(u -> {
+            return u.getEmail();
+        }).orElseThrow(() -> new RuntimeException( "13123"));
 
+        System.out.println(s);
     }
 }

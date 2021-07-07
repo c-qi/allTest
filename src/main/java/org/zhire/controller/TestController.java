@@ -2,6 +2,7 @@ package org.zhire.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -10,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.SendResult;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
+import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.jsondoc.core.annotation.ApiMethod;
@@ -21,11 +23,14 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zhire.config.MapConfig;
+import org.zhire.config.MyException2;
 import org.zhire.config.mq.MyDataConfig;
 import org.zhire.demo.spring.ioc.IOCUser;
+import org.zhire.model.UserDTO2;
 import org.zhire.pojo.User;
 import org.zhire.thread.MyDelayQueue;
 import org.zhire.thread.QueuePool;
+import org.zhire.thread.SemaphoreTest;
 import org.zhire.utils.R;
 import org.zhire.utils.SequenceGenerator;
 import org.zhire.utils.SignUtils;
@@ -60,9 +65,17 @@ public class TestController {
 
     // 2343
     public static void main(String[] args) {
-        for (int i = 7000; i < 8000; i++) {
-            System.out.println(i);
-        }
+        HashMap<Object, Object> hashMap = Maps.newHashMap();
+        HashMap<Object, Object> hashMap2 = Maps.newHashMap();
+        hashMap2.put("dmUserId", "1312");
+        hashMap2.put("dmCompanyName", "北京猎聘公司");
+        hashMap2.put("dmUserMobile ", "177****7777");
+        hashMap2.put("dmOrgId", "4131");
+        hashMap.put("code", "0");
+        hashMap.put("data", hashMap2);
+        hashMap.put("message", "ok");
+        System.out.println(JSON.toJSONString(hashMap));
+
     }
 
     @PostMapping("/insert")
@@ -441,5 +454,54 @@ public class TestController {
         });
         return "ok";
     }
+
+    @RequestMapping("/testSign")
+    public Map<String, String> grt(@RequestBody String userDTO, HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        parameterMap.forEach((k, v) -> {
+            log.info("a:{}", JSON.toJSONString(v));
+        });
+        log.info("userDto:{}", JSON.toJSONString(userDTO));
+        return new HashMap<>();
+    }
+
+
+    @RequestMapping("/err")
+    public String grt2() throws MyException2 {
+        Optional.of(this.tet()).ifPresent(u -> {
+            try {
+                tet(u.getEmail());
+            } catch (MyException2 myException2) {
+                System.out.println("-------");
+                myException2.printStackTrace();
+                lambdaThrowException(myException2);
+            }
+        });
+        return ")O";
+
+    }
+
+    private User tet() {
+        User user = new User();
+        user.setId(1L);
+        return user;
+    }
+
+    private String tet(String e) throws MyException2 {
+        if (StrUtil.isBlank(e))
+            throw new MyException2(-1, "email null!");
+        return e.toUpperCase();
+    }
+
+    static <E extends Exception> void lambdaThrowException(MyException2 e) throws E {
+        throw (E) e;
+    }
+
+    @RequestMapping("/fwe")
+    private String rrrwrer() {
+        System.out.println("-----");
+        return "ook";
+    }
+
 
 }

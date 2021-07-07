@@ -1,6 +1,7 @@
 package org.zhire.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -13,10 +14,11 @@ import java.sql.Timestamp;
  * @Date 2021/2/23 21:02
  * @Author by chenqi
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true) // 链式注解 .setXXX().setXXX()
 @RequiredArgsConstructor(staticName = "of")
-public class UserDTO2 implements Serializable {
+public class UserDTO2 extends SignBase implements Serializable {
     @NotNull
     private Long id;
     @NotBlank

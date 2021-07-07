@@ -1,5 +1,6 @@
 package org.zhire.controller;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
@@ -29,6 +30,13 @@ public class AsyncController {
     @Autowired
     @Qualifier("taskExecutor")
     private TaskExecutor taskExecutor;
+
+    @Autowired
+    @Qualifier("commonExecutor")
+    private ThreadPoolExecutor executor;
+
+    @Autowired
+    private ExecutorService executorService;
 
     @GetMapping("/test")
     public String testAsync() throws Exception {
@@ -100,68 +108,68 @@ public class AsyncController {
         return "ok";
     }
 
-    public static void main(String[] args) {
+    @GetMapping("/test000")
+    public String test000() throws Exception {
         CompletableFuture<Void> f1 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f2 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f3 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f4 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f5 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f6 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, executorService);
         CompletableFuture<Void> f7 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        }, executorService);
         CompletableFuture<Void> f8 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -169,7 +177,7 @@ public class AsyncController {
         CompletableFuture<Void> f9 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -177,7 +185,7 @@ public class AsyncController {
         CompletableFuture<Void> f10 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -185,11 +193,105 @@ public class AsyncController {
         CompletableFuture<Void> f11 = runAsync(() -> {
             System.out.println(Thread.currentThread().getId());
             try {
-                Thread.sleep(1000 * 60 * 10);
+                Thread.sleep(2000 * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }, executorService);
+        allOf(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11).join();
+        return "ok";
+    }
+
+    public static void main(String[] args) {
+        CompletableFuture<Void> f1 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f2 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f3 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f4 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f5 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f6 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f7 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        //ExecutorService executorService = Executors.newFixedThreadPool(10);
+        CompletableFuture<Void> f8 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f9 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f10 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        CompletableFuture<Void> f11 = runAsync(() -> {
+            System.out.println(Thread.currentThread().getId());
+            try {
+                Thread.sleep(2000 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         allOf(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11).join();
 
     }

@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.zhire.config.MyException;
 import org.zhire.model.ApplyForm;
 import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
@@ -76,7 +77,7 @@ public class UserController {
     public UserDTO findTest(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         System.out.println(JSON.toJSONString(userDTO));
         if (bindingResult.hasErrors())
-            throw new RuntimeException(bindingResult.getAllErrors().get(0).getDefaultMessage());
+            throw new MyException(-1, bindingResult.getAllErrors().get(0).getDefaultMessage());
 //            throw new RuntimeException("缺少必传字段");
         UserDTO u = new UserDTO()
                 .setName("cq")

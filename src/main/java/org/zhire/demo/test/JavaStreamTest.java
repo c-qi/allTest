@@ -7,12 +7,15 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.Person;
 import org.junit.Test;
+import org.zhire.config.MyException;
+import org.zhire.config.MyException2;
 import org.zhire.model.UserDTO;
 import org.zhire.pojo.User;
 import org.zhire.utils.Item;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -322,7 +325,7 @@ public class JavaStreamTest {
         Optional.ofNullable(list)
                 .map(this::setId)
                 .ifPresent(l -> l.forEach(System.out::println));
-        User user =null;
+        User user = null;
         Optional<Object> o = Optional.of(user);
         if (o.isPresent()) {
             System.out.println(9999);
@@ -353,6 +356,37 @@ public class JavaStreamTest {
         list.add(user2);
         List<User> users = list.stream().map(this::getUser).collect(Collectors.toList());
         System.out.println(JSON.toJSONString(users));
+        Optional.of(user).ifPresent(u -> {
+            try {
+                ger(u);
+            } catch (MyException2 myException2) {
+                System.out.println("-------");
+                myException2.printStackTrace();
+                lambdaThrowException(myException2);
+            }
+        });
+
+    }
+
+    /**
+     * 把受检异常包装成非受检异常再抛出，避免破坏Java异常的结构，通过泛型的方式解决这个问题
+     *
+     * @param e
+     * @param <E>
+     * @throws E
+     */
+    static <E extends Exception> void lambdaThrowException(MyException2 e) throws E {
+        throw (E) e;
+    }
+
+    private void ger(User user) throws MyException2 {
+        user.setEmail("cq");
+        try {
+            int i = 1 / 0;
+        } catch (Exception e) {
+            throw new MyException2(0, "0000000000");
+        }
+        System.out.println(user);
     }
 
     private User getUser(User user) {
@@ -401,5 +435,47 @@ public class JavaStreamTest {
             return Optional.empty();
         }
         return Optional.of(list);
+    }
+
+    /**
+     * Optional对null的处理
+     */
+    @Test
+    public void trr() {
+//        User user = this.getUser().orElseThrow(() -> new MyException(1, "用户不存在"));
+//        System.out.println(user);
+        this.getUser()
+                .map(this::handel)
+                .orElseThrow(() -> new MyException(1, "用户不存在"));
+    }
+
+    private User handel(User user) {
+        user.setEmail(user.getEmail().toUpperCase());
+        System.out.println(user);
+        return user;
+    }
+
+    private Optional<User> getUser() {
+        User user = new User();
+        user.setEmail("cq");
+        return Optional.ofNullable(user);
+    }
+
+    @Test
+    public void fsfdas() {
+        List<String> list = Arrays.asList("java", "python", "C++", "php", "java");
+        //用LinkedList收集
+        List<String> linkedListResult = list.stream().collect(Collectors.toCollection(LinkedList::new));
+        linkedListResult.forEach(System.out::println);
+        System.out.println("--------------");
+
+        //用CopyOnWriteArrayList收集
+        List<String> copyOnWriteArrayListResult = list.stream().collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+        copyOnWriteArrayListResult.forEach(System.out::println);
+        System.out.println("--------------");
+
+        //用TreeSet收集
+        TreeSet<String> treeSetResult = list.stream().collect(Collectors.toCollection(TreeSet::new));
+        treeSetResult.forEach(System.out::println);
     }
 }

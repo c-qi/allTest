@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.zhire.config.MyException;
+import org.zhire.config.MyException2;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -65,6 +66,18 @@ public class MyControllerAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(MyException.class)
     public Map starExceptionhandler(HttpServletRequest request, MyException ex) {
+        String content = ExceptionUtil.print(request, ex);
+        log.error("异常：{}", content);
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("code", ex.getCode());
+        map.put("message", ex.getMessage());
+        log.info("返回：{}", JSON.toJSONString(map));
+        return map;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(MyException2.class)
+    public Map starExceptionhandler2(HttpServletRequest request, MyException2 ex) {
         String content = ExceptionUtil.print(request, ex);
         log.error("异常：{}", content);
         HashMap<Object, Object> map = new HashMap<>();

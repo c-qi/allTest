@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import lombok.Data;
+import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
 import java.util.*;
@@ -32,12 +33,24 @@ public class CopyUserTwo {
     private String color;
     private String animal;
 
+    @Test
+    public void t() {
+        CopyUserOne copyUserOne = new CopyUserOne();
+        copyUserOne.setId(1234L);
+        copyUserOne.setUserName("cq");
+        copyUserOne.setUserAge(22+"");
+        CopyUserTwo two = new CopyUserTwo();
+        BeanUtil.copyProperties(copyUserOne, two);
+        System.out.println(JSON.toJSONString(two));
+
+    }
+
     public static void main(String[] args) {
         Map<String, Object> map = Maps.newHashMap();
         CopyUserOne copyUserOne = new CopyUserOne();
         copyUserOne.setId(1234L);
         copyUserOne.setUserName("cq");
-        copyUserOne.setUserAge(22);
+        copyUserOne.setUserAge(22+"");
         copyUserOne.setPassword("q23423");
         copyUserOne.setCountry("rqwreq");
         copyUserOne.setCity("rqwerq");
@@ -61,7 +74,7 @@ public class CopyUserTwo {
             CopyUserTwo copyUserTwo = new CopyUserTwo();
             copyUserTwo.setId(copyUserOne.getId());
             copyUserTwo.setUserName(copyUserOne.getUserName());
-            copyUserTwo.setUserAge(copyUserOne.getUserAge());
+//            copyUserTwo.setUserAge(copyUserOne.getUserAge());
             copyUserTwo.setPassword(copyUserOne.getPassword());
             copyUserTwo.setCountry(copyUserOne.getCountry());
             copyUserTwo.setCity(copyUserOne.getCity());
@@ -101,7 +114,7 @@ public class CopyUserTwo {
         for (int i = 0; i < 10000; i++) {
             CopyUserTwo copyUserThree = new CopyUserTwo();
             try {
-                org.apache.commons.beanutils.PropertyUtils.copyProperties(copyUserThree,copyUserOne );
+                org.apache.commons.beanutils.PropertyUtils.copyProperties(copyUserThree, copyUserOne);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,7 +125,7 @@ public class CopyUserTwo {
         for (int i = 0; i < 10000; i++) {
             try {
                 CopyUserTwo copyUserThree = new CopyUserTwo();
-                org.apache.commons.beanutils.BeanUtils.copyProperties(copyUserThree,copyUserOne);
+                org.apache.commons.beanutils.BeanUtils.copyProperties(copyUserThree, copyUserOne);
             } catch (Exception e) {
                 e.printStackTrace();
             }
